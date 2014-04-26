@@ -1,0 +1,45 @@
+<html>
+<head>
+<title id="title">Page Title</title>
+<style>
+   body { background: navy; color: yellow; }
+</style>
+
+<script type="text/javascript" src="main.js" ></script>
+
+      
+</head>
+<body onload="mainLoad()" onunload="mainUnLoad()" >
+
+<h1>Sample page</h1>
+<p>This is a <a href="http://bfgorski.dreamhosters.com">simple</a> sample.</p>
+
+<script>
+document.write("First Javascript")
+document.NodeList[0].text = "Hello"
+</script>
+
+<button type="button" onclick="displayDate()">Display Date</button>
+<button type="button" onclick="rotateImage()">Rotate Image</button>
+
+<canvas id="myCanvas" width="400" height="400"></canvas>
+
+<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
+
+<script type="text/javascript">
+var c=document.getElementById("myCanvas");
+var cxt=c.getContext("2d");
+cxt.fillStyle="#FF0000";
+cxt.fillRect(0,0,150,75);
+
+var img=new Image();
+img.src="img_flwr.png";
+cxt.drawImage(img,0,0);
+
+</script>
+
+<fb:like></fb:like>
+<div class="fb-like" data-href="nakecapitalism.com"></div>     
+</body>
+</html>
+
