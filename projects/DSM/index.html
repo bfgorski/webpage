@@ -1,0 +1,401 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta6 (1.42)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Implementing Deep Shadow Maps</TITLE>
+<META NAME="description" CONTENT="Implementing Deep Shadow Maps">
+<META NAME="keywords" CONTENT="deep_shadow_maps">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta6">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="deep_shadow_maps.css">
+
+</HEAD>
+
+<BODY >
+
+<H1 ALIGN="CENTER">Implementing Deep Shadow Maps</H1>
+<P ALIGN="CENTER"><STRONG>Benjamin F. Gregorski
+<BR>  ECS 289 Image Based Rendering 
+<BR>  Winter Quarter 2001
+  Professor Nelson Max
+</STRONG></P>
+
+<P>
+
+<H3>Abstract:</H3>
+<DIV>
+The purpose of this document is to describe my implementation of the Deep Shadowm Maps
+algorithm for Image Based Rendering.
+
+<P>
+</DIV>
+<P>
+
+<P>
+
+<H1><A NAME="SECTION00010000000000000000">
+Overview</A>
+</H1>
+The Deep Shadow Maps algorithm presented in [<A
+ HREF="deep_shadow_maps.html#DeepShadowMaps">2</A>] is an efficient algorithm 
+for rendering soft shadows
+in sythetic environments. Some of the diagrams presented in their paper are reused here.
+The algorithm extends traditional shadow maps to 
+work with transparent and volume objects
+in a memory and computation efficient manner. The algorithm is similar 
+to Image Based Rendering Techniques such as Layered Depth Images
+presented in [<A
+ HREF="deep_shadow_maps.html#LayeredDepthImages">1</A>]. The Deep Shadow Map stores the 
+visibility along a ray emanating from a light source. This visibility
+information measures the amount of light that penetrates to a given depth away from the light source. 
+This information can then be used
+to determine how much illumination is received by a point in the scene. 
+
+<P>
+
+<H1><A NAME="SECTION00020000000000000000">
+Definition of a Deep Shadow Map</A>
+</H1>
+Given a camera C at a Lightsource L, a Deep Shadow Map (DSM) is the array 
+of pixels on the image plane of C. Each pixel stores a <EM>visibility</EM> function
+that determine how much illumination passes to a given depth along
+the ray from the camera position through the pixel center.
+
+<P>
+Figures <A HREF="deep_shadow_maps.html#Vis">1</A> show visibility functions for different objects within a scene.
+The visibility function at each pixel is capable of capturing transparent, volumetric, and partial
+blocking effects.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="Vis"></A><A NAME="49"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 1:</STRONG>
+Visibility Functions</CAPTION>
+<TR><TD><DL COMPACT>
+<DT>
+<DD><!-- MATH
+ $\includegraphics[scale=0.6]{VisFunc.eps}$
+ -->
+<IMG
+ WIDTH="951" HEIGHT="218" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.gif"
+ ALT="\includegraphics[scale=0.6]{VisFunc.eps}">
+</DD>
+</DL></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<H1><A NAME="SECTION00030000000000000000">
+Sampling the Scene and forming the Visibility Functions</A>
+</H1>
+The visibility values for a particular ray through the camera's image plane
+are obtained by sampling the scene along the ray and compositing the opacity values
+to determine how much light is transmitted to a particular depth. 
+In my implementation,<B>n</B> rays are followed through the scene for each pixel to form
+bf n <EM>transmittance</EM> functions for the pixel. 
+These functions are then combined to form the visibility function for the pixel.
+
+<P>
+Surfaces are sampled by finding the intersection of the ray with the surface and computing the
+opacity at the intersection point. The actual depth at which the transmittance
+value is recorded is fudged a little away from the image plane so that the point
+on the surface does not cause the light to be attenutated. This results in two points in the transmittance
+function; one point is directly in front of the surface with the previous transmittance value
+ and one point is directly behind the surface with the new transmittance value.
+Their depth values are separated by a fudge factor. This gives all surfaces some <B>minimal thickness</B> <IMG
+ WIDTH="11" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img2.gif"
+ ALT="$\epsilon$">.
+The amount of light transmitted through a surface is <!-- MATH
+ $1 - opacity_{surface}$
+ -->
+<IMG
+ WIDTH="128" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3.gif"
+ ALT="$1 - opacity_{surface}$">.
+The ray is traced until the transmittance is close to zero or until no more objects exist along its path.
+
+<P>
+Volumes are sampled by sampling the volume desity function at regular intervals along the ray.
+The density values form what the authors term an <EM>extinction</EM> function that dictates how much the light
+is attenuated as it passes through the volume. The transmittance value
+for depth through the volume is given by the top formula in Figure <A HREF="deep_shadow_maps.html#VOLEQ">2</A>.
+This extinction function is integrated
+to get the transmittance function for the ray through the volume. This is performed using
+the bottom formula in Figure <A HREF="deep_shadow_maps.html#VOLEQ">2</A>. In my implementation, I sample the density function
+along the ray for the whole extent of the volume
+ignoring the accumulated transmittance value. The density values correspond to the extinction 
+values used by the authors. The necessary value are kept when the
+volume and surface transmittance functions are merged together.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="VOLEQ"></A><A NAME="65"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 2:</STRONG>
+Volume Integration Equations</CAPTION>
+<TR><TD><DIV ALIGN="CENTER"><!-- MATH
+ $\includegraphics[scale=0.6]{TEQ1.eps}$
+ -->
+<IMG
+ WIDTH="427" HEIGHT="80" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4.gif"
+ ALT="\includegraphics[scale=0.6]{TEQ1.eps}">
+<!-- MATH
+ $\includegraphics[scale=0.6]{TEQ2.eps}$
+ -->
+<IMG
+ WIDTH="586" HEIGHT="80" ALIGN="BOTTOM" BORDER="0"
+ SRC="img5.gif"
+ ALT="\includegraphics[scale=0.6]{TEQ2.eps}">
+</DIV></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="FuncComp"></A><A NAME="70"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 3:</STRONG>
+Surface and Volume Composition</CAPTION>
+<TR><TD><!-- MATH
+ $\includegraphics[scale=0.6]{FuncComp.eps}$
+ -->
+<IMG
+ WIDTH="640" HEIGHT="441" ALIGN="BOTTOM" BORDER="0"
+ SRC="img6.gif"
+ ALT="\includegraphics[scale=0.6]{FuncComp.eps}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+The volume and surface transmittance functions are combined to form the visibility function for 
+the pixel. This is done by simply multiplying the two functions together at each of the sample points.
+Lastly, this function can be compressed to save storage space since a full resolution DSM can use
+a lot of memory. The function composition process and extinction function integration process 
+are shown in Figure <A HREF="deep_shadow_maps.html#FuncComp">3</A>.
+
+<P>
+
+<H1><A NAME="SECTION00040000000000000000">
+Visibility Lookup</A>
+</H1>
+The DSM is used during rendering to determine what percentage of light from a lightsource
+reaches a particular point. This allows for the fast generation of soft shadows. In my implementation,
+I integrated DSMs into my raytracing program and used the DSMs at run time in place of tracing shadow rays. 
+The DSM are used for shadowing complex objects such as volumes or objects with complicated geometry
+where tracing shadow rays can be very expensive. In other less complicated areas of a scene,
+regular shadowing techniques can be used since they do not have a performance penalty
+that warrants the extra memory used by the DSM.
+The run time lookup process works as follows:
+
+<P>
+
+<OL>
+<LI>A  point <B>P</B> is projected back on the image plane of
+the lightsource's camera.
+
+<P>
+</LI>
+<LI>The pixel onto which <B>P</B> projects ( <IMG
+ WIDTH="44" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img7.gif"
+ ALT="$P_{pixel}$"> )
+is determined as well as the point's depth
+from the camera. In perspective, this is not the distance from <IMG
+ WIDTH="44" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img7.gif"
+ ALT="$P_{pixel}$"> or the camera point, 
+but the perpendicular distance from the camera's image plane.
+
+<P>
+</LI>
+<LI>The visibility for <B>P</B> is determined by averaging the visibility function for
+<IMG
+ WIDTH="44" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img7.gif"
+ ALT="$P_{pixel}$"> along with some surrounding pixels at the point's depth. This determine the final
+visibility for <B>P</B>. Currently I simply use the average visibility of all of the visibility
+values in the filter range. Different filters can be used to achieve different shadowing effects
+or smoother shadows. 
+
+<P>
+</LI>
+<LI>If <B>P</B> does not project to a valid pixel on the image plane then the DSM cannot be
+used for visibility checking. In this case, I simply trace a standard shadow ray from
+the intersection point to the lightsource. 
+
+<P>
+</LI>
+</OL>
+
+<P>
+
+<H1><A NAME="SECTION00050000000000000000">
+Implementation Details</A>
+</H1>
+A single visibility element contains a depth and a visibility value. 
+The visibility is always with <IMG
+ WIDTH="36" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img8.gif"
+ ALT="$[0,1]$">. The depth is always greater than 0.
+A single DSM pixel is represented by a dsm_pixel object. This object contains
+an array of visibility elements.
+The DSM is stored as an array of dsm_pixel objects. Along with a camera that describes
+the viewing volume covered by the DSM. The structure definitions are given below.
+
+<P>
+<PRE>
+struct visibility_element {
+   float _depth, _visibility ;
+} ;
+
+struct dsm_pixel {
+   unsigned int _size ;
+   visibility_element * _vel ;       
+} ;
+</PRE>
+
+<P>
+The following steps detail the computation of the transmittance function for
+a single ray through the scene.
+This process is repeated <B>n</B> times for each pixel on the image plane.
+All <B>n</B> rays for a pixel are combined to form the final visibility function
+for the pixel. The points (i.e. depth visibility pairs) are taversed in front to back order
+a point is included only if it differs from the next point by a depth or visibility
+threshold.
+
+<P>
+
+<OL>
+<LI>The surface transmittance function is built by tracing the ray through all of the
+non-volumetric objects.
+
+<P>
+</LI>
+<LI>The volume extinction function is built by tracing the ray through all of the volumetric objects
+and sampling the density function along the ray. 
+
+<P>
+</LI>
+<LI>These density samples are integrated to form the volume transmittance function.
+
+<P>
+</LI>
+<LI>The surface and volume density functions are combined to form the final transmittance function
+for the ray.
+
+<P>
+</LI>
+</OL>
+
+<P>
+
+<H1><A NAME="SECTION00060000000000000000">
+Results</A>
+</H1>
+
+Two Spheres above a plane with a single light source.
+There is one light source with
+a DSM of 450x450 pixels. 16 rays were traced per pixel to form the DSM,
+and a 11x11 grid of pixels was used to determine visibility at run time.
+These pictures show how the Deep Shadow Map 
+is able to capture the attentuation and partial 
+illumination through semi-transparent surfaces. 
+Since some light travels through the semi-transparent sphere, 
+the shadows cast by this sphere are not as dark as the other sphere. 
+
+<p>
+<a href="TwoSpheres1.jpg">
+<IMG Width=150 HEight=150 src = "TwoSpheres1.jpg"></a> 
+
+<a href="TwoSpheres2.jpg">
+<IMG Width=150 HEight=150 src = "TwoSpheres2.jpg"></a> 
+<p>
+
+A pyramid of spheres sitting on a plane.The scene has a total three light sources. One light source
+has a DSM of 400x400 pixels. 16 rays were traced per pixel to form the DSM,
+and a 9x9 grid of pixels was used to determine visibility at run time.
+In the picture on the right extra rays have been traced for anti-aliasing. 
+These pictures show how the Deep Shadow Map algorith does a good job of filtering
+the visibility values for the shadows. Comparing the shadow quality of the regular and anti-aliased 
+images shows that the shadow quality is comparable.
+<p>
+<a href="Pyramid1.jpg">
+<IMG Width=150 HEight=150 src = "Pyramid1.jpg"></a> 
+<a href="Pyramid1AA16.jpg">
+<IMG Width=150 HEight=150 src = "Pyramid1AA16.jpg"></a> 
+
+<p>
+The same pyramid from above looking from the camera with the Deep Shadow Map. <p>
+<a href="PyramidTop1.jpg">
+<IMG Width=150 HEight=150 src = "PyramidTop1.jpg"></a> 
+<p>
+
+The pyramid from above but soomed in. Again the picture on the right has extra rays traced
+for anti-aliasing.<p>
+<a href="PyramidTop2.jpg">
+<IMG Width=150 HEight=150 src = "PyramidTop2.jpg"></a> 
+<a href="PyramidTop2AA8.jpg">
+<IMG Width=150 HEight=150 src = "PyramidTop2AA8.jpg"></a> 
+<p>
+
+DSM can also be used to shadow volumetric objects where tracing shadow rays is very expensive.
+The volumes were created using some of David Ebert's code from
+his Texturing and Modelling book.
+The volumes contain 64x64x64 data elements. There is one light source with a 300x300 DSM,
+4 rays were traced per pixel, and a 9x9 grid of pixels was used to determine visibility at run time.
+<p>
+
+<a href="Volume1.jpg">
+<IMG Width=150 HEight=150 src = "Volume1.jpg"></a> 
+<a href="Volume2.jpg">
+<IMG Width=150 HEight=150 src = "Volume2.jpg"></a> 
+<a href="Volume3.jpg">
+<IMG Width=150 HEight=150 src = "Volume3.jpg"></a> 
+<p>
+A different volume rendered using 3 light source one of which has a DSM.
+The DSM has 350x350 pixels, 8 rays were trace perpixel to generate the DSM, and a 11x11 grid of pixels
+was used at run time. <p>
+<a href="Volume6.jpg">
+<IMG Width=150 HEight=150 src = "Volume6.jpg"></a> 
+<a href="Volume7.jpg">
+<IMG Width=150 HEight=150 src = "Volume7.jpg"></a> 
+
+<P>
+
+</FONT>
+<H2><A NAME="SECTION00070000000000000000">
+Bibliography</A>
+</H2><DL COMPACT><DD> <FONT SIZE="-1">
+<P></P><DT><A NAME="LayeredDepthImages">1</A>
+<DD>
+L.-w.&nbsp;H. Jonathan&nbsp;Shade, Steven&nbsp;Gortler and R.&nbsp;Szeliski.
+<BR>Layered depth images.
+<BR>In <EM>Siggraph 1998 Proceedings</EM>. ACM Siggraph, 1998.
+
+<P></P><DT><A NAME="DeepShadowMaps">2</A>
+<DD>
+T.&nbsp;Lokovic and E.&nbsp;Veach.
+<BR>Deep shadow maps.
+<BR>In <EM>Siggraph 2001 Proceedings</EM>. ACM Siggraph, 2001.
+</DL>
+
+<P>
+
+</BODY>
+</HTML>
