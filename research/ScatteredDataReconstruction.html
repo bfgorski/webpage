@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+
+<table cellpadding='0' width='700' border='0' cellspacing='0' xmlns=''><tr><td><center><h2>Reconstruction of Surfaces from Scattered Data</h2></center></td></tr></table>
+<table xmlns=''><tr><td><center>
+Benjamin F. Gregorski, Bernd Hamann and Kenneth I. Joy
+</center></td></tr></table>
+
+<table cellpadding='0' width='700' border='0' cellspacing='0' xmlns=''><tr><td><p/><center><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0'><tr align='center'><td align='center'><a href='ScatteredDataReconstruction/StripTreeBoxes.gif'><img src='ScatteredDataReconstruction/StripTreeBoxes.gif' align='center' width='253' height='200'/></a></td><td align='center'><a href='ScatteredDataReconstruction/InitialSurfaces.gif'><img src='ScatteredDataReconstruction/InitialSurfaces.gif' align='center' width='253' height='200'/></a></td><td align='center'><a href='ScatteredDataReconstruction/ShadedSurfaces.gif'><img src='ScatteredDataReconstruction/ShadedSurfaces.gif' align='center' width='253' height='200'/></a></td></tr><tr><td colspan='100' align='center'>
+<b>Reconstruction of the skidoo scattered dataset.
+Left: Original point set and strip tree nodes; Middle: Fitted surfaces before blending;
+Right: Final shaded B-spline surfaces.
+</b>
+</td></tr></table></center><p/></td></tr></table>
+
+<h3 xmlns=''>Abstract</h3><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0' xmlns=''><tr><td>
+In this project we developed a method that constructs a set of B-spline surfaces from 
+scattered data points that is usable for further processing in a CAD system. 
+There has been a lot of work on reconstructing polygon meshes and other types of 
+surfaces from scattered points.
+This project focused on solving a subset of the general problem where the desired 
+output was topologically equivalent to a single b-spline patch. 
+This subset of problems occurs in the design of things like cars, trucks and airplanes and 
+so we focused on solving the problem well in this context. 
+Our algorithm is in the class of more general clustering methods
+that have been used for many applications such as surface simplification, 
+surface reconstruction, and collision detection.
+</td></tr></table>
+
+<table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0' xmlns=''><a name='$sct'/><tr align='center'><td align='center'><h3>Strip Tree Data Structure</h3></td></tr><tr><td><!--Apply templates to the section-->
+The basis for our reconstruction is the decomposition of a scattered 
+point set into a 3D strip tree. 
+Our structure is similar to a quadtree, except that each node in our tree represents a bounding
+box whose orientation is defined by the best-fit plane approximating the data points inside a bounding box. 
+After each decomposition step, the new tree structure defines a better
+appoximation to the underlying data points. 
+<p/>
+A bounding box for all given data points is computed. 
+(The three box axes are parallel to the global coordinate system axes). 
+This bounding box is re-oriented so that its three axes are parallel to the three axes 
+defined by the principal directions of the underlying point set, obtained by principal
+component analysis (PCA). 
+This step defines the best-fit (least-squares) plane approximating the data points. 
+The figure below shows the root bounding box and the local coordinates frame for the skidoo model obtained
+from Hoppe's website at Microsoft.
+<p/><center><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0'><tr align='center'><td align='center'><a href='ScatteredDataReconstruction/RootBox.gif'><img src='ScatteredDataReconstruction/RootBox.gif' align='center' width='252' height='200'/></a></td><td align='center'><a href='ScatteredDataReconstruction/BoxPoints.gif'><img src='ScatteredDataReconstruction/BoxPoints.gif' align='center' width='243' height='200'/></a></td></tr><tr><td colspan='100' align='center'>
+Left: Root bounding box and local coordinate frame for skidoo model.<br/>
+Right: The 16 box points for a 2x2 group of nodes. 
+</td></tr></table></center><p/>
+
+<p/>
+The root bounding box is recursively subdivided until the resulting set of bounding boxes, 
+all re-oriented according to their principal directions, approximates the data
+points by least squares planes, within a user-defined error tolerance. 
+In some cases with sparse data, the subdivision must stop when there are not enough points
+to determine a coordinate frame.
+The resulting tree of bounding boxes, the strip tree, is used to fit a set of surfaces 
+approximating the data points inside each box. 
+Once the strip tree is decomposed so that the leaf nodes of the tree all have an error 
+below a prespecified error threshold, the strip tree approximation is used to
+construct surfaces that approximate the data points in each box. 
+
+</td></tr></table>
+
+<table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0' xmlns=''><a name='$sct'/><tr align='center'><td align='center'><h3>Surface Fitting</h3></td></tr><tr><td><!--Apply templates to the section-->
+To construct a least-squares B-spline surface to the points associated with a node, 
+the node must first be subdivided. 
+The approximation process for a node in the next-to-last level begins with a 
+single bi-quadratic B-spline patch fitted to the box points of the node's children. 
+The 16 box points for a set of four nodes are shown on the right in the figure above.
+The 3x3 control points required for a bi-quadratic B-spline patch are obtained from 
+the four corner box points and averages of interior points. 
+This set of 4x4 points is reduced to a set of 3x3 points by keeping the four corner points, 
+averaging pairs of control points in the middle of the
+outside edges, and averaging the four control points in the interior. 
+A least-squares bi-quadratic B-spline patch is fitted through the set of 3x3 control points. 
+This surface is then degree-elevated to a bi-cubic B-spline patch. 
+</td></tr></table>
+
+
+<table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0' xmlns=''><a name='$sct'/><tr align='center'><td align='center'><h3>Results</h3></td></tr><tr><td><!--Apply templates to the section-->
+<p/><center><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0'><tr align='center'><td align='center'><a href='ScatteredDataReconstruction/CraterStripTree.png'><img src='ScatteredDataReconstruction/CraterStripTree.png' align='center' width='230' height='156'/></a></td><td align='center'><a href='ScatteredDataReconstruction/CraterShaded.png'><img src='ScatteredDataReconstruction/CraterShaded.png' align='center' width='230' height='156'/></a></td><td align='center'><a href='ScatteredDataReconstruction/CraterWire.png'><img src='ScatteredDataReconstruction/CraterWire.png' align='center' width='230' height='156'/></a></td></tr><tr><td colspan='100' align='center'>
+Approximation of the Crater Lake dataset using a 32x32 strip tree.
+From left to right: The strip tree, shaded surfaces, and wire frame surfaces.
+</td></tr></table></center><p/>
+
+<p/><center><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0'><tr align='center'><td align='center'><a href='ScatteredDataReconstruction/CraterStripTree64.png'><img src='ScatteredDataReconstruction/CraterStripTree64.png' align='center' width='230' height='156'/></a></td><td align='center'><a href='ScatteredDataReconstruction/CraterShaded64.png'><img src='ScatteredDataReconstruction/CraterShaded64.png' align='center' width='230' height='156'/></a></td><td align='center'><a href='ScatteredDataReconstruction/CraterWire64.png'><img src='ScatteredDataReconstruction/CraterWire64.png' align='center' width='230' height='156'/></a></td></tr><tr><td colspan='100' align='center'>
+Approximation of the Crater Lake dataset using a 64x64 strip tree.
+From left to right: The strip tree, shaded surfaces, and wire frame surfaces.
+</td></tr></table></center><p/>
+
+
+</td></tr></table>
+
+PDF versions of the Powerpoint
+<a href='ScatteredDataReconstruction/presentation.pdf' xmlns=''>slides</a> and
+<a href='ScatteredDataReconstruction/ScatteredDataReconstruction.pdf' xmlns=''>paper</a>.
+

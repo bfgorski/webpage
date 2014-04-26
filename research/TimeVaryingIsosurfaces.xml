@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="ResearchProject.xsl"?>
+<researchproject>
+<title>Adaptive Extraction of Time-varying Isosurfaces</title>
+<authors>Benjamin Gregorski, Josuha Senecal, Mark Duchaineau, Kenneth I. Joy</authors>
+
+<teaser>
+<figure>
+<image><file width="268" height="234"> TimeVaryingIsosurfaces/ppm256TS223.png</file></image>
+<image><file width="268" height="234"> TimeVaryingIsosurfaces/ppm256TS248.png</file></image>
+<image><file width="268" height="234"> TimeVaryingIsosurfaces/ppm256TS273.png</file></image>
+<caption>
+Pictures from a 256x256x256x274 block
+of the Richtmyer-Meshkov instability dataset from Lawrence Livermore National Laboratory.
+From left to right: still images of timesteps 223, 248, and 273.
+</caption>
+</figure>
+</teaser>
+
+<abstract>
+In this project we developed an algorithm for adaptively extracting and rendering
+isosurfaces from compressed time-varying volume datasets.
+Tetrahedral meshes defined by longest edge bisection
+are used to create a multiresolution representation of the volume
+in the spatial domain that is adapted over time to
+approximate the time-varying volume.
+The reextraction of the isosurface at each time step is
+accelerated through the use of the vertex programming capabilities
+on modern graphics hardware.
+A data layout scheme which follows
+the access pattern indicated by mesh refinement is used
+to access the volume in a spatially and temporally coherent manner.
+This data layout scheme allows our algorithm to
+be used for out-of-core visualization.
+A compression scheme based on difference values over time and lead-1 encoding
+yields almost 2 to 1 compression for complex fluid dynamics simulations.
+</abstract>
+
+<section title="Longest Edge Bisection">
+<text>
+The basis for our algorithm is the refinement of tetrahedral meshes 
+based on longest edge bisection. 
+This refinement algorithm is detailed in our previous work on 
+<bf><link target="./FastIsoSurfaces.xml" text="view-dependent isosurfaces."/></bf>
+</text>
+</section>
+
+<section title="Time-interlaced Data Layout">
+<text>
+The Z-order data layout scheme for volume datasets 
+orders the data into a set of levels-of-detail created by subsampling.
+This layout has been used effectively in visualization applications for
+fast terrain rendering and fast isosurface extraction because it allows fast access
+to levels-of-detail which is very important for view-dependent or error-based refinement.
+</text>
+<text>
+For our applications we are interested in moving freely through 3D space and backwards and forwards in time.
+However, as previous work has shown, 
+it is not always advantageous to treat time as a fourth dimension equivalent to the three spatial dimensions.
+To achieve spatially and temporally coherent data access for adaptive time-varying visualization,
+we first decompose the data spatially using the z-order layout and linearly in the temporal domain.
+This is achieved by grouping sets of data points into pages 
+and interleaving the data in time within each page.
+</text>
+<figure>
+<image><file width="429" height="147"> TimeVaryingIsosurfaces/MemoryAccess2D.png </file></image>
+<image><file width="255" height="205"> TimeVaryingIsosurfaces/MetaRecord.png </file></image>
+<caption>Left: the zorder layout in 2D, Right: time-interleaved data pages</caption>
+</figure>
+</section>
+
+<!--
+<tr colspan=2><td>
+<h3>Hardware Isocontouring</h3>
+One of the most time-consuming parts of our algorithm 
+is the rextraction of the isosurface when the timestep changes.
+In order to improve the performance of the extraction,
+a vertex program is used to perform the interpolation calculations.
+For each edge that contains the surface, the vertices, gradients and data values 
+are sent to the graphics card in a packed format
+and the interpolated position is computed on the graphics card
+which is optimized to perform the vector operations needed to interpolate 
+points and gradients.
+</td> </tr>
+-->
+
+<section title="Compression">
+<text>
+For each spatial location in the volume we have a data value and an encoded gradient. 
+We model the data as a linear function over time and generate a set of difference values using this predictor.
+The difference values are compressed using a lead-1 encoder.
+Lead-1 encoding/decoding is used because it gives good compression and has very fast decompression.
+</text>
+</section>
+
+<section title="Images and Results">
+The pictures below are taken from a 256x256x256x274 block
+of the Richtmyer-Meshkov instability dataset from Lawrence Livermore National Laboratory.
+From left to right, top to bottom, are still images of timesteps 160, 180, 199, 223, 248, and 273.
+<figure>
+<image><file width="268" height="234">TimeVaryingIsosurfaces/ppm256TS160C.png </file></image>
+<image><file width="268" height="234">TimeVaryingIsosurfaces/ppm256TS180C.png </file></image>
+<image><file width="268" height="234">TimeVaryingIsosurfaces/ppm256TS199C.png </file></image>
+<caption>
+More images from a 256x256x256x274 block
+of the Richtmyer-Meshkov instability dataset from Lawrence Livermore National Laboratory.
+From left to right, top to bottom, are still images of timesteps 160, 180, 199.
+</caption>
+</figure>
+</section>
+
+<section title="Movies">
+<link target="TimeVaryingIsosurfaces/PPM256x274.mpeg" text="Time-varying isosurface extraction from the Richtmyer-Meshkov dataset(mpeg)"/>
+<br/>
+<link target="TimeVaryingIsosurfaces/PPMMovieSummary.pdf" text="Movie description and performance graphs"/>
+<br/>
+<text>
+Full page performance graphs for:
+</text>
+<link target="TimeVaryingIsosurfaces/PPMMoviePageFaults.pdf" text="Page Faults,"/>
+<link target="TimeVaryingIsosurfaces/PPMMovieReextractTime.pdf" text="Reextraction Time,"/> 
+<link target="TimeVaryingIsosurfaces/PPMMovieTriangles.pdf" text="Triangle Count"/>.
+</section>
+
+<paper file="TimeVaryingIsosurfaces/TimeVaryingIso.pdf"/>
+</researchproject>
+

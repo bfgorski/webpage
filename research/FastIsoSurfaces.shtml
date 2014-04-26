@@ -1,0 +1,157 @@
+<title>Interactive View-dependent Rendering of Large IsoSurfaces </title>
+<HTML>
+<HEAD>
+<title>Interactive View-dependent Rendering of Large IsoSurfaces </title>
+	<STYLE>
+	<!--
+		BODY { font-family: Arial, Helvetica, sans-serif; }
+		TD { font-family: Arial, Helvetica, sans-serif; }
+		P { font-family: Arial, Helvetica, sans-serif; }
+		UL { font-family: Arial, Helvetica, sans-serif; }
+		LI { font-family: Arial, Helvetica, sans-serif; }
+	-->
+	</STYLE>
+</HEAD>
+
+<BODY BGCOLOR=ffffff TEXT=000000 LINK=660000 VLINK=330000>
+
+<CENTER>
+<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 WIDTH=610>
+<TR>
+  <TD VALIGN=top WIDTH=11><IMG SRC="../pictures/homepage/cipic-header.png" 
+	ALT=""></TD>
+</TR>
+</TABLE>
+
+<TABLE BORDER=0 CELLPADDING=7 CELLSPACING=0 WIDTH=490 BACKGROUND="">
+<TR>
+<TD>
+<H2> Interactive View-dependent Rendering of Large IsoSurfaces</H2>
+<P><FONT SIZE="+1">Ben Gregorski, Mark Duchaineau, Peter Lindstrom, 
+Valerio Pascucci, and Kenneth I. Joy <BR> <FONT></P>
+</td>
+</tr>
+<tr colspan=2>
+<td>
+In this project we developed an algorithm for interactively extracting and rendering
+isosurfaces of large volume datasets in a view-dependent fashion.
+A recursive tetrahedral mesh refinement scheme, based on longest edge bisection,
+is used to hierarchically decompose the data into a multiresolution structure.
+This data structure allows fast extraction of arbitrary isosurfaces
+to within user specified view-dependent error bounds.
+A data layout scheme based on hierarchical space filling curves
+provides access to the data in a cache coherent manner
+that follows the data access pattern indicated by the mesh refinement.
+<p>
+</td>
+</tr>
+<tr colspan=2><td>
+<h3>Longest Edge Bisection</h3>
+Refinement of tetrahedral meshes based on longest edge bisection
+have been studied in the context of crack mesh refinement
+for computational simulations and more recently for performing
+interactive visualization of volume datasets.
+The mesh refinement algorithm starts with cube divided into six tetrahedra
+about its major diagonal.
+The three stages of the mesh refinement algorithm are:
+<P><IMG SRC="FastIsoSurfaces/TetSubdivision.png" ALIGN="Left"><p>
+</td> </tr>
+<!-- content table 
+<tr><td>
+The three polyhedral shapes that results from the mesh refinement are:
+<P><IMG SRC="FastIsoSurfaces/PolyhedralTypes.jpg" ALIGN="Left"><br>
+</td> </tr>
+-->
+<tr colspan=2>
+<td>
+<h3>Adaptive IsoSurface Extraction</h3>
+Previous work on isosurface extraction with longest edge bisection
+has focused on top down refinement or bottom up refinement.
+We combine the top down and bottom up approaches to 
+adaptively refine and coarsen the mesh structure based upon
+the screen space projection error of isosurface being drawn. 
+We use this approach because it provides more frame to frame coherence 
+than the top down approach. 
+<p>
+In interactive <b>fly through</b> applications, 
+the viewing parameters generally change a small amount between frames.
+These small changes in viewing parameters generally 
+translate to small changes in the output geometry between consecutive frames. 
+Exploiting this <i>frame-to-frame</i> coherence
+can give significant performance improvements. 
+In addition the mesh refinement algorithm
+is very flexible and easily incorporates different error metrics
+and performance optimizations such as topology changes, 
+view-frustum culling, and lazy priority recomputation. 
+
+<p>
+</td>
+</tr>
+<tr><td>
+<h3>Pictures and Results</h3>
+The pictures below are taken from a 512x512x512 block
+of the Gordon Bell prize winning simulation of a Richtmyer-Meshkov instability.
+The full resolution dataset is 2Kx2Kx2K.
+<p>
+We extract isosurfaces of <b>entropy</b> values. 
+The surface shown below is extracted from entropy value 186/240 from timestep 273/273. 
+The surfaces show the fine scale mixing features that have been created.
+On the left is a closeup view of a mixing feature, and on the right
+we have zoomed out and drawn the polygons culled by the view frustum to show
+how the mesh adaptively refines away from the viewpoint. 
+<p>
+<a href="FastIsoSurfaces/MeshCloseup.jpg">
+<IMG SRC="FastIsoSurfaces/MeshCloseup.png" WIDTH="200" HEIGHT="150" ALIGN="Left" BORDER="0">
+</a>
+<a href="FastIsoSurfaces/MeshZoomout.jpg">
+<IMG SRC="FastIsoSurfaces/MeshZoomout.png" WIDTH="200" HEIGHT="150" ALIGN="Right" BORDER="0">
+</a>
+</td> </tr>
+<tr><td>
+<tr><td>
+<!--
+Movies generated using media recorder on the SGI machines.
+<a href="FastIsoSurfaces/FastIsosurfacesSmall.mov">Movie 1</a> 
+<a href="FastIsoSurfaces/FastIsosurfacesMovie2.mov"> Movie 2</a> 
+-->
+<BLOCKQUOTE>
+<P>Ben Gregorski, Mark Duchaineau, Peter Lindstrom, Valerio Pascucci and Kenneth I. Joy, 
+&quot;Interactive View-dependent Rendering of Large IsoSurfaces,&quot;
+<br>Submitted to Visualization 2002
+</BLOCKQUOTE>
+
+Movies from our Vis 2002 Presentation: These correspond to the movie slides found in the presentation slides
+available below.<p>
+<a href="FastIsoSurfaces/BuckyWalkthrough.mpeg">Buckyball dataset with fixed position and varying isovalue</a> 
+<a href="FastIsoSurfaces/BuckyFixedPosVaryIso.mpeg">Buckyball dataset with fixed position and varying isovalue</a> 
+<a href="FastIsoSurfaces/BuckyFixedPosVaryError.mpeg">Buckyball dataset walkthrough with fixed isovalue and error</a> 
+<a href="FastIsoSurfaces/RichtmyerMeshkovWalkthrough.mpeg">Richymyer-Meshkov dataset walkthrough with varying isovalue and error</a> 
+
+<P>A PDF version of the paper can be found here<A HREF="FastIsoSurfaces/paper.pdf"><IMG 
+SRC="http://muldoon.cipic.ucdavis.edu/images/pdficonsmall.gif" WIDTH="22" HEIGHT="24" ALIGN="BOTTOM" BORDER="0"></A>
+<br>
+A PDF version of the Vis 2002 presentation can be found here<A HREF="FastIsoSurfaces/Vis2002Presentation.pdf"><IMG 
+SRC="http://muldoon.cipic.ucdavis.edu/images/pdficonsmall.gif" WIDTH="22" HEIGHT="24" ALIGN="BOTTOM" BORDER="0"></A></P>
+
+<P><B><FONT SIZE="-1">Contact: <A HREF="mailto:bfgregorski@ucdavis.edu">Ben Gregorski </A>
+
+<BR>
+</TD></TR></TABLE>
+
+</TD>
+</TR>
+
+<TR>
+  <TD></TD>
+  <TD><A HREF="/"><IMG SRC="../pictures/homepage/cipic-footer.png" 
+	BORDER=0
+	ALT="CIPIC: Visualization and Computer Graphics Research Group"></A></TD>
+</TR>
+
+</TABLE>
+</CENTER>
+
+
+
+</BODY>
+</HTML>

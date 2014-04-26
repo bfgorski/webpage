@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+
+
+<table cellpadding='0' width='700' border='0' cellspacing='0' xmlns=''><tr><td><center><h2>Interactive View-dependent Rendering of Large IsoSurfaces </h2></center></td></tr></table>
+<table xmlns=''><tr><td><center>Benjamin F. Gregorski, Mark Duchaineau, Peter Lindstrom, Valerio Pascucci, and Kenneth I. Joy </center></td></tr></table>
+
+<table cellpadding='0' width='700' border='0' cellspacing='0' xmlns=''><tr><td><p/><center><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0'><tr align='center'><td align='center'><a href='FastIsoSurfaces/CloseupShaded.png'><img src='FastIsoSurfaces/CloseupShaded.png' align='center' width='296' height='240'/></a></td><td align='center'><a href='FastIsoSurfaces/CloseupWireframe.png'><img src='FastIsoSurfaces/CloseupWireframe.png' align='center' width='296' height='240'/></a></td><td align='center'><a href='FastIsoSurfaces/MeshStructure6.png'><img src='FastIsoSurfaces/MeshStructure6.png' align='center' width='296' height='240'/></a></td></tr><tr><td colspan='100' align='center'>
+Closeup view of an isosurface feature in the mixing interface of two gases
+showing the texture mapped surface, triangle mesh, and the adaptive tetrahedral mesh.
+</td></tr></table></center><p/></td></tr></table>
+
+<h3 xmlns=''>Abstract</h3><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0' xmlns=''><tr><td>
+In this project we developed an algorithm for interactively extracting and rendering
+isosurfaces of large volume datasets in a view-dependent fashion.
+A recursive tetrahedral mesh refinement scheme, based on longest edge bisection,
+is used to hierarchically decompose the data into a multiresolution structure.
+This data structure allows fast extraction of arbitrary isosurfaces
+to within user specified view-dependent error bounds.
+A data layout scheme based on hierarchical space filling curves
+provides access to the data in a cache coherent manner
+that follows the data access pattern indicated by the mesh refinement.
+</td></tr></table>
+
+<table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0' xmlns=''><a name='$sct'/><tr align='center'><td align='center'><h3>Longest Edge Bisection</h3></td></tr><tr><td><!--Apply templates to the section-->
+
+Refinement of tetrahedral meshes based on longest edge bisection
+have been studied in the context of crack mesh refinement
+for computational simulations and more recently for performing
+interactive visualization of volume datasets.
+The mesh refinement algorithm, illustrated below, starts with a cube divided 
+into six tetrahedra about its major diagonal.
+Crack-free refinement is achieved by splitting groups of tetrahedra
+called diamonds. The three diamond shapes are shown below.
+
+<p/><center><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0'><tr align='center'><td align='center'><a href='FastIsoSurfaces/TetSubdivision.png'><img src='FastIsoSurfaces/TetSubdivision.png' align='center' width='428' height='177'/></a></td></tr><tr><td colspan='100' align='center'>
+The three stages of the mesh refinement algorithm.
+</td></tr></table></center><p/>
+
+<p/><center><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0'><tr align='center'><td align='center'><a href='FastIsoSurfaces/PolyhedralTypes.png'><img src='FastIsoSurfaces/PolyhedralTypes.png' align='center' width='401' height='131'/></a></td></tr><tr><td colspan='100' align='center'>
+The three polyhedral or diamond shapes resulting from the mesh refinement. 
+</td></tr></table></center><p/>
+
+For large data visualization, a hierarchical data layout based on z-order space filling curves
+is used to align the data on disk to follow the mesh refinement.
+
+<p/><center><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0'><tr align='center'><td align='center'><a href='FastIsoSurfaces/MeshRefinementAndZOrder.png'><img src='FastIsoSurfaces/MeshRefinementAndZOrder.png' align='center' width='428' height='277'/></a></td></tr><tr><td colspan='100' align='center'>
+2-D example of z-order and mesh refinement.
+Top: the order of the data points on the z-order curve.
+Bottom: The data points introduced by the mesh refinement at each hierachy level.
+The dashed circles and curved arrows illustrate how <b>(2^(k)+1)</b> indices in
+the mesh hierarchy wrap to <b>0</b> on the z-order curve.
+</td></tr></table></center><p/>
+
+
+</td></tr></table>
+
+<table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0' xmlns=''><a name='$sct'/><tr align='center'><td align='center'><h3>Adaptive IsoSurface Extraction</h3></td></tr><tr><td><!--Apply templates to the section-->
+
+Previous work on isosurface extraction with longest edge bisection
+has focused on top down refinement or bottom up refinement.
+We combine the top down and bottom up approaches to 
+adaptively refine and coarsen the mesh structure based upon
+the screen space projection error of isosurface being drawn. 
+We use this approach because it provides more frame to frame coherence 
+than the top down approach. 
+
+<p/>
+
+In interactive fly through applications, 
+the viewing parameters generally change a small amount between frames.
+These small changes in viewing parameters generally 
+translate to small changes in the output geometry between consecutive frames. 
+Exploiting this frame-to-frame coherence
+can give significant performance improvements. 
+In addition the mesh refinement algorithm
+is very flexible and easily incorporates different error metrics
+and performance optimizations such as topology changes, 
+view-frustum culling, and lazy priority recomputation. 
+
+</td></tr></table>
+
+<table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0' xmlns=''><a name='$sct'/><tr align='center'><td align='center'><h3>Results</h3></td></tr><tr><td><!--Apply templates to the section-->
+
+The pictures are taken from a 512x512x512 block
+of the Gordon Bell prize winning simulation of a Richtmyer-Meshkov instability.
+The full resolution dataset is 2Kx2Kx2K.
+We extract isosurfaces of entropy values. 
+The surfaces show the fine scale mixing features that have been created over the course of the simulation.
+
+<p/><center><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0'><tr align='center'><td align='center'><a href='FastIsoSurfaces/MeshCloseup.png'><img src='FastIsoSurfaces/MeshCloseup.png' align='center' width='273' height='195'/></a></td><td align='center'><a href='FastIsoSurfaces/MeshZoomout.png'><img src='FastIsoSurfaces/MeshZoomout.png' align='center' width='273' height='195'/></a></td></tr><tr><td colspan='100' align='center'>
+Isosurface extracted from entropy value 186/230 from timestep 273/273.
+Left: closeup view of a mixing feature. 
+Right: zoomed out view showing the polygons culled by the view frustum. 
+</td></tr></table></center><p/>
+
+<p/><center><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0'><tr align='center'><td align='center'><a href='FastIsoSurfaces/r2_273_E056_S.png'><img src='FastIsoSurfaces/r2_273_E056_S.png' align='center' width='201' height='156'/></a></td><td align='center'><a href='FastIsoSurfaces/r2_273_E17_W.png'><img src='FastIsoSurfaces/r2_273_E17_W.png' align='center' width='201' height='156'/></a></td><td align='center'><a href='FastIsoSurfaces/r2_273_E27_S.png'><img src='FastIsoSurfaces/r2_273_E27_S.png' align='center' width='201' height='156'/></a></td></tr><tr><td colspan='100' align='center'>
+Isosurface with varying screen space error at Time Step = 273, Isovalue = 213.
+The normalized gradient is converted to an rgb color to shade the surface. 
+From left to right: Error = 0.56, 95K Triangles; Error = 1.7, 30K Triangles; Error = 2.7, 13K Triangles.
+</td></tr></table></center><p/>
+
+<p/><center><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0'><tr align='center'><td align='center'><a href='FastIsoSurfaces/ppm00_77_67TS260E0-78.png'><img src='FastIsoSurfaces/ppm00_77_67TS260E0-78.png' align='center' width='197' height='184'/></a></td><td align='center'><a href='FastIsoSurfaces/ppm00_77_67TS260E1-2.png'><img src='FastIsoSurfaces/ppm00_77_67TS260E1-2.png' align='center' width='197' height='184'/></a></td><td align='center'><a href='FastIsoSurfaces/ppm00_77_67TS260E1-8.png'><img src='FastIsoSurfaces/ppm00_77_67TS260E1-8.png' align='center' width='197' height='184'/></a></td></tr><tr><td colspan='100' align='center'>
+Isosurfaces from a 256x256x256 block of the Richtmyer-Meshkov dataset. Time step = 260, Isovalue = 223.5.
+From left to right: Error = 0.78, 1.11M Triangles. Error = 1.2, 420K Triangles.
+Error = 1.8, 235K Triangles.
+The large number of fine topological features makes this dataset particularly interesting for visualization.
+</td></tr></table></center><p/>
+
+</td></tr></table>
+
+<table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0' xmlns=''><a name='$sct'/><tr align='center'><td align='center'><h3>Movies</h3></td></tr><tr><td><!--Apply templates to the section-->
+
+Movies from our Vis 2002 Presentation: 
+These correspond to the movie slides found in the presentation slides available below.
+
+<p/>
+<a href='FastIsoSurfaces/BuckyWalkthrough.mpeg'>Buckyball dataset with fixed position and varying isovalue</a> 
+<br/>
+<a href='FastIsoSurfaces/BuckyFixedPosVaryIso.mpeg'>Buckyball dataset with fixed position and varying isovalue</a> 
+<br/>
+<a href='FastIsoSurfaces/BuckyFixedPosVaryError.mpeg'>Buckyball dataset walkthrough with fixed isovalue and error</a> 
+<br/>
+<a href='FastIsoSurfaces/RichtmyerMeshkovWalkthrough.mpeg'>Richymyer-Meshkov dataset walkthrough with varying isovalue and error</a> 
+<br/>
+<a href='FastIsoSurfaces/Vis2002Presentation.pdf'>PDF version of the Vis 2002 presentation</a>
+<br/>
+</td></tr></table>
+
+
+

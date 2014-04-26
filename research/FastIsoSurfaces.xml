@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="ResearchProject.xsl"?>
+<researchproject>
+
+<title>Interactive View-dependent Rendering of Large IsoSurfaces </title>
+<authors>Benjamin F. Gregorski, Mark Duchaineau, Peter Lindstrom, Valerio Pascucci, and Kenneth I. Joy </authors>
+
+<teaser>
+<figure>
+<image><file width="296" height="240">FastIsoSurfaces/CloseupShaded.png</file></image>
+<image><file width="296" height="240">FastIsoSurfaces/CloseupWireframe.png</file></image>
+<image><file width="296" height="240">FastIsoSurfaces/MeshStructure6.png</file></image>
+<caption>
+Closeup view of an isosurface feature in the mixing interface of two gases
+showing the texture mapped surface, triangle mesh, and the adaptive tetrahedral mesh.
+</caption>
+</figure>
+</teaser>
+
+<abstract>
+In this project we developed an algorithm for interactively extracting and rendering
+isosurfaces of large volume datasets in a view-dependent fashion.
+A recursive tetrahedral mesh refinement scheme, based on longest edge bisection,
+is used to hierarchically decompose the data into a multiresolution structure.
+This data structure allows fast extraction of arbitrary isosurfaces
+to within user specified view-dependent error bounds.
+A data layout scheme based on hierarchical space filling curves
+provides access to the data in a cache coherent manner
+that follows the data access pattern indicated by the mesh refinement.
+</abstract>
+
+<section title="Longest Edge Bisection" >
+<text>
+Refinement of tetrahedral meshes based on longest edge bisection
+have been studied in the context of crack mesh refinement
+for computational simulations and more recently for performing
+interactive visualization of volume datasets.
+The mesh refinement algorithm, illustrated below, starts with a cube divided 
+into six tetrahedra about its major diagonal.
+Crack-free refinement is achieved by splitting groups of tetrahedra
+called diamonds. The three diamond shapes are shown below.
+
+<figure>
+<image> <file width="428" height="177">FastIsoSurfaces/TetSubdivision.png</file></image>
+<caption>
+The three stages of the mesh refinement algorithm.
+</caption>
+</figure>
+
+<figure>
+<image> <file width="401" height="131">FastIsoSurfaces/PolyhedralTypes.png</file></image>
+<caption>
+The three polyhedral or diamond shapes resulting from the mesh refinement. 
+</caption>
+</figure>
+
+For large data visualization, a hierarchical data layout based on z-order space filling curves
+is used to align the data on disk to follow the mesh refinement.
+
+<figure>
+<image> <file width="428" height="277">FastIsoSurfaces/MeshRefinementAndZOrder.png</file></image>
+<caption>
+2-D example of z-order and mesh refinement.
+Top: the order of the data points on the z-order curve.
+Bottom: The data points introduced by the mesh refinement at each hierachy level.
+The dashed circles and curved arrows illustrate how <bf>(2^(k)+1)</bf> indices in
+the mesh hierarchy wrap to <bf>0</bf> on the z-order curve.
+</caption>
+</figure>
+
+</text>
+</section>
+
+<section title="Adaptive IsoSurface Extraction">
+<text>
+Previous work on isosurface extraction with longest edge bisection
+has focused on top down refinement or bottom up refinement.
+We combine the top down and bottom up approaches to 
+adaptively refine and coarsen the mesh structure based upon
+the screen space projection error of isosurface being drawn. 
+We use this approach because it provides more frame to frame coherence 
+than the top down approach. 
+</text>
+<p/>
+<text>
+In interactive fly through applications, 
+the viewing parameters generally change a small amount between frames.
+These small changes in viewing parameters generally 
+translate to small changes in the output geometry between consecutive frames. 
+Exploiting this frame-to-frame coherence
+can give significant performance improvements. 
+In addition the mesh refinement algorithm
+is very flexible and easily incorporates different error metrics
+and performance optimizations such as topology changes, 
+view-frustum culling, and lazy priority recomputation. 
+</text>
+</section>
+
+<section title="Results">
+<text>
+The pictures are taken from a 512x512x512 block
+of the Gordon Bell prize winning simulation of a Richtmyer-Meshkov instability.
+The full resolution dataset is 2Kx2Kx2K.
+We extract isosurfaces of entropy values. 
+The surfaces show the fine scale mixing features that have been created over the course of the simulation.
+</text>
+<figure>
+<image><file width="273" height="195">FastIsoSurfaces/MeshCloseup.png</file></image>
+<image><file width="273" height="195">FastIsoSurfaces/MeshZoomout.png</file></image>
+<caption>
+Isosurface extracted from entropy value 186/230 from timestep 273/273.
+Left: closeup view of a mixing feature. 
+Right: zoomed out view showing the polygons culled by the view frustum. 
+</caption>
+</figure>
+
+<figure>
+<image><file width="201" height="156" >FastIsoSurfaces/r2_273_E056_S.png</file></image>
+<image><file width="201" height="156" >FastIsoSurfaces/r2_273_E17_W.png</file></image>
+<image><file width="201" height="156" >FastIsoSurfaces/r2_273_E27_S.png</file></image>
+<caption>
+Isosurface with varying screen space error at Time Step = 273, Isovalue = 213.
+The normalized gradient is converted to an rgb color to shade the surface. 
+From left to right: Error = 0.56, 95K Triangles; Error = 1.7, 30K Triangles; Error = 2.7, 13K Triangles.
+</caption>
+</figure>
+
+<figure>
+<image><file width="197" height="184" >FastIsoSurfaces/ppm00_77_67TS260E0-78.png</file></image>
+<image><file width="197" height="184" >FastIsoSurfaces/ppm00_77_67TS260E1-2.png</file></image>
+<image><file width="197" height="184" >FastIsoSurfaces/ppm00_77_67TS260E1-8.png</file></image>
+<caption>
+Isosurfaces from a 256x256x256 block of the Richtmyer-Meshkov dataset. Time step = 260, Isovalue = 223.5.
+From left to right: Error = 0.78, 1.11M Triangles. Error = 1.2, 420K Triangles.
+Error = 1.8, 235K Triangles.
+The large number of fine topological features makes this dataset particularly interesting for visualization.
+</caption>
+</figure>
+
+</section>
+
+<section title="Movies">
+<text>
+Movies from our Vis 2002 Presentation: 
+These correspond to the movie slides found in the presentation slides available below.
+</text>
+<p/>
+<link target="FastIsoSurfaces/BuckyWalkthrough.mpeg" text="Buckyball dataset with fixed position and varying isovalue"/> 
+<br/>
+<link target="FastIsoSurfaces/BuckyFixedPosVaryIso.mpeg" text="Buckyball dataset with fixed position and varying isovalue"/> 
+<br/>
+<link target="FastIsoSurfaces/BuckyFixedPosVaryError.mpeg" text="Buckyball dataset walkthrough with fixed isovalue and error"/> 
+<br/>
+<link target="FastIsoSurfaces/RichtmyerMeshkovWalkthrough.mpeg" text="Richymyer-Meshkov dataset walkthrough with varying isovalue and error"/> 
+<br/>
+<link target="FastIsoSurfaces/Vis2002Presentation.pdf" text="PDF version of the Vis 2002 presentation"/>
+<br/>
+</section>
+
+<paper file="FastIsoSurfaces/paper.pdf"/>
+
+</researchproject>

@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+
+<table cellpadding='0' width='700' border='0' cellspacing='0' xmlns=''><tr><td><center><h2>Visualization of Quadratic Tetrahedra</h2></center></td></tr></table>
+<table xmlns=''><tr><td><center>David F. Wiley, Henry R. Childs, Benjamin F. Gregorski, Bernd Hamann, and Kenneth I. Joy </center></td></tr></table>
+<table cellpadding='0' width='700' border='0' cellspacing='0' xmlns=''><tr><td><p/><center><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0'><tr align='center'><td align='center'><a href='QuadraticTetrahedra/AdaptiveQuadraticTets/HAtom128QuadE12.png'><img src='QuadraticTetrahedra/AdaptiveQuadraticTets/HAtom128QuadE12.png' align='center' width='271' height='170'/></a></td><td align='center'><a href='QuadraticTetrahedra/AdaptiveQuadraticTets/HAtom128QuadMeshE12.png'><img src='QuadraticTetrahedra/AdaptiveQuadraticTets/HAtom128QuadMeshE12.png' align='center' width='271' height='170'/></a></td><td align='center'><a href='QuadraticTetrahedra/AdaptiveQuadraticTets/HAtom128QuadTrianglesE12.png'><img src='QuadraticTetrahedra/AdaptiveQuadraticTets/HAtom128QuadTrianglesE12.png' align='center' width='271' height='170'/></a></td></tr><tr><td colspan='100' align='center'>
+Isosurface through the Hydrogen Atom dataset from
+<a href='http://www.volvis.org'>volvis.org</a>.
+From left to right: the isosurface using quadratic patches,
+the tetrahedra from which the contours were extracted, and linear triangles.
+Isovalue = 9.4, Error = 1.23, Number of patches = 3644, Number of triangles = 3480.
+</td></tr></table></center><p/></td></tr></table>
+
+<h3 xmlns=''>Abstract</h3><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0' xmlns=''><tr><td>
+Higher-order elements, such as quadratic tetrahedra and quadratic hexahedra,
+are used in finite element solutions to reduce the number of elements and 
+improve the quality of numerical solutions. 
+Since few algorithms directly visualize higher-order
+elements, they are usually tessellated by several linear elements. 
+Conventional visualization methods, such as contouring, ray casting, and
+slicing, are applied to these linear elements.
+Using linear elements increases the number of primitives, i.e.
+triangles or voxels, that need to be processed.
+In this work, we have developed algorithms for directly visualizing 
+(contouring and raycasting) quadratic tetrahedra
+and using them to develop hierarchical approximations for visualization.
+</td></tr></table>
+
+<table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0' xmlns=''><a name='$sct'/><tr align='center'><td align='center'><h3>Quadratic Tetrahedra</h3></td></tr><tr><td><!--Apply templates to the section-->
+The quadratic tetrahedron <b>T<sub>Q</sub>(u,v,w)</b> (called <b>T<sub>Q</sub></b>) that we use as our decomposition
+element has linearly defined edges such that its domain is completely described 
+by four vertices (the same as a conventional linear tetrahedron). 
+The function over <b>T<sub>Q</sub></b> is defined by a quadratic polynomial. 
+We call this element a <em>linear-edge quadratic tetrahedron</em> or <em>quadratic tetrahedron</em>. 
+<br/>
+<p/><center><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0'><tr align='center'><td align='center'><a href='QuadraticTetrahedra/BezierTet.png'><img src='QuadraticTetrahedra/BezierTet.png' align='center' width='213' height='246'/></a></td><td align='center'><a href='QuadraticTetrahedra/SixIntersectionsSurface.png'><img src='QuadraticTetrahedra/SixIntersectionsSurface.png' align='center' width='237' height='246'/></a></td></tr><tr><td colspan='100' align='center'>
+Left: Vertex indexing and parameter space for a quadratic tetrahedron's control points.
+Right: Isosurface bounded by six face-intersection curves. 
+</td></tr></table></center><p/>
+</td></tr></table>
+
+<table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0' xmlns=''><a name='$sct'/><tr align='center'><td align='center'><h3>Contouring</h3></td></tr><tr><td><!--Apply templates to the section-->
+Our algorithm for contouring quadratic tetahedra consists of three steps:
+<ol><li>The intersection of the isosurface is computed with each 
+face of the quadratic tetrahedron forming <em>face-intersection curves</em> </li><li>
+The face-intersection curves are connected end-to-end to form <em>face-intersection groups</em> of curves that bound various
+portions of the isosurface inside the tetrahedron. See the above figure.
+</li><li>
+The face-intersection groups are <em>triangulated</em> with rational-quadratic patches to represent the various portions of the
+isosurface inside the quadratic tetrahedron.
+</li></ol>
+<br/>See 
+<a href='http://graphics.cipic.ucdavis.edu/publications/print_pub?pub_id=262&amp;category=6'>Contouring Curve Quadratic Elements</a>
+for more details.
+</td></tr></table>
+
+
+
+<table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0' xmlns=''><a name='$sct'/><tr align='center'><td align='center'><h3>Hierarchical Representations</h3></td></tr><tr><td><!--Apply templates to the section-->
+Hierarchical approximations with quadratic triangles and tetrahedra 
+are done with an edge refinement algorithm to add elements 
+in regions that have a high error as shown below.
+This is described in 
+<a href='QuadraticTetrahedra/BestQuadraticSplineApproximation/2002BestQuadraticSplineApproximationForHierarchicalVisualization.pdf'>Best Quadratic Spline Approximation For Hierarchical Visualization</a>
+where quadratic triangles and quadratic tetrahedra are used to approximate two-dimensional image data
+and three-dimensional volume data.
+<p/><center><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0'><tr align='center'><td align='center'><a href='QuadraticTetrahedra/BestQuadraticSplineApproximation/Bisection.png'><img src='QuadraticTetrahedra/BestQuadraticSplineApproximation/Bisection.png' align='center' width='434' height='200'/></a></td></tr><tr><td colspan='100' align='center'>
+Bisection refinement in two and three dimensions.
+</td></tr></table></center><p/>
+
+<p/>
+We have also investigated a similar, but more constrained, approach
+using tetrahedral meshes constructed by
+<b><a href='http://graphics.cipic.ucdavis.edu/~gregorsk/research/FastIsoSurfaces.xml'>longest-edge-bisection</a></b>
+to create a multiresolution data representation. 
+This quadratic representation is computed in a preprocessing step 
+by approximating the data values along each edge of a tetrahedron 
+with a quadratic function that interpolates the endpoint values.
+A quadratic tetrahedron is constructed from the curves along its six edges.
+<p/>
+A quadratic approximation of a dataset is created by approximating 
+the data values along each edge in the tetrahedral mesh 
+with a quadratic function. 
+Each linear tetrahedron becomes a quadratic tetrahedron.
+The resulting approximation is <em>C<sup>1</sup></em>-continuous within a tetrahedron
+and <em>C<sup>0</sup></em>-continuous on shared faces and edges.
+The approximation error <em>e<sub>a</sub></em> for a tetrahedron <em>T</em> is the 
+maximum difference between the quadratic approximation over <em>T</em> 
+and all original data values associated with points inside and on <em>T</em>'s boundary.
+<p/>
+The edges used for computing the quadratic representation
+can be enumerated by recursively traversing the tetrahedral mesh and 
+examining the refinement edges. 
+This process is illustrated below in two dimensions for quadratic triangles.
+
+<p/><center><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0'><tr align='center'><td align='center'><a href='QuadraticTetrahedra/AdaptiveQuadraticTets/BuildingQuadraticRep.png'><img src='QuadraticTetrahedra/AdaptiveQuadraticTets/BuildingQuadraticRep.png' align='center' width='583' height='117'/></a></td></tr><tr><td colspan='100' align='center'>
+Enumeration of edges for constructing quadratic approximation using longest-edge bisection. 
+Circles indicate original function values used to compute approximating quadratic functions along each edge.
+</td></tr></table></center><p/>
+</td></tr></table>
+
+<table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0' xmlns=''><a name='$sct'/><tr align='center'><td align='center'><h3>Results</h3></td></tr><tr><td><!--Apply templates to the section-->
+
+<p/><center><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0'><tr align='center'/><tr><td colspan='100' align='center'>
+<a href='http://graphics.cipic.ucdavis.edu/publications/print_pub?pub_id=262&amp;category=6'>Contouring Curve Quadratic Elements</a>.
+</td></tr></table></center><p/>
+
+
+<p/><center><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0'><tr align='center'><td align='center'><a href='QuadraticTetrahedra/BestQuadraticSplineApproximation/Truck0.png'><img src='QuadraticTetrahedra/BestQuadraticSplineApproximation/Truck0.png' align='center' width='246' height='249'/></a></td><td align='center'><a href='QuadraticTetrahedra/CurvedQuadraticElements/EightParameter.png'><img src='QuadraticTetrahedra/CurvedQuadraticElements/EightParameter.png' align='center' width='258' height='249'/></a></td><td align='center'><a href='QuadraticTetrahedra/CurvedQuadraticElements/EightPhysical.png'><img src='QuadraticTetrahedra/CurvedQuadraticElements/EightPhysical.png' align='center' width='258' height='249'/></a></td></tr><tr><td colspan='100' align='center'>
+Left: Hierarchical approximation of a two dimensional color image with quadratic triangles.
+See <a href='QuadraticTetrahedra/BestQuadraticSplineApproximation/2002BestQuadraticSplineApproximationForHierarchicalVisualization.pdf'>Best Quadratic Spline Approximation For Hierarchical Visualization</a>
+<br/>
+
+Middle: Rational-quadratic contour surface extracted from un-twisted mesh consisting of 15918 quadratic tetrahedra. 
+Right: Rational-quartic contour surface extracted from twisted mesh with 15918 curved-quadratic tetrahedra.
+Each face of a tetrahedron is a quadratic surface making the resulting contours quartic surfaces. 
+See 
+<a href='http://graphics.cipic.ucdavis.edu/publications/print_pub?pub_id=262&amp;category=6'>Contouring Curve Quadratic Elements</a>.
+</td></tr></table></center><p/>
+
+<p/><center><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0'><tr align='center'><td align='center'><a href='QuadraticTetrahedra/AdaptiveQuadraticTets/Bucky256E0-7.png'><img src='QuadraticTetrahedra/AdaptiveQuadraticTets/Bucky256E0-7.png' align='center' width='240' height='203'/></a></td><td align='center'><a href='QuadraticTetrahedra/AdaptiveQuadraticTets/Bucky256QuadE1-3.png'><img src='QuadraticTetrahedra/AdaptiveQuadraticTets/Bucky256QuadE1-3.png' align='center' width='240' height='203'/></a></td><td align='center'><a href='QuadraticTetrahedra/AdaptiveQuadraticTets/Bucky256QuadE2-0.png'><img src='QuadraticTetrahedra/AdaptiveQuadraticTets/Bucky256QuadE2-0.png' align='center' width='240' height='203'/></a></td></tr><tr><td colspan='100' align='center'>
+A synthetic buckyball dataset made with Gaussians represented 
+with quadratic tetrahedra.<br/>
+Isosurfaces extracted at different error bounds.
+Left to Right: Error = 0.7, 1.2, and 2.0. Number of Quadratic Patches = 32662, 10922, 4609.
+See
+<a href='QuadraticTetrahedra/AdaptiveQuadraticTets/AdaptiveQuadraticTets.pdf'>Adaptive Contouring with Quadratic Tetrahedra</a>.
+</td></tr></table></center><p/>
+
+</td></tr></table>
+
+<table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0' xmlns=''><a name='$sct'/><tr align='center'><td align='center'><h3>Publications</h3></td></tr><tr><td><!--Apply templates to the section-->
+<a href='QuadraticTetrahedra/AdaptiveQuadraticTets/AdaptiveQuadraticTets.pdf'>Adaptive Contouring with Quadratic Tetrahedra</a>
+<br/>
+Submitted to Dagstuhl 2004 Book for publication.
+<br/>
+<a href='http://graphics.cipic.ucdavis.edu/publications/print_pub?pub_id=262&amp;category=6'>Contouring Curve Quadratic Elements</a>
+<br/>
+Published at the Joint Eurographics/IEEE TCVG Symposium on Visualization 2003
+<br/>
+<a href='QuadraticTetrahedra/BestQuadraticSplineApproximation/2002BestQuadraticSplineApproximationForHierarchicalVisualization.pdf'>Best Quadratic Spline Approximation For Hierarchical Visualization</a>
+<br/>
+Published at the Joint Eurographics/IEEE TCVG Symposium on Visualization 2002
+<br/>
+
+</td></tr></table>
+

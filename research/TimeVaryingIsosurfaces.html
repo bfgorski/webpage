@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+
+<table cellpadding='0' width='700' border='0' cellspacing='0' xmlns=''><tr><td><center><h2>Adaptive Extraction of Time-varying Isosurfaces</h2></center></td></tr></table>
+<table xmlns=''><tr><td><center>Benjamin Gregorski, Josuha Senecal, Mark Duchaineau, Kenneth I. Joy</center></td></tr></table>
+
+<table cellpadding='0' width='700' border='0' cellspacing='0' xmlns=''><tr><td><p/><center><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0'><tr align='center'><td align='center'><a href=' TimeVaryingIsosurfaces/ppm256TS223.png'><img src=' TimeVaryingIsosurfaces/ppm256TS223.png' align='center' width='268' height='234'/></a></td><td align='center'><a href=' TimeVaryingIsosurfaces/ppm256TS248.png'><img src=' TimeVaryingIsosurfaces/ppm256TS248.png' align='center' width='268' height='234'/></a></td><td align='center'><a href=' TimeVaryingIsosurfaces/ppm256TS273.png'><img src=' TimeVaryingIsosurfaces/ppm256TS273.png' align='center' width='268' height='234'/></a></td></tr><tr><td colspan='100' align='center'>
+Pictures from a 256x256x256x274 block
+of the Richtmyer-Meshkov instability dataset from Lawrence Livermore National Laboratory.
+From left to right: still images of timesteps 223, 248, and 273.
+</td></tr></table></center><p/></td></tr></table>
+
+<h3 xmlns=''>Abstract</h3><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0' xmlns=''><tr><td>
+In this project we developed an algorithm for adaptively extracting and rendering
+isosurfaces from compressed time-varying volume datasets.
+Tetrahedral meshes defined by longest edge bisection
+are used to create a multiresolution representation of the volume
+in the spatial domain that is adapted over time to
+approximate the time-varying volume.
+The reextraction of the isosurface at each time step is
+accelerated through the use of the vertex programming capabilities
+on modern graphics hardware.
+A data layout scheme which follows
+the access pattern indicated by mesh refinement is used
+to access the volume in a spatially and temporally coherent manner.
+This data layout scheme allows our algorithm to
+be used for out-of-core visualization.
+A compression scheme based on difference values over time and lead-1 encoding
+yields almost 2 to 1 compression for complex fluid dynamics simulations.
+</td></tr></table>
+
+<table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0' xmlns=''><a name='$sct'/><tr align='center'><td align='center'><h3>Longest Edge Bisection</h3></td></tr><tr><td><!--Apply templates to the section-->
+
+The basis for our algorithm is the refinement of tetrahedral meshes 
+based on longest edge bisection. 
+This refinement algorithm is detailed in our previous work on 
+<b><a href='./FastIsoSurfaces.xml'>view-dependent isosurfaces.</a></b>
+
+</td></tr></table>
+
+<table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0' xmlns=''><a name='$sct'/><tr align='center'><td align='center'><h3>Time-interlaced Data Layout</h3></td></tr><tr><td><!--Apply templates to the section-->
+
+The Z-order data layout scheme for volume datasets 
+orders the data into a set of levels-of-detail created by subsampling.
+This layout has been used effectively in visualization applications for
+fast terrain rendering and fast isosurface extraction because it allows fast access
+to levels-of-detail which is very important for view-dependent or error-based refinement.
+
+
+For our applications we are interested in moving freely through 3D space and backwards and forwards in time.
+However, as previous work has shown, 
+it is not always advantageous to treat time as a fourth dimension equivalent to the three spatial dimensions.
+To achieve spatially and temporally coherent data access for adaptive time-varying visualization,
+we first decompose the data spatially using the z-order layout and linearly in the temporal domain.
+This is achieved by grouping sets of data points into pages 
+and interleaving the data in time within each page.
+
+<p/><center><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0'><tr align='center'><td align='center'><a href=' TimeVaryingIsosurfaces/MemoryAccess2D.png '><img src=' TimeVaryingIsosurfaces/MemoryAccess2D.png ' align='center' width='429' height='147'/></a></td><td align='center'><a href=' TimeVaryingIsosurfaces/MetaRecord.png '><img src=' TimeVaryingIsosurfaces/MetaRecord.png ' align='center' width='255' height='205'/></a></td></tr><tr><td colspan='100' align='center'>Left: the zorder layout in 2D, Right: time-interleaved data pages</td></tr></table></center><p/>
+</td></tr></table>
+
+
+
+<table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0' xmlns=''><a name='$sct'/><tr align='center'><td align='center'><h3>Compression</h3></td></tr><tr><td><!--Apply templates to the section-->
+
+For each spatial location in the volume we have a data value and an encoded gradient. 
+We model the data as a linear function over time and generate a set of difference values using this predictor.
+The difference values are compressed using a lead-1 encoder.
+Lead-1 encoding/decoding is used because it gives good compression and has very fast decompression.
+
+</td></tr></table>
+
+<table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0' xmlns=''><a name='$sct'/><tr align='center'><td align='center'><h3>Images and Results</h3></td></tr><tr><td><!--Apply templates to the section-->
+The pictures below are taken from a 256x256x256x274 block
+of the Richtmyer-Meshkov instability dataset from Lawrence Livermore National Laboratory.
+From left to right, top to bottom, are still images of timesteps 160, 180, 199, 223, 248, and 273.
+<p/><center><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0'><tr align='center'><td align='center'><a href='TimeVaryingIsosurfaces/ppm256TS160C.png '><img src='TimeVaryingIsosurfaces/ppm256TS160C.png ' align='center' width='268' height='234'/></a></td><td align='center'><a href='TimeVaryingIsosurfaces/ppm256TS180C.png '><img src='TimeVaryingIsosurfaces/ppm256TS180C.png ' align='center' width='268' height='234'/></a></td><td align='center'><a href='TimeVaryingIsosurfaces/ppm256TS199C.png '><img src='TimeVaryingIsosurfaces/ppm256TS199C.png ' align='center' width='268' height='234'/></a></td></tr><tr><td colspan='100' align='center'>
+More images from a 256x256x256x274 block
+of the Richtmyer-Meshkov instability dataset from Lawrence Livermore National Laboratory.
+From left to right, top to bottom, are still images of timesteps 160, 180, 199.
+</td></tr></table></center><p/>
+</td></tr></table>
+
+<table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0' xmlns=''><a name='$sct'/><tr align='center'><td align='center'><h3>Movies</h3></td></tr><tr><td><!--Apply templates to the section-->
+<a href='TimeVaryingIsosurfaces/RMLong.mpeg'>Time-varying isosurface extraction from the Richtmyer-Meshkov dataset(mpeg)</a>
+<br/>
+<a href='TimeVaryingIsosurfaces/PPMMovieSummary.pdf'>Movie description and performance graphs</a>
+<br/>
+
+Full page performance graphs for:
+
+<a href='TimeVaryingIsosurfaces/PPMMoviePageFaults.pdf'>Page Faults,</a>
+<a href='TimeVaryingIsosurfaces/PPMMovieReextractTime.pdf'>Reextraction Time,</a> 
+<a href='TimeVaryingIsosurfaces/PPMMovieTriangles.pdf'>Triangle Count</a>.
+</td></tr></table>
+
+

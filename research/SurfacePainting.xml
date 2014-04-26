@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="ResearchProject.xsl"?>
+
+<researchproject>
+<title>Painting Meshes in Virtual Reality Environments</title>
+<authors>Benjamin F. Gregorski, Falko Kuester, Bernd Hamann and Kenneth I. Joy </authors>
+
+<teaser>
+<figure>
+<image><file width="300" height="300">SurfacePainting/workbench.png</file></image>
+<image><file width="300" height="300">SurfacePainting/VRBunny1.png</file></image>
+<caption>
+Left: Virtual Environment setup showing workbench, data gloves, and stylus
+Right: Painted bunny. Brush shape = spherical, Blend function = replace 
+</caption>
+</figure>
+</teaser>
+
+<abstract>
+
+Virtual environments allow us to model and design objects in a true 3D setting.
+We present an algorithm for interactive painting on subdivision surfaces 
+within a semi-immersive virtual environment. 
+A surface is first parameterized to create a set of texture maps that cover it. 
+Polygons are then assigned texture coordinates and mapped into one of the textures.
+A set of line segments is used to represent a brush stroke across the surface.
+As the surface is painted, the texure map is updated to reflect its new color. 
+Multiple texture maps covering the surface allow
+more detail to be painted in certain areas by using textures of different sizes.
+Within the virtual environment, the user is able to paint on the surface
+using a stylus tool that acts like a paint brush.
+
+</abstract>
+
+<section title="Introduction">
+
+Virtual environments (VEs) have been in use for many years in applications
+such as automotive and industrial design as well as advanced training and simulation.
+In these applications, VEs help to improve the efficiency of product design processes
+and aid in the learning process of new skills.
+Modeling applications, such as surface, editing that take advantage of VEs 
+can greatly improve the speed and efficiency of the
+modeling process by adding an ``extra dimension'' 
+making it easier to discern spatial relationships 
+between objects and to interact with them.
+
+In this paper, a method for painting on subdivision 
+surfaces within virtual environments is presented.
+Our algorithm first determines a set of texture maps that cover the surface.
+Each polygon in the subdivision surface has texture coordinates
+that are associated with a texture map. 
+Texture maps are referred to as {\em base textures}.
+When a point on the surface is painted, the texture coordinates of the
+point are determined, and the base texture corresponding to the polygon is modified
+to reflect the color change. 
+As a user paints on a surface, the textures are updated
+and the painted model is rendered in real time.
+The system is integrated into a virtual environment using an immersive workbench
+and spatially tracked data gloves for interaction.
+</section>
+
+<section title="Base Textures">
+
+Base textures as discussed earlier 
+are a set of texture maps that cover a surface.
+The number and size of these texture maps determine how much detail 
+can be painted onto a particular area of the surface. 
+In order to determine how these base textures cover the
+surface, a surface parameterization needs to be defined. 
+This parameterization maps a point on the surface to a texture 
+coordinate in a specific base texture.  For subdivision surfaces, 
+the base mesh can be used as an initial parameterization.
+One base texture is associated with each face of the base mesh, and 
+texture coordinates are associated on a per-face basis. 
+As the mesh is subdivided, new texture coordinates are determined 
+for the new faces, or children, by linearly subdividing the texture 
+coordinates of the original faces or parents. 
+
+<figure>
+<image><file width="cw200342" height="200">SurfacePainting/QuadTexSubd.png</file></image>
+<caption>
+
+Subdivision of texture coordinates for quadrilateral.
+The left polygon shows the initial texture coordinates for the parent face,
+and the right polygon shows the texture coordinates of the child faces.
+
+</caption>
+</figure>
+
+<figure>
+<image><file width="502" height="143">SurfacePainting/TriTexSubd.png</file></image>
+<caption>
+
+Subdivision of texture coordinates is shown for triangles.
+The left polygon shows the initial texture coordinates for the parent face,
+and the right polygon shows the texture coordinates of the child faces.
+
+</caption>
+</figure>
+
+
+It is important to note that the texture coordinates are assigned on a
+per-face and not a per-vertex basis even though this is not expressed in the
+figures.  Texture coordinates in both parametric directions (u and v)
+vary between 0 and 1.
+
+<figure>
+<image><file width="250" height="250">SurfacePainting/basemesh.png</file></image>
+<image><file width="250" height="250">SurfacePainting/subdmesh.png</file></image>
+<caption>
+Left: Initial base mesh with colored faces.
+Right: The base mesh after 3 Catmull-Clark subdivisions.
+</caption>
+</figure>
+
+All new faces that result from the subdivision process use the same base 
+texture as their ``parent'' face.  
+The base mesh of the surface 
+has been colored such that no adjacent faces have the same color.  
+Each face in the base mesh is assigned to a unique base texture map, 
+and is assigned texture coordinates according to the scheme shown above. 
+The texture maps contain a single color that corresponds to the color for the face,  
+and the faces in turn are colored using these texture maps.
+
+As the mesh is subdivided, children inherit the base texture 
+of their parent.  The initial resolution of the base textures is 
+256x256 texels.  The size of a base texture can be increased or 
+decreased during the editing process by subsampling or supersampling 
+the initial base texture. In either case, the texture coordinates
+of the faces associated with the base texture do not need to be changed.
+</section>
+
+<section title="Virtual Reality Modelling">
+We have integrated our system into a Virtual Reality 
+environment using an immersive workbench from Fakespace Corporation. 
+The semi-immersive environment allows stereo viewing using headtracked shutter glasses.
+This has many advantages over traditional editing environments where the user must interact
+with objects projected onto a 2D screen.
+In our system, a user can interact with the environment 
+using spatially tracked data gloves and a stylus. 
+The interface was implemented using the VirtualExplorer 
+framework developed by researchers at UC Davis and Irvine. 
+The VirtualExplorer framework is an object-oriented, customizable, plugin-based
+framework for VR applications. 
+The basis of VirtualExplorer is a run-time plugin system
+that allows users to dynamically load, unload, enable, or disable 
+different modules of functionality.
+Our algorithms are implemented as a plugin for the VirtualExplorer framework.
+
+The painting process is performed as the user moves the brush through 3D space.
+The brush is drawn at the position of the current stroke texel
+being painted to indicate where the brush is during painting.
+
+Painting gestures are broken down into gestures that move the brush along the surface
+and gestures that move the brush towards or away from the surface. 
+Gestures that move the brush along the surface are used to determine the stroke 
+segments that compose the current brush stroke. The movement vector
+associated with this gesture is called the surface vector. 
+Gestures that move the brush towards or away from
+the surface determine how much of the brush is in contact with the surface, 
+and thus the section of the surface that is painted. The movement vector
+associated with this gesture is called the brush vector. 
+
+The decomposition of a movement in 3D space into the surface vector and brush vector.
+A movement vector is initiated at some point on the surface. This movement vector
+is divided into components tangent and perpendicular to the surface.
+
+<figure>
+<image><file width="500" height="250">SurfacePainting/SurfaceBrushDecomposition.png</file></image>
+<caption>
+The decomposition of a movement in 3D space into the surface vector and brush vector.
+</caption>
+</figure>
+
+</section>
+
+
+<section title="Results">
+<figure>
+<image><file width="250" height="250">SurfacePainting/VRBunny1.png</file></image>
+<image><file width="250" height="250">SurfacePainting/face1.png</file></image>
+<caption>
+Left: Painted bunny. Brush shape = spherical, Blend function = replace  
+Right: Painted bike seat. Brush shape = spherical, Blend function = replace 
+</caption>
+</figure>
+
+</section>
+
+<paper file="SurfacePainting/surface_painting.pdf"/>
+
+</researchproject>
+

@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+
+
+<table cellpadding='0' width='700' border='0' cellspacing='0' xmlns=''><tr><td><center><h2>Out-of-core Interactive Display of Large Meshes Using an Oriented Bounding Box-based Hardware Depth Query</h2></center></td></tr></table>
+<table xmlns=''><tr><td><center>Haeyoung Ha, Benjamin F. Gregorski, Kenneth I. Joy</center></td></tr></table>
+
+<table cellpadding='0' width='700' border='0' cellspacing='0' xmlns=''><tr><td><p/><center><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0'><tr align='center'><td align='center'><a href='OrientedOcclusionTrees/Pictures/lucyclose_cropped.png'><img src='OrientedOcclusionTrees/Pictures/lucyclose_cropped.png' align='center' width='319' height='210'/></a></td><td align='center'><a href='OrientedOcclusionTrees/Pictures/lucyclose_lit_cropped.png'><img src='OrientedOcclusionTrees/Pictures/lucyclose_lit_cropped.png' align='center' width='319' height='210'/></a></td><td align='center'><a href='OrientedOcclusionTrees/Pictures/lucyclose_back3_cropped.png'><img src='OrientedOcclusionTrees/Pictures/lucyclose_back3_cropped.png' align='center' width='319' height='210'/></a></td></tr><tr><td colspan='100' align='center'>
+From left to right: Closeup view of the Stanford lucy model showing the front-to-back (light to dark) ordering of the subdivision tree,
+lit and shaded image, and side view showing occluded portions of the model.
+</td></tr></table></center><p/></td></tr></table>
+
+<h3 xmlns=''>Abstract</h3><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0' xmlns=''><tr><td>
+In this project we have developed an occlusion culling method that uses hardware-based depth queries on oriented bounding 
+boxes to cull unseen geometric primitives efficiently.   
+Our methods uses an out-of-core design approach to interactively display models that are too large to fit into main memory.  
+There are two main steps to the method:  1) a preprocessing phase and 2) a runtime phase.  
+During the preprocessing phase, a spatial subdivision of a given data set is constructed where, 
+for each node, an oriented bounding box containing mesh primitives is computed using principal component analysis (PCA).  
+At runtime, the subdivision tree is traversed in front-to-back order, 
+and only nodes that are determined to be visible---based on the hardware depth query---are rendered.
+</td></tr></table>
+
+<table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0' xmlns=''><a name='$sct'/><tr align='center'><td align='center'><h3>Preprocessing</h3></td></tr><tr><td><!--Apply templates to the section-->
+
+The preprocessing phase begins by computing a spatial subdivision 
+(Octree or BSP Tree in our implementation) of the mesh to be visualized.  
+The mesh consists of vertices and triangles defining the connectivity of the vertices.  
+However, this method could easily be extended to handle other types of meshes (or volumes) 
+for different types of visualization, such as ray tracing and volume rendering.  
+The mesh is recursively partitioned into smaller volumes and an oriented bounding box 
+that closely fits the geometry contained within each volume is computed using PCA.  
+The subdivision tree and the geometry contained inside each node are stored for use during runtime.  
+
+
+</td></tr></table>
+
+<table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0' xmlns=''><a name='$sct'/><tr align='center'><td align='center'><h3>Runtime</h3></td></tr><tr><td><!--Apply templates to the section-->
+
+At runtime the subdivision tree is traversed in front-to-back order based upon the current view point.
+If the node is not visible, traversal is terminated and none of the leaf nodes are rendered, thus saving the time required to render these elements.  
+Beginning at the root node, it is determined in which octant (or half-space) the view point lies.  
+The dot product between the half-space plane normal and the vector from the viewpoint to the split point of the box 
+is used to determine the side of a plane the view point lies.  
+For a BSP tree, the plane used is the split plane and front-to-back traversal is simply a variant of an in-order binary tree traversal.  
+The child representing the side (front or back) of the split plane that contains the view point is visited first.   
+For an octree, three planes are tested to determine the traversal order of the children. 
+The local frame for the oriented bounding box implies the three planes that are used.  
+A recursive algorithm using bit-toggling (assuming a specific order of children) is used to specify the traversal sequence.
+
+</td></tr></table>
+
+<table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0' xmlns=''><a name='$sct'/><tr align='center'><td align='center'><h3>Hardware Depth Queries</h3></td></tr><tr><td><!--Apply templates to the section-->
+
+The hardware occlusion query scan converts a set of graphics primitives (but does not render them to the screen) 
+and determines whether or not any pixels in the frame buffer would be affected if the primitives were actually rendered to the screen. 
+Our algorithm uses NVIDIA's occlusion query extension and renders the oriented bounding box of a tree node
+to determine if the node is visible.
+The occlusion query process has three steps:
+
+<ol><li>Disable updates to color and depth buffers</li><li> Specify the query geometry</li><li> Obtain and process query results</li></ol>
+
+The result of an occlusion query is not available until the query geometry has finished rasterization, 
+which creates a potential for pipeline stalls.  
+Keeping the pipeline as full as possible by submitting multiple queries at a time helps alleviate stalls.  
+It should be noted that it is possible to lose some amount of culling by submitting multiple queries at once 
+if some of the queries are dependent on each other.  
+Submitting queries for geometry that overlaps other geometry within a set of queries can potentially lead to 
+a false invisibility test.  
+(False invisibility tests can cause more than the necessary number of triangles to be rendered, 
+but this does not generate cracks or holes in the rendered image.)  
+
+</td></tr></table>
+
+<table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0' xmlns=''><a name='$sct'/><tr align='center'><td align='center'><h3>Results</h3></td></tr><tr><td><!--Apply templates to the section-->
+<p/><center><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0'><tr align='center'><td align='center'><a href='OrientedOcclusionTrees/Pictures/dragon_cropped.png'><img src='OrientedOcclusionTrees/Pictures/dragon_cropped.png' align='center' width='262' height='209'/></a></td><td align='center'><a href='OrientedOcclusionTrees/Pictures/dragon_lit_cropped.png'><img src='OrientedOcclusionTrees/Pictures/dragon_lit_cropped.png' align='center' width='262' height='209'/></a></td><td align='center'><a href='OrientedOcclusionTrees/Pictures/dragon_back_cropped.png'><img src='OrientedOcclusionTrees/Pictures/dragon_back_cropped.png' align='center' width='262' height='209'/></a></td></tr><tr><td colspan='100' align='center'>
+From left to right: 
+Stanford dragon model showing the front-to-back (light to dark) ordering of the subdivision tree,
+lit and shaded image, and a top view showing occluded portions of the model.
+</td></tr></table></center><p/>
+
+<p/><center><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0'><tr align='center'><td align='center'><a href='OrientedOcclusionTrees/Pictures/buddha_cropped.png'><img src='OrientedOcclusionTrees/Pictures/buddha_cropped.png' align='center' width='144' height='325'/></a></td><td align='center'><a href='OrientedOcclusionTrees/Pictures/buddha_lit_cropped.png'><img src='OrientedOcclusionTrees/Pictures/buddha_lit_cropped.png' align='center' width='144' height='325'/></a></td><td align='center'><a href='OrientedOcclusionTrees/Pictures/buddha_back_cropped.png'><img src='OrientedOcclusionTrees/Pictures/buddha_back_cropped.png' align='center' width='144' height='325'/></a></td></tr><tr><td colspan='100' align='center'>
+From left to right: 
+Stanford buddha model showing the front-to-back (light to dark) ordering of the subdivision tree,
+lit and shaded image, and side view showing occluded portions of the model.
+</td></tr></table></center><p/>
+
+
+Performance results for the occlusion culling, fast rendering from AGP memory,
+and a comparison of Octree and <em>Binary Space Partition</em> (BSP) Trees can be found in the paper.
+
+</td></tr></table>
+
+
+

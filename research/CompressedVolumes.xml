@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="ResearchProject.xsl"?>
+
+<researchproject>
+<title>Compression and Occlusion for Fast Isosurface Extraction from Massive Datasets</title>
+<authors>Benjamin F. Gregorski, Joshua Senecal, Mark Duchaineau, and Kenneth I. Joy </authors>
+
+<teaser>
+<figure>
+<image><file width="247" height="233">CompressedVolumes/engineCloseup.png</file></image>
+<image><file width="247" height="233">CompressedVolumes/engineOccludedParts.png</file></image>
+<image><file width="247" height="233">CompressedVolumes/engineTetMesh.png</file></image>
+<caption>
+Left: high resolution rendering of the engine dataset, Isovalue = 100, Error = 0.6.
+The mesh contains 1.23 million triangles.
+Middle: Backside view showing the parts of the dataset removed
+by occlusion culling; the mesh contains 680K triangles.
+Right: The tetrahedral mesh showing that the occluded areas (lower right)
+are at a lower resolution.
+</caption>
+</figure>
+</teaser>
+
+<abstract>
+We present two algorithms
+for data compression and occlusion culling for interactive,
+adaptive isosurface extraction from large volume datasets.
+Our algorithm, based on tetrahedral meshes defined by longest edge bisection, 
+allows arbitrary isosurfaces to be adaptively extracted from 
+losslessly compressed volumes where only the region of interest needs to be decompressed.
+For interactive applications, we exploit frame-to-frame coherence
+between consecutive views to simplify the mesh structure in occluded regions
+and eliminate occluded triangles.
+We extend the use of hardware accelerated occlusion queries 
+to adaptive isosurface extraction applications where the surface geometry 
+and topology change with the level-of-detail and view-point,
+and the user can select an arbitrary isovalue for visualization.
+</abstract>
+
+<section title="Multiresolution Mesh">
+A detailed description of our mesh refinement algorithm and
+z-order space filling curve data layout algorithm
+can be found in our previous work on
+<bf><link target="http://graphics.cipic.ucdavis.edu/~gregorsk/research/FastIsoSurfaces.xml" text="view-dependent isosurfaces."/></bf>
+</section>
+
+<section title="Data Compression">
+For massive dataset visualization, 
+data compression is essential to overcoming the performance gap between processors and disk.
+Data compression reduces the frequency and size of disk loads
+while increasing the overall amount of information that can be transfered in a single load.
+Decompression must be fast and localized to the region of interest to be effective for visualization.
+We compress the original data and qyuantized, smoothed gradient vectors. 
+The gradients are quantized component-wise with three bytes.
+Our compression algorithm uses simple averaging of surrounding values to reduce the entropy
+of this data. Two averaging schemes based on the mesh refinement are illustrated below.
+
+<figure>
+<image><file width="342" height="158">CompressedVolumes/DifferenceFromLinear.png</file></image>
+<caption>
+Linear prediction along the split edge is used to predict the values at the split vertex.
+</caption>
+</figure>
+
+<figure>
+<image><file width="502" height="143">CompressedVolumes/Root2Prediction.png</file></image>
+<caption>
+Averaging of surrounding vertices in the dimension of the split edge, shown in red, 
+is used to predict the split vertex's values.
+</caption>
+</figure>
+
+We utilize <em>lead--1</em> encoding and <em>Huffman</em> codes for compression.
+This compression scheme was chosen because it provides decent compression and is much
+faster than arithmetic and arithmetic-type encoders which provide the best compression
+but are slower.
+</section>
+
+<section title="Occlusion Culling">
+Isosurfaces from massive volumes is contain millions of triangles 
+and almost always have a depth complexity greater than one.
+A large number of occluded triangles, triangles within the view frustum
+that do not affect the final image, are extracted and rendered.
+Extracting and rendering a large number of occluded triangles wastes
+a lot of system resources.
+We utilize 
+<bf>
+<link target="http://www.nvidia.com/dev_content/nvopenglspecs/GL_NV_occlusion_query.txt" text="hardware occlusion queries"/> 
+</bf>
+to detect these occluded regions of the surface and simplify the mesh structure.
+<p/>
+We perform our occlusion culling on the diamonds which drive the mesh refinement and coarsening process.
+The advantage of using diamonds instead of tetrahedra for occlusion culling
+is that diamonds, being the unit of refinement in our hierarchy,
+allow us to quickly eliminate whole regions of refinement with a single occlusion test.
+Unlike a tetrahedron, a diamond's children are not contained within its convex hull.
+This means that the occlusion queries cannot be performed top-down.
+<p/>
+To exploit the frame-to-frame coherence present in view-dependent refinement,
+the occlusion queries in frame <bf>i</bf> 
+are performed against the isosurface from frame <bf>i-1</bf> rendered at frame <bf>i</bf>'s view point.
+This can result in visible regions of frame <bf>i</bf> not being rendered until frame <bf>i+1</bf>,
+but it is a good initial guess for frame <bf>i</bf>'s occluders. 
+</section>
+
+
+<section title="Results">
+We have tested our algorithms on several large datasets.
+Basic results for occlusion and compression are shown below. 
+More detailed results can be found in the paper. 
+
+<!--
+<figure>
+<image><file width="249" height="233">CompressedVolumes/bucky512_IV127_E0993Original.png</file></image>
+<image><file width="249" height="233">CompressedVolumes/bucky512_IV127_E0993_Back.png</file></image>
+<image><file width="249" height="233">CompressedVolumes/bucky512_IV127_E0933_Mesh.png</file></image>
+<caption>
+Left: High resolution rendering of the <em>512^3</em> synthetic buckball dataset made with Gaussians, 
+Isovalue = 127, Error = 0.99.
+The mesh contains 1.08 million triangles, 206K Tetrahedra, and 85K Diamonds. 
+Middle: Backside view showing the parts of the dataset removed
+by occlusion culling; the mesh contains 643K triangles, 134K Tetrahedra, and 62K Diamonds.
+The original viewpoint is close to the upper left corner of the image.
+Right: The tetrahedral mesh showing coarsening in the occluded areas. 
+</caption>
+</figure>
+-->
+
+<figure>
+<image><file width="249" height="224">CompressedVolumes/buckyBack00.png</file></image>
+<image><file width="249" height="224">CompressedVolumes/buckyOriginal.png</file></image>
+<image><file width="249" height="224">CompressedVolumes/buckyBack01.png</file></image>
+<caption>
+High resolution rendering of a <em>1024^3</em> buckball dataset made by a 2x2x2 tiling
+of a 512^3 volume.
+Left and Right: Backside views showing that the occluded areas have been removed.
+Middle: The surface from the original viewpoint, Isovalue = 104, Error = 0.71.
+The isosurface without occlusion culling contains 2.24 million triangles
+and with occlusion culling it contains 1.23 million triangles.
+In each frame, we perform 10-14 thousand occlusion queries.
+Our data compression reduces the size of the volume(data and gradients) from 4096 MB to 1334 MB
+for a compression ratio of about 3:1.
+</caption>
+</figure>
+
+<figure>
+<image><file width="249" height="223" >CompressedVolumes/PPMTS273_IV228.png</file></image>
+<image><file width="249" height="223" >CompressedVolumes/PPMTS273_IV228Back.png</file></image>
+<image><file width="249" height="223" >CompressedVolumes/PPMTS273_IV200.png</file></image>
+<caption>
+Left: High resolution isosurface from the a <em>512^3</em> chunk of the PPM dataset. Isovalue = 228, Error = 0.78.
+Occlusion culling reduces the number of triangles from 2.5 million to 1.02 million.
+Middle: A backside view of the left image showing the occluded regions.
+Right: Another isosurface from the PPM dataset. Isovalue = 200, Error = 0.638.
+Occlusion culling reduces the number of triangles from 2.9 million to 2.0 million.
+Data compression reduces the size of the volume(data and gradients) from 512 MB to 284 MB or about 1.8:1 compression.
+</caption>
+</figure>
+
+</section>
+
+<section title="Movies">
+Engine dataset showing isosurface extraction from compressed volume with occlusion culling.
+<link target="CompressedVolumes/Engine256.mpeg" text="Low res(mpeg)"/>
+<link target="CompressedVolumes/Engine256HighRes.mpeg" text="High res(mpeg)"/>
+<br/>
+</section>
+
+
+<paper file="CompressedVolumes/CompressedVolumes.pdf"/>
+
+</researchproject>
+

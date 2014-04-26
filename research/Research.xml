@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="WebPage.xsl"?>
+
+<wp:webpage xmlns:wp="http://graphics.cs.ucdavis.edu/~gregorsk/research/WebPage">
+<wp:pagename>Ben Gregorski's Research Projects</wp:pagename>
+<wp:title>Ben Gregorski's Research Projects<p/></wp:title>
+
+<project width="800">
+<title>Compression and Occlusion for Fast Isosurface Extraction from Massive Datasets</title>
+<authors>Benjamin F. Gregorski, Joshua Senecal, Mark Duchaineau, and Kenneth I. Joy </authors>
+
+<image width="247" height="233">
+<file> CompressedVolumes/engineOccludedParts.png</file></image>
+<abstract>
+We present two algorithms
+for data compression and occlusion culling for interactive,
+adaptive isosurface extraction from large volume datasets.
+Our algorithm, based on tetrahedral meshes defined by longest edge bisection, 
+allows arbitrary isosurfaces to be adaptively extracted from 
+losslessly compressed volumes where only the region of interest needs to be decompressed.
+For interactive applications, we exploit frame-to-frame coherence
+between consecutive views to simplify the mesh structure in occluded regions
+and eliminate occluded triangles.
+We extend the use of hardware accelerated occlusion queries 
+to adaptive isosurface extraction applications where the surface geometry 
+and topology change with the level-of-detail and view-point,
+and the user can select an arbitrary isovalue for visualization.
+</abstract>
+<projectpage>
+<xml>http://graphics.cs.ucdavis.edu/~gregorsk/research/CompressedVolumes.xml</xml>
+<html>http://graphics.cs.ucdavis.edu/~gregorsk/research/CompressedVolumes.html</html></projectpage>
+</project>
+
+<p/>
+
+<project width="800">
+<title>
+<b>Out-of-core Interactive Display of Large Meshes Using an Oriented Bounding Box-based Hardware Depth Query</b>
+</title>
+<authors>Benjamin F. Gregorski, Haeyoung Ha, and Kenneth I. Joy </authors>
+<image width="266" height="175" >
+<file>OrientedOcclusionTrees/Pictures/lucyclose_back3_cropped.png</file></image>
+<abstract>
+In this project we developed an new occlusion culling method that uses 
+hardware-based depth queries on oriented bounding
+boxes to cull unseen geometric primitives efficiently.
+Our methods uses an out-of-core design approach to interactively 
+display models that are too large to fit into main memory.
+During the preprocessing phase, a spatial subdivision of a given data set is constructed where,
+for each node, an oriented bounding box containing mesh primitives is 
+computed using principal component analysis (PCA).
+At runtime, the subdivision tree is traversed in front-to-back order,
+and only nodes that are determined to be visible are rendered.
+</abstract>
+<projectpage>
+<xml>http://graphics.cs.ucdavis.edu/~gregorsk/research/OrientedOcclusionTrees.xml</xml>
+<html>http://graphics.cs.ucdavis.edu/~gregorsk/research/OrientedOcclusionTrees.html</html></projectpage>
+</project>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</wp:webpage>

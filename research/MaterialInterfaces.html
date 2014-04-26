@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+
+<table cellpadding='0' width='700' border='0' cellspacing='0' xmlns=''><tr><td><center><h2>Multiresoltion Representation of Datasets with Material Interfaces</h2></center></td></tr></table>
+<table xmlns=''><tr><td><center>
+David E. Sigeti, Benjamin F. Gregorski, 
+John Ambrosiano, Gerald Graham, <br/>Murray Wolinsky,  
+Mark A. Duchaineau, Bernd Hamann and Kenneth I. Joy
+</center></td></tr></table>
+
+
+<h3 xmlns=''>Abstract</h3><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0' xmlns=''><tr><td>
+Material interfaces embedded in the meshes of computational data sets are often a
+source of error for simplification algorithms because they represent 
+discontinuities in the scalar or vector field over a cell. 
+By representing material interfaces explicitly in a data
+simplification process, we are able to provide separate field 
+representations for each material over a single cell. 
+Our algorithm uses a multiresolution tetrahedral mesh supporting
+fast coarsening and refinement capabilities; error bounds for feature preservation; 
+explicit representation of discontinuities within cells; and separate field representations for
+each material within a cell. 
+The image on the right shows the reconstruction
+of the density fields for a numerical simulation where a hypersonic projectile
+is entering a block of material. There are three material interfaces and by representing them
+explicitly in the simplification process we can accurately reconstruct
+the density field at the boundaries.
+</td></tr></table>
+
+<table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0' xmlns=''><a name='$sct'/><tr align='center'><td align='center'><h3>Material Interfaces</h3></td></tr><tr><td><!--Apply templates to the section-->
+A material interface defines the boundary between two distinct materials. 
+Field representations across a material interface are often discontinuous. 
+Thus, an interface can introduce a large amount of error to cells that cross it. 
+Instead of refining an approximation substantially in the neighborhood of an interface, 
+the discontinuity in the field is better
+represented by explicitly representing the surface of discontinuity in each cell. 
+Once the discontinuity is represented, two separate functions are used to describe the dependent
+field variables on either side of the discontinuity. 
+<p/>
+The image below shows a triangle with 
+three materials, the interfaces between them, and our approximations of the interfaces.
+A material interface is represented as the zero set of a signed distance function. 
+Each vertex of a triangle (a tetrahedraon in 3D) is assigned a signed
+distance value for each of the material interfaces in the tetrahedron. 
+For cells(i.e. tetrahedra) with meterial interfaces, 
+linear interpolants for each material are constructed by extrapolating <em>Ghost Values</em>
+at vertices where materials do not exist.
+<p/><center><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0'><tr align='center'><td align='center'><a href='MaterialInterfaces/TriangleWithThreeInterfaces.gif'><img src='MaterialInterfaces/TriangleWithThreeInterfaces.gif' align='center' width='277' height='170'/></a></td><td align='center'><a href='MaterialInterfaces/GhostValueComputation.png'><img src='MaterialInterfaces/GhostValueComputation.png' align='center' width='217' height='170'/></a></td></tr><tr><td colspan='100' align='center'>
+Left:Computation of signed distance values for representing material interfaces
+in a cell with three materials.
+Right: Computation of ghost values across a material interface.
+</td></tr></table></center><p/>
+
+</td></tr></table>
+
+<table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0' xmlns=''><a name='$sct'/><tr align='center'><td align='center'><h3>Results</h3></td></tr><tr><td><!--Apply templates to the section-->
+We have tested our algorithm on a data set resulting from a simulation
+of a hypersonic impact between a projectile and a metal block.  The
+simulation was based on a logically rectilinear mesh of dimensions 32x32x52.
+For each cell, the average density and pressure values are available,
+as well as the per-material densities and volume fractions.  The
+physical dimensions in x, y, and z directions are [0,12] [0,12] and
+[-16,4.8].
+The image below shows the reconstruction
+of the density fields for the simulation w
+There are three material interfaces and by representing them
+explicitly in the simplification process we can accurately reconstruct
+the density field at the boundaries.
+<br/>
+<p/><center><table CELLPADDING='0' WIDTH='700' BORDER='0' CELLSPACING='0'><tr align='center'><td align='center'><a href='MaterialInterfaces/Interfaces.png'><img src='MaterialInterfaces/Interfaces.png' align='center' width='173' height='238'/></a></td><td align='center'><a href='MaterialInterfaces/LinearTetsMesh.png'><img src='MaterialInterfaces/LinearTetsMesh.png' align='center' width='173' height='238'/></a></td><td align='center'><a href='MaterialInterfaces/MaterialInterfaceTetsMesh.png'><img src='MaterialInterfaces/MaterialInterfaceTetsMesh.png' align='center' width='173' height='238'/></a></td><td align='center'><a href='MaterialInterfaces/MaterialInterfaceTets.png'><img src='MaterialInterfaces/MaterialInterfaceTets.png' align='center' width='173' height='238'/></a></td></tr><tr><td colspan='100' align='center'>
+From left to right:Original triangular meshes representing material interfaces;
+The density field using linear interpolation; 
+Density field using explicit interface representations and separate field representations.
+</td></tr></table></center><p/>
+</td></tr></table>
+
+PDF versions of the Powerpoint
+<a href='MaterialInterfaces/presentation.pdf' xmlns=''>slides</a> and
+<a href='MaterialInterfaces/MaterialInterfaces.pdf' xmlns=''>paper</a>.
+
