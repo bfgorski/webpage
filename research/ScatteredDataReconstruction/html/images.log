@@ -1,0 +1,251 @@
+This is TeX, Version 3.14159 (Web2C 7.3.1) (format=latex 2001.3.27)  13 JUN 2001 12:15
+**./images.tex
+(./images.tex
+LaTeX2e <1999/12/01> patch level 1
+Babel <v3.6Z> and hyphenation patterns for american, french, german, ngerman, i
+talian, portuges, russian, spanish, nohyphenation, loaded.
+
+(/usr/share/texmf/tex/latex/base/article.cls
+Document Class: article 1999/09/10 v1.4a Standard LaTeX document class
+(/usr/share/texmf/tex/latex/base/size10.clo
+File: size10.clo 1999/09/10 v1.4a Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+) (/usr/share/texmf/tex/latex/base/ifthen.sty
+Package: ifthen 1999/09/10 v1.1b Standard LaTeX ifthen package (DPC)
+) (/usr/share/texmf/tex/latex/graphics/graphics.sty
+Package: graphics 1999/02/16 v1.0l Standard LaTeX Graphics (DPC,SPQR)
+(/usr/share/texmf/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+) (/usr/share/texmf/tex/latex/config/graphics.cfg)
+Package graphics Info: Driver file: dvips.def on input line 80.
+(/usr/share/texmf/tex/latex/graphics/dvips.def
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+)) (/usr/share/texmf/tex/latex/tools/theorem.sty
+Package: theorem 1995/11/23 v2.2c Theorem extension package (FMi)
+\theorem@style=\toks14
+\theorem@bodyfont=\toks15
+\theorempreskipamount=\skip43
+\theorempostskipamount=\skip44
+(/usr/share/texmf/tex/latex/tools/thp.sty
+File: thp.sty 1995/11/23 v2.2c Theorem extension package (FMi)
+)) (/sgi-ws/gregorsk/Documents/papers/CGI2000/latex8.sty
+IEEE 8.5 x 11-Inch Proceedings Style `latex8.sty'.
+\@ctmp=\skip45
+\@figindent=\skip46
+) (/usr/share/texmf/tex/latex/psnfss/times.sty
+Package: times 1999/03/29 PSNFSS v.7.2 Times font as default roman : S Rahtz
+) (/usr/share/texmf/tex/latex/graphics/color.sty
+Package: color 1999/02/16 v1.0i Standard LaTeX Color (DPC)
+(/usr/share/texmf/tex/latex/config/color.cfg)
+Package color Info: Driver file: dvips.def on input line 125.
+(/usr/share/texmf/tex/latex/graphics/dvipsnam.def
+File: dvipsnam.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+)) (/usr/share/texmf/tex/latex/base/inputenc.sty
+Package: inputenc 1999/09/17 v0.992 Input encoding file 
+)
+\sizebox=\box26
+\lthtmlwrite=\write3
+(images.aux)
+\openout1 = `images.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 114.
+LaTeX Font Info:    ... okay on input line 114.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 114.
+LaTeX Font Info:    ... okay on input line 114.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 114.
+LaTeX Font Info:    ... okay on input line 114.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 114.
+LaTeX Font Info:    ... okay on input line 114.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 114.
+LaTeX Font Info:    ... okay on input line 114.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 114.
+LaTeX Font Info:    ... okay on input line 114.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 114.
+
+(/usr/share/texmf/tex/latex/psnfss/ot1ptm.fd
+File: ot1ptm.fd 1998/07/06 Fontinst v1.800 font definitions for OT1/ptm.
+)
+
+latex2htmlLength hsize=163.20781pt
+
+latex2htmlLength vsize=671.39624pt
+
+latex2htmlLength hoffset=0.0pt
+
+latex2htmlLength voffset=0.0pt
+
+latex2htmlLength topmargin=0.0pt
+
+latex2htmlLength topskip=0.00003pt
+
+latex2htmlLength headheight=0.0pt
+
+latex2htmlLength headsep=0.0pt
+
+latex2htmlLength parskip=0.0pt plus 1.0pt
+
+latex2htmlLength oddsidemargin=-21.97014pt
+
+latex2htmlLength evensidemargin=-21.97014pt
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 138.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 138.
+l2hSize :tex2html_wrap_inline201:8.14003pt::0.0pt::4.98616pt.
+[1
+
+
+
+]
+l2hSize :tex2html_wrap_inline203:7.24997pt::7.24997pt::3.82932pt.
+[2
+
+
+]
+l2hSize :tex2html_wrap_inline215:9.22066pt::9.22066pt::8.38617pt.
+[3
+
+
+]
+File: patcharange.eps Graphic file (type eps)
+<patcharange.eps>
+l2hSize :tex2html_wrap285:169.63376pt::0.0pt::349.0pt.
+[4
+
+
+]
+File: skidoo_root.eps Graphic file (type eps)
+<skidoo_root.eps>
+l2hSize :tex2html_wrap313:182.68251pt::0.0pt::349.0pt.
+[5
+
+
+]
+File: skidoo_onesub.eps Graphic file (type eps)
+<skidoo_onesub.eps>
+l2hSize :tex2html_wrap319:182.68251pt::0.0pt::349.0pt.
+[6
+
+
+]
+File: skidoo_boxpoints.eps Graphic file (type eps)
+<skidoo_boxpoints.eps>
+l2hSize :tex2html_wrap325:189.70876pt::0.0pt::349.0pt.
+[7
+
+
+]
+File: skidoo_foursub.eps Graphic file (type eps)
+<skidoo_foursub.eps>
+l2hSize :tex2html_wrap331:182.68251pt::0.0pt::349.0pt.
+[8
+
+
+]
+l2hSize :tex2html_wrap_inline217:8.14003pt::0.0pt::4.98616pt.
+[9
+
+
+]
+l2hSize :tex2html_wrap_inline219:8.14003pt::0.0pt::4.98616pt.
+[10
+
+
+]
+l2hSize :displaymath104:14.86108pt::0.0pt::349.0pt.
+[11
+
+
+]
+File: skidoo_initsurfaces.eps Graphic file (type eps)
+<skidoo_initsurfaces.eps>
+l2hSize :tex2html_wrap353:182.68251pt::0.0pt::349.0pt.
+[12
+
+
+]
+File: skidoo_finalsurfaces.eps Graphic file (type eps)
+<skidoo_finalsurfaces.eps>
+l2hSize :tex2html_wrap359:182.68251pt::0.0pt::349.0pt.
+[13
+
+
+]
+File: skidoo_finalwireframe.eps Graphic file (type eps)
+<skidoo_finalwireframe.eps>
+l2hSize :tex2html_wrap365:182.68251pt::0.0pt::349.0pt.
+[14
+
+
+]
+File: crater_datapoints.eps Graphic file (type eps)
+<crater_datapoints.eps>
+l2hSize :tex2html_wrap375:145.54375pt::0.0pt::349.0pt.
+[15
+
+
+]
+File: crater_striptree.eps Graphic file (type eps)
+<crater_striptree.eps>
+l2hSize :tex2html_wrap381:145.54375pt::0.0pt::349.0pt.
+[16
+
+
+]
+File: crater_final.eps Graphic file (type eps)
+<crater_final.eps>
+l2hSize :tex2html_wrap387:145.54375pt::0.0pt::349.0pt.
+[17
+
+
+]
+File: crater_wireframe.eps Graphic file (type eps)
+<crater_wireframe.eps>
+l2hSize :tex2html_wrap393:145.54375pt::0.0pt::349.0pt.
+[18
+
+
+]
+File: crater_strip64.eps Graphic file (type eps)
+<crater_strip64.eps>
+l2hSize :tex2html_wrap399:156.585pt::0.0pt::349.0pt.
+[19
+
+
+]
+File: crater_final32.eps Graphic file (type eps)
+<crater_final32.eps>
+l2hSize :tex2html_wrap405:155.58125pt::0.0pt::349.0pt.
+[20
+
+
+]
+File: crater_wire64nodata.eps Graphic file (type eps)
+<crater_wire64nodata.eps>
+l2hSize :tex2html_wrap411:156.585pt::0.0pt::349.0pt.
+[21
+
+
+] (images.aux) ) 
+Here is how much of TeX's memory you used:
+ 830 strings out of 20863
+ 10628 string characters out of 196073
+ 52086 words of memory out of 350001
+ 3791 multiletter control sequences out of 10000+15000
+ 5345 words of font info for 17 fonts, out of 400000 for 1000
+ 26 hyphenation exceptions out of 10000
+ 23i,5n,19p,184b,217s stack positions out of 3000i,100n,1500p,50000b,4000s
+
+Output written on images.dvi (21 pages, 5112 bytes).

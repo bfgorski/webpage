@@ -1,0 +1,70 @@
+\begin{thebibliography}{10}\setlength{\itemsep}{-1ex}\small
+
+\bibitem{Barequet:1996:BHR}
+G.~Barequet, B.~Chazelle, L.~J. Guibas, J.~S.~B. Mitchell, and A.~Tal.
+\newblock {BOXTREE}: {A} hierarchical representation for surfaces in {3D}.
+\newblock {\em Com{\-}pu{\-}ter Graphics Forum}, 15(3):387--396, 1996.
+
+\bibitem{Eck:1996:BSP}
+M.~Eck and H.~Hoppe.
+\newblock Automatic reconstruction of b-spline surfaces of arbitrary
+  topological type.
+\newblock In {\em SIGGRAPH 96 Conference Proceedings}, Annual Conference
+  Series, pages 325--334. ACM SIGGRAPH, Addison Wesley, 1996.
+
+\bibitem{GreinerHormann:1997}
+G.~Greiner and K.~Hormann.
+\newblock Interpolating and approximating scattered 3{D}-data with hierarchical
+  tensor product splines.
+\newblock In A.~L. Mehaute, C.~Rabut, and L.~L. Schumaker, editors, {\em
+  Surface Fitting and Multiresolutional Methods}, pages 163--172. Vanderbilt
+  University Press, 1996.
+
+\bibitem{HeckelUva:1998}
+B.~Heckel, A.~E. Uva, and B.~Hamann.
+\newblock Clustering-based generation of hierarchical surface models.
+\newblock In {\em Proceedings IEEE Visualization '98 -- Late Breaking Hot
+  Topics}, 1998.
+
+\bibitem{HeckelUva:2000}
+B.~Heckel, A.~E. Uva, B.~Hamann, and K.~Joy.
+\newblock Surface reconstruction using adaptive clustering methods.
+\newblock In {\em IEEE Transactions on Visualization and Computer Graphics},
+  2000.
+
+\bibitem{Hoppe:1994:PM}
+H.~Hoppe.
+\newblock Surface reconstruction from unorganized points. ph.d. dissertation.
+\newblock Department of Computer Science and Engineering, University of
+  Washington, July 1994.
+
+\bibitem{Jackson:PCA}
+J.~E. Jackson.
+\newblock {\em A User's Guide to Principal Components}.
+\newblock A Wiley-Interscience Publication, John Wiley and Sonc, Inc., New
+  York, 1991.
+
+\bibitem{Levoy:1996:SF}
+V.~Krishnamurthy and M.~Levoy.
+\newblock Fitting smooth surfaces to dense polygon meshes.
+\newblock In {\em SIGGRAPH 96 Conference Proceedings}, Annual Conference
+  Series, pages 325--334. ACM SIGGRAPH, Addison Wesley, 1996.
+
+\bibitem{Hoppe:1992:SR}
+H.~H. T. D. T. D.~J. McDonald and W.~Stuetzle.
+\newblock Surface reconstruction from unorganized points.
+\newblock In {\em SIGGRAPH 92 Conference Proceedings}, Annual Conference
+  Series, pages 71--78. ACM SIGGRAPH, Addison Wesley, 1992.
+
+\bibitem{Samet:Design}
+H.~Samet.
+\newblock {\em The Design and Analysis of Spatial Data Structures}.
+\newblock Addison-Wesley, Reading, Massachusetts, 1990.
+
+\bibitem{Samet:Application}
+H.~Samet.
+\newblock {\em Introduction to Spatial Data Structures}.
+\newblock Computer Graphics, Image Processing, and GIS-Addison-Wesley, Reading,
+  Massachusetts, 1990.
+
+\end{thebibliography}

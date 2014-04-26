@@ -1,0 +1,850 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Reconstruction of B-spline Surfaces From Scattered Data Points</TITLE>
+<META NAME="description" CONTENT="Reconstruction of B-spline Surfaces From Scattered Data Points">
+<META NAME="keywords" CONTENT="cgi2000">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="cgi2000.css">
+
+<LINK REL="next" HREF="node1.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html17"
+  HREF="node1.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev_g.png">   
+<BR>
+<B> Next:</B> <A NAME="tex2html18"
+  HREF="node1.html">Bibliography</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<P>
+
+<P>
+
+<H1 ALIGN="CENTER">Reconstruction of B-spline Surfaces From Scattered Data Points</H1>
+<P ALIGN="CENTER"><STRONG>Benjamin F. Gregorski, Bernd Hamann, and Kenneth I. Joy 
+<BR>  
+<BR>
+Center for Image Processing and Integrated Computing (CIPIC),
+  Department of 
+<BR>
+Computer Science,
+  University of California,
+  Davis, CA 95616-8562, USA 
+<BR>  {gregorsk,hamann,joy}@cs.ucdavis.edu
+<BR>
+http://graphics.cs.ucdavis.edu
+</STRONG></P>
+
+<H3>Abstract:</H3>
+<DIV>
+We present a new approach for reconstructing a smooth surface from a set
+of scattered points in three-dimensional (3D) space. 
+Our algorithm first decomposes a given point set into a quadtree-like data 
+structure known as a <I>strip tree</I>. The strip tree is used to fit a set of least squares
+quadratic surfaces to the data points. These quadratic surfaces are then degree-elevated to bi-cubic surfaces
+and blended together to form a set of B-spline surfaces that approximates the given point set. 
+</DIV>
+<P>
+
+<P>
+Introduction
+Digitization devices and scanners generate very large point sets representing complicated 
+geometric models. Data sets typically result from multiple scans and frequently multiple viewpoints. 
+Unfortunately, the resulting massive scattered point sets are not suitable for integration into 
+computer-aided design (CAD) systems.  We discuss a method that constructs a set of B-spline surfaces from 
+scattered data points that is usable for further processing in a CAD system. 
+
+<P>
+The basis for our reconstruction is the decomposition of a scattered point set into a 
+3D strip tree. Our tree structure is an extension of the original strip tree 
+presented by Samet in [<A
+ HREF="node1.html#Samet:Design">10</A>] and [<A
+ HREF="node1.html#Samet:Application">11</A>], and it is similar to the BOXTREE
+structure of Barequet et al. in [<A
+ HREF="node1.html#Barequet:1996:BHR">1</A>]
+Our structure is similar to a quadtree, except that each node in our tree represents a bounding box whose 
+orientation is defined by the best-fit plane approximating the data points inside a bounding box.  
+After each decomposition step, the new tree structure defines a better appoximation to the underlying data points.
+Decomposition consists of the following steps:
+
+<P>
+
+<OL>
+<LI>A bounding box for all given data points is computed. (The three box axes are parallel
+to the global coordinate system axes).
+
+<P>
+</LI>
+<LI>This bounding box is re-oriented so that its three axes are parallel to the three axes defined
+by the <I>principal directions</I> of the underlying point set, obtained by
+<I>principal component analysis (PCA) </I>. A similar approach for clustering data is used
+in [<A
+ HREF="node1.html#HeckelUva:1998">4</A>], [<A
+ HREF="node1.html#HeckelUva:2000">5</A>] to generate hierarchies of triangulations
+for scattered data. 
+This step defines the best-fit (least-squares) plane approximating the data points. 
+
+<P>
+</LI>
+<LI>The root bounding box is recursively subdivided until the resulting set of bounding boxes, all 
+re-oriented according to their principal directions, 
+approximates the data points by least squares planes, within a user-defined error tolerance.
+
+<P>
+</LI>
+<LI>The resulting tree of bounding boxes, the strip tree, is used to fit a set of surfaces
+approximating the data points inside each box.
+</LI>
+</OL> 
+
+<P>
+Once the scattered points have been decomposed into subsets using the strip tree, 
+we use a bottom-up fitting algorithm to fit a set of surfaces to the points. 
+The tree is used to approximate the data points in each box. 
+Additional points on the boundary faces of the boxes must be used to create the surfaces.
+The approximation process starts by fitting surfaces to the next-to-last level in the tree. 
+These surfaces are then blended together to form a set of continuous surfaces.
+
+<P>
+The decomposition method produces a hierarchy of oriented bounding boxes that we can use to
+construct a set of B-spline surfaces that approximates the scattered points.  
+The construction process utilizes the bounding boxes in place of the scattered point set.
+
+<P>
+Our paper is structured as follows: 
+In Section 2, we review previously published methods that are related to smooth surface reconstruction.  
+In Section 3, we discuss the construction of the oriented bounding boxes for a scattered point set.  
+In Section 4, we describe the characteristics of the generalized strip tree.  
+This tree is utilized to progressively fit B-spline surfaces to the
+scattered point set, which is described in Section 5. Results of
+our algorithm are provided in Section 6.  
+Conclusions and future work are discussed in Section 7.
+
+<P>
+Related Work
+Many different methods exist for reconstructing surfaces from scattered points.
+Some methods attempt to approximate the surface using a surface based on subdivision or an
+implicit function.
+In [<A
+ HREF="node1.html#Hoppe:1992:SR">9</A>], Hoppe et al. represent the surface to be reconstructed as the zero set of a signed
+distance function. A contouring algorithm is then used to extract the zero set of the signed distance function
+that approximates the surface. In [<A
+ HREF="node1.html#Hoppe:1994:PM">6</A>], 
+Hoppe first constructs an optimized triangular mesh of the data points.
+The optimized mesh is then used to fit a piecewise smooth subdivision surface that approximates the data. 
+This method can represent sharp "creases" and "darts" in a data set.
+
+<P>
+Other methods reconstruct one or more B-spline surfaces from the data points.
+Eck et al. [<A
+ HREF="node1.html#Eck:1996:BSP">2</A>] reconstruct a network of B-spline surfaces 
+from given data points. The surface is initially approximated by a dense triangular mesh that is then mapped
+from a triangular to a quadrilateral mesh topology. A surface spline construction is then used to generate a set of
+G<IMG
+ WIDTH="13" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.png"
+ ALT="$^{1}$">-continuous B-Spline surfaces.  
+Levoy and Krishnamurthy [<A
+ HREF="node1.html#Levoy:1996:SF">8</A>] apply an interactive approach to the reconstruction process
+by having a user interactively specify patch boundaries over an initial dense polygonal mesh. Each of 
+the resulting sections is then parameterized by laying a grid of springs across the polygon mesh.
+A tensor product B-spline surface is finally fitted to the grid.
+Greiner and Hormann [<A
+ HREF="node1.html#GreinerHormann:1997">3</A>] use hierarchical B-splines to interpolate and approximate
+scattered data. They first parameterize the data points and then optimize the output surface with respect
+to a fairness functional.
+
+<P>
+Our algorithm is of the second type and constructs a set of B-Spline surfaces.
+We introduce a 3D strip tree for decomposing a given point set. 
+The strip tree decomposes the set of points into a 
+quadtree-like structure that is used to fit B-spline surfaces to the data.
+
+<P>
+Oriented Bounding Boxes
+Given a set of points (x<IMG
+ WIDTH="11" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$_{i}$">,y<IMG
+ WIDTH="11" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$_{i}$">,z<IMG
+ WIDTH="11" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$_{i}$">), a bounding box is defined as a box that contains all the points. 
+Typically, a bounding box is a parallelpiped and is oriented with respect to the axes of the
+global coordinate system. To obtain a tighter bounding box, i.e., one with smaller volume, 
+the bounding box can be oriented by using the three principal directions of the 
+underlying point set. The coordinate system defined by these three principal directions
+allows us to obtain a bounding box that reflects 
+the orientation of the data points. The orientation process consists of the following steps: 
+
+<P>
+
+<OL>
+<LI>Given a set of points (x<IMG
+ WIDTH="11" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$_{i}$">,y<IMG
+ WIDTH="11" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$_{i}$">,z<IMG
+ WIDTH="11" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$_{i}$">), compute the best-fit 
+plane for the point set. The local coordinate frame in 3D space consists of three basis vectors and an origin.
+We use PCA to determine the basis vectors of the local frame [<A
+ HREF="node1.html#Jackson:PCA">7</A>].
+
+<P>
+</LI>
+<LI>The normal vector of the best-fit plane defines the ordinate direction in the local frame.
+We measure distances of points to the best-fit plane in ordinate direction. 
+We express all points associated with a box in terms of its local coordinate frame, 
+using the average of the points as local origin.
+</LI>
+</OL>
+
+<P>
+Figure <A HREF="cgi2000.html#Root_Bounding_Box">2</A> shows a set of points and its oriented bounding box. 
+The error associated with an oriented bounding box is directly related to the size of the box in 
+normal direction. Considering an oriented bounding box <B>B</B> whose side length in normal direction is <B>L</B>, 
+all points within <B>B</B> are guaranteed to be within distance <IMG
+ WIDTH="19" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3.png"
+ ALT="$\frac{L}{2}$"> of the associated best-fit plane.
+This follows from the fact that the best fit plane associated with an oriented box is defined by the mean of the 
+data points, and the worst-fit vector is determined by PCA. 
+
+<P>
+This orientation algorithm does not work for data sets that do not contain 
+enough points to determine a normal vector, e.g., data sets with one or two points. 
+It also has problems with collinear or nearly collinear point sets one method for addressing
+this problem is to use the local frame from the node's parent to orient the local frame for the point
+set. 
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="Node_and_Patch_orientation"></A><A NAME="51"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 1:</STRONG>
+Arrangement of nodes used for patch blending.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\includegraphics{patcharange.eps}$
+ -->
+<IMG
+ WIDTH="323" HEIGHT="270" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4.png"
+ ALT="\includegraphics{patcharange.eps}">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+The Generalized Strip Tree 
+Our strip tree is a quadtree in 3D space whose nodes are oriented bounding boxes. Given a set of points, the root
+of the tree is a single, properly oriented bounding box that contains all points. 
+A node in the tree is subdivided by first dividing its bounding box into four sub-boxes and then 
+re-orienting these sub-boxes relative to the points inside them. 
+As the strip tree is refined, the bounding boxes of the leaf nodes provide better approximations 
+to the underlying points.<A NAME="tex2html2"
+  HREF="footnode.html#foot56"><SUP>1</SUP></A>
+<P>
+Each node in the strip tree has four children, except the leaves. The children are referred to as the 
+NorthWest (NW), NorthEast (NE), SouthWest (SW), and SouthEast (SE) children. 
+Each node has at most one West, East, North, and South neighbor. 
+In our implementation, the strip tree is a <I>threaded tree</I>, which allows us to easily
+draw different levels of the tree and move between them. 
+The arrangement of a node's children is shown in Figure <A HREF="cgi2000.html#Node_and_Patch_orientation">1</A>. 
+The decomposition of a box consists of four steps:
+
+<P>
+
+<OL>
+<LI>First, we determine a "subdivision point" within the bounding box around which to form the 
+four sub-boxes.  This subdivision point is defined as a given data point closest to the center 
+of the bounding box.  This point is used to divide the bounding box into four sub-boxes, 
+all having parallel faces.
+
+<P>
+</LI>
+<LI>Once the four sub-boxes are determined, the data points contained in the original box
+are distributed among the four sub-boxes.
+
+<P>
+</LI>
+<LI>The four sub-boxes are re-oriented using the procedure outlined in Section 2.  
+
+<P>
+</LI>
+<LI>The <I>box points</I> for the new, re-oriented sub-boxes are computed. (Box points are points 
+that are not necessarily part of the given data set, but are required for later surface fitting.) 
+The box points are either the four midpoints of the 
+four box edges parallel to the normal vector of the best-fit plane or four original points closest to the 
+midpoints of these edges. (Provided these are close enough to a box edge in normal direction). Figure
+<A HREF="cgi2000.html#Box_Points">4</A> shows the box points of the leaf nodes for the strip tree shown in Figure
+<A HREF="cgi2000.html#One_Subdivision_Step">3</A>. (The box points are drawn in black.)
+
+<P>
+</LI>
+</OL>
+The subdivision process is illustrated in Figures <A HREF="cgi2000.html#Root_Bounding_Box">2</A>-<A HREF="cgi2000.html#Four_Subdivision_Steps">5</A>.
+
+<P>
+Figure <A HREF="cgi2000.html#Root_Bounding_Box">2</A> shows the root bounding box, and 
+Figure <A HREF="cgi2000.html#One_Subdivision_Step">3</A> shows the strip tree after the root node has been subdivided and the 
+bounding boxes have been re-oriented. 
+Figure <A HREF="cgi2000.html#Box_Points">4</A> shows the box points along with the bounding boxes for the four nodes of the 
+strip tree. In this example, the box points are the four original points, considering each sub-node, 
+that are closest to the edges of the bounding boxes in the direction of the best-fit normal vectors. 
+(The normal vectors in these pictures are shown in blue.) 
+Figure <A HREF="cgi2000.html#Four_Subdivision_Steps">5</A> shows the strip tree after four subdivision steps.
+
+<P>
+A bounding box is decomposed only when all of its four children can be successfully re-oriented.
+In cases where one or more of the new child nodes contain a degenerate set of points, as
+discussed in Section 4, the decomposition process fails and the bounding
+box is not subdivided.  
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="Root_Bounding_Box"></A><A NAME="73"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 2:</STRONG>
+Root bounding box for scattered point set.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\includegraphics{skidoo_root.eps}$
+ -->
+<IMG
+ WIDTH="367" HEIGHT="291" ALIGN="BOTTOM" BORDER="0"
+ SRC="img5.png"
+ ALT="\includegraphics{skidoo_root.eps}">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="One_Subdivision_Step"></A><A NAME="80"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 3:</STRONG>
+Strip tree after one subdivision step.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\includegraphics{skidoo_onesub.eps}$
+ -->
+<IMG
+ WIDTH="367" HEIGHT="291" ALIGN="BOTTOM" BORDER="0"
+ SRC="img6.png"
+ ALT="\includegraphics{skidoo_onesub.eps}">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="Box_Points"></A><A NAME="193"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 4:</STRONG>
+Box points for strip tree shown in Figure <A HREF="cgi2000.html#One_Subdivision_Step">3</A>.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\includegraphics{skidoo_boxpoints.eps}$
+ -->
+<IMG
+ WIDTH="367" HEIGHT="302" ALIGN="BOTTOM" BORDER="0"
+ SRC="img7.png"
+ ALT="\includegraphics{skidoo_boxpoints.eps}">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="Four_Subdivision_Steps"></A><A NAME="94"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 5:</STRONG>
+Strip tree after four subdivision steps consisting of 16x16 boxes.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\includegraphics{skidoo_foursub.eps}$
+ -->
+<IMG
+ WIDTH="367" HEIGHT="291" ALIGN="BOTTOM" BORDER="0"
+ SRC="img8.png"
+ ALT="\includegraphics{skidoo_foursub.eps}">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+Fitting Surfaces
+Once the strip tree is decomposed so that the leaf nodes of the tree all have an error
+below a prespecified error threshold, the strip tree approximation 
+is used to construct surfaces that approximate the data points in each box.
+To construct a least-squares B-spline surface to the points associated with a node, 
+the node must first be subdivided. 
+The approximation process for a node in the next-to-last level begins with
+a single bi-quadratic B-spline patch fitted to the box points of the node's children. 
+The 3x3 control points required for a bi-quadratic B-spline patch are obtained 
+from the four corner box points and averages of interior points. 
+As an example, Figure <A HREF="cgi2000.html#Box_Points">4</A>
+shows four leaf nodes and their 16 box points. This set of 4x4 points is reduced to a set of 3x3 points
+by keeping the four corner points, averaging pairs of control points
+in the middle of the outside edges, and averaging the four control points in the interior. 
+A least-squares bi-quadratic B-spline patch is fitted through the set of 3x3 control points. 
+This surface is then degree-elevated to a bi-cubic B-spline patch.  
+After the fitting process, the resulting surfaces are blended together to form a new set of
+C<IMG
+ WIDTH="13" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img9.png"
+ ALT="$^1$">-continuous B-spline surfaces. 
+The input to the blending process consists of four bi-cubic B-spline patches, following the 
+arrangement of patches shown in Figure <A HREF="cgi2000.html#Node_and_Patch_orientation">1</A>. 
+
+<P>
+The blending process consists of three steps:
+
+<P>
+
+<OL>
+<LI>We force two surfaces to become C<IMG
+ WIDTH="13" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img10.png"
+ ALT="$^0$">-continuous by requiring the last row/column of control 
+points of the first surface and the first row/column of control points of the second surface to be equal. 
+This is done averaging the corresponding points from each patch. 
+At the point where four surfaces meet, the average of the four corner points is used.
+
+<P>
+</LI>
+<LI>The boundary curves of the surfaces are then made C<IMG
+ WIDTH="13" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img9.png"
+ ALT="$^1$">-continuous 
+by using the box points of the strip tree nodes
+to approximate the derivative of the data in the North/South and East/West directions.
+(These correspond to the u and v parametric directions of the B-spline surfaces.) 
+The derivatives are approximated using central differences wherever possible and forward
+differences along the boundaries.
+The boundary control points of the surfaces are then adjusted acordingly. 
+
+<P>
+</LI>
+<LI>Finally, the cross boundary derivatives or twist-vectors are made C<IMG
+ WIDTH="13" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img9.png"
+ ALT="$^1$">-continuous
+by first computing the average of the twist vectors for the surfaces to be blended.
+The interior control points are then adjusted so that the twist of the surface is equal
+to this average. 
+</LI>
+</OL>
+
+<P>
+Error Calculations
+The error in the resulting network of surfaces is a function of the size of the oriented
+bounding boxes in the direction normal to the surface and the error introduced by the
+blending process. It is given by the formula:
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ \begin{displaymath}
+E_{ST Node} = BoxSize_{Normal Direction} + max(E_{blending})
+\end{displaymath}
+ -->
+
+<IMG
+ WIDTH="466" HEIGHT="29" BORDER="0"
+ SRC="img11.png"
+ ALT="\begin{displaymath}
+E_{ST Node} = BoxSize_{Normal Direction} + max(E_{blending})
+\end{displaymath}">
+</DIV>
+<BR CLEAR="ALL">
+<P></P> 
+
+<P>
+Given a single node in the strip tree with an oriented bounding box
+and an associated approximation surface, the error is the sum of the size of the
+bounding box in the normal direction and the error introduced by the blending process.
+The normal direction is the normal vector of the best-fit plane used to form the
+oriented bounding box as discussed in Section 3. The error introduced by the blending
+process is computed as the distance by which the new control points
+deviate from their original positions. The maximum over all of these values is used.
+The overall error for the approximation is the maximum error over all of the strip tree
+nodes that have a valid approximation surface.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="Initial_bi-cubic_surfaces"></A><A NAME="194"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 6:</STRONG>
+Initial surfaces for strip tree shown in Figure <A HREF="cgi2000.html#Four_Subdivision_Steps">5</A>.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\includegraphics{skidoo_initsurfaces.eps}$
+ -->
+<IMG
+ WIDTH="367" HEIGHT="291" ALIGN="BOTTOM" BORDER="0"
+ SRC="img12.png"
+ ALT="\includegraphics{skidoo_initsurfaces.eps}">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="Final_Surface"></A><A NAME="195"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 7:</STRONG>
+Final surfaces for strip tree shown in Figure <A HREF="cgi2000.html#Four_Subdivision_Steps">5</A></CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\includegraphics{skidoo_finalsurfaces.eps}$
+ -->
+<IMG
+ WIDTH="367" HEIGHT="291" ALIGN="BOTTOM" BORDER="0"
+ SRC="img13.png"
+ ALT="\includegraphics{skidoo_finalsurfaces.eps}">
+.
+</DIV></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="Final_Wireframe"></A><A NAME="196"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 8:</STRONG>
+A wireframe rendering of Figure<A HREF="cgi2000.html#Final_Surface">7</A>.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\includegraphics{skidoo_finalwireframe.eps}$
+ -->
+<IMG
+ WIDTH="367" HEIGHT="291" ALIGN="BOTTOM" BORDER="0"
+ SRC="img14.png"
+ ALT="\includegraphics{skidoo_finalwireframe.eps}">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+Results
+Figure <A HREF="cgi2000.html#Initial_bi-cubic_surfaces">6</A> shows the inital set of independent surfaces created 
+for the strip tree shown in Figure <A HREF="cgi2000.html#Four_Subdivision_Steps">5</A>.  
+Figure <A HREF="cgi2000.html#Final_Surface">7</A> shows the final B-Spline surface (Gouraud shaded) obtained by blending.
+The dataset used in these pictures is a skidoo dataset obtained from the web site of
+Hugues Hoppe ( http://www.research.microsoft.com/<code>~</code> hoppe ). 
+The final approximation error for this model using 64 surfaces is about 2.7. Where
+the original x, y, and z coordinates of the data points vary in the intervals
+[ -8.1 8.35 ], [ -12.5 10.6 ], [ -4.9 3.3 ] respectively.
+This means that the original data points are no more than 2.7 units away from the approximation. 
+The majority of the error in the approximation is derived from the error in the blending process.
+This is because the blending process currently does not deal effectively with highly curves boundaries.
+
+<P>
+Figures <A HREF="cgi2000.html#Crater_Lake_DataPoints">9</A>-<A HREF="cgi2000.html#Crater_Lake_Wireframe">12</A> show the datapoints, strip tree, and
+final renderings for the crater lake dataset from the USGS. The final approximation error for this model using 64 surfaces
+is about 15. Where the original x, y, and z coordinates of the data points vary in the intervals
+[ -51.7 , 51.6666 ], [ -69.9 , 69.9 ], [ -11.9 , 18.8 ] respectively.
+Figures <A HREF="cgi2000.html#Crater_Lake_StripTree32">13</A>-<A HREF="cgi2000.html#Crater_Lake_Wireframe32nodata">15</A> show the crater lake data set
+approximated with a (32x32) striptree resulting in 256 surfaces. The final approximation error is about 8.4. 
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="Crater_Lake_DataPoints"></A><A NAME="141"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 9:</STRONG>
+The data points for Crater Lake.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\includegraphics{crater_datapoints.eps}$
+ -->
+<IMG
+ WIDTH="367" HEIGHT="232" ALIGN="BOTTOM" BORDER="0"
+ SRC="img15.png"
+ ALT="\includegraphics{crater_datapoints.eps}">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="Crater_Lake_StripTree"></A><A NAME="148"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 10:</STRONG>
+Strip Tree with 16x16 nodes.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\includegraphics{crater_striptree.eps}$
+ -->
+<IMG
+ WIDTH="367" HEIGHT="232" ALIGN="BOTTOM" BORDER="0"
+ SRC="img16.png"
+ ALT="\includegraphics{crater_striptree.eps}">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="Crater_Lake_Final"></A><A NAME="197"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 11:</STRONG>
+Final Surfaces for Figure <A HREF="cgi2000.html#Crater_Lake_StripTree">10</A>. </CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\includegraphics{crater_final.eps}$
+ -->
+<IMG
+ WIDTH="367" HEIGHT="232" ALIGN="BOTTOM" BORDER="0"
+ SRC="img17.png"
+ ALT="\includegraphics{crater_final.eps}">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="Crater_Lake_Wireframe"></A><A NAME="198"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 12:</STRONG>
+Wireframe rendering of Figure <A HREF="cgi2000.html#Crater_Lake_Final">11</A>. </CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\includegraphics{crater_wireframe.eps}$
+ -->
+<IMG
+ WIDTH="367" HEIGHT="232" ALIGN="BOTTOM" BORDER="0"
+ SRC="img18.png"
+ ALT="\includegraphics{crater_wireframe.eps}">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="Crater_Lake_StripTree32"></A><A NAME="169"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 13:</STRONG>
+Strip Tree with 32x32 nodes.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\includegraphics{crater_strip64.eps}$
+ -->
+<IMG
+ WIDTH="367" HEIGHT="249" ALIGN="BOTTOM" BORDER="0"
+ SRC="img19.png"
+ ALT="\includegraphics{crater_strip64.eps}">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="Crater_Lake_Final32"></A><A NAME="199"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 14:</STRONG>
+Final Surfaces for Figure <A HREF="cgi2000.html#Crater_Lake_StripTree32">13</A>.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\includegraphics{crater_final32.eps}$
+ -->
+<IMG
+ WIDTH="367" HEIGHT="248" ALIGN="BOTTOM" BORDER="0"
+ SRC="img20.png"
+ ALT="\includegraphics{crater_final32.eps}">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="Crater_Lake_Wireframe32nodata"></A><A NAME="200"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 15:</STRONG>
+Wireframe rendering for strip tree in Figure <A HREF="cgi2000.html#Crater_Lake_Final32">14</A>.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\includegraphics{crater_wire64nodata.eps}$
+ -->
+<IMG
+ WIDTH="367" HEIGHT="249" ALIGN="BOTTOM" BORDER="0"
+ SRC="img21.png"
+ ALT="\includegraphics{crater_wire64nodata.eps}">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+Conclusions and Future work
+We have presented a new method for reconstructing surfaces from scattered points.
+Our algorithm is based on a generalization of the strip tree used to approximate
+the given points initially. 
+This initial approximation is used to construct a set of surfaces that approximates
+the given data points. Our algorithm works well on scattered data that represent
+smooth surfaces, and where smooth surfaces are desired as output.  
+It does not work well for surfaces that are self-intersecting, or ``twisting surfaces''  
+The limitation is given by the structure of the oriented bounding boxes.
+When the oriented bounding boxes do not correspond to a single sheet of 
+the underlying surface, the algorithm may produce erroneous results for the leaves of the tree. 
+
+<P>
+At present, our algorithm subdivides a given point set in a uniform manner.
+The strip tree needs to be enhanced to allow for a non-uniform subdivision of the data in regions with 
+more data points or more complicated, highly curved behavior. 
+This will allow us to use more surfaces in areas with a higher sampling rate or higher curvature variation, 
+and to approximate subtle features more adaptively. Furthermore the fitting and blending processes
+need to be improved for regions with higher curvature. The fitting process can be improved by using
+a weighted fitting process to better approximate sharper features. 
+The blending process can be improved by finding better ways to approximate
+the derivatives of the data and to determine the final twist vectors. 
+Sharper features could also be better approximated by relaxing the continuity constraints in certain regions.
+For example, regions with sharp creases, darts, or cliffs could be made C<IMG
+ WIDTH="13" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img10.png"
+ ALT="$^0$">-continuous but not C<IMG
+ WIDTH="13" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img9.png"
+ ALT="$^1$">-continuous. 
+This would decrease the error of the approximation and at the same time lead to a better representation
+of the data. 
+
+<P>
+Lastly the blending process needs to be improved to deal with holes in the dataset and
+datasets with highly curved boundaries. Holes in the dataset could be distinguished by letting
+the user specify a "hole size" that determines whether two data points lie across a hole. 
+In these situation, patches that lie across a hole would not be be blended together.
+Curved boundaries could be dealt with by only blending patches whose edges are 
+within a certain distance of each other. 
+
+<P>
+Acknowledgements
+
+This work was supported by
+the National Science Foundation under contract ACI 9624034 (CAREER Award),
+    through the Large Scientific and Software Data Set Visualization (LSSDSV)
+    program under contract ACI 9982251,
+    and through the National Partnership for Advanced Computational
+    Infrastructure (NPACI);
+the Office of Naval Research under contract N00014-97-1-0222;
+the Army Research Office under contract ARO 36598-MA-RIP;
+the NASA Ames Research Center through an NRA award
+    under contract NAG2-1216;
+the Lawrence Livermore National Laboratory under ASCI ASAP Level-2
+    Memorandum Agreement B347878 and under Memorandum Agreement B503159;
+and
+the North Atlantic Treaty Organization (NATO)
+    under contract CRG.971628
+awarded to the University of California, Davis.
+We also acknowledge the support of ALSTOM Schilling Robotics,
+Chevron, Silicon Graphics, Inc. and
+ST Microelectronics, Inc.
+We thank the members of the Visualization Thrust at the
+Center for Image Processing and Integrated Computing (CIPIC)
+at the University of California, Davis.
+
+<P>
+
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"></A>
+
+<UL>
+<LI><A NAME="tex2html19"
+  HREF="node1.html">Bibliography</A>
+<LI><A NAME="tex2html20"
+  HREF="node2.html">About this document ...</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html17"
+  HREF="node1.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev_g.png">   
+<BR>
+<B> Next:</B> <A NAME="tex2html18"
+  HREF="node1.html">Bibliography</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Ben Gregorski
+2001-06-13
+</ADDRESS>
+</BODY>
+</HTML>
