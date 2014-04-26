@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Brush Characteristics</TITLE>
+<META NAME="description" CONTENT="Brush Characteristics">
+<META NAME="keywords" CONTENT="surface_painting">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="surface_painting.css">
+
+<LINK REL="next" HREF="node7.html">
+<LINK REL="previous" HREF="node5.html">
+<LINK REL="up" HREF="node4.html">
+<LINK REL="next" HREF="node7.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html95"
+  HREF="node7.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/next.png"></A> 
+<A NAME="tex2html93"
+  HREF="node4.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/up.png"></A> 
+<A NAME="tex2html87"
+  HREF="node5.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html96"
+  HREF="node7.html">Texel Modification</A>
+<B> Up:</B> <A NAME="tex2html94"
+  HREF="node4.html">Painting Surfaces</A>
+<B> Previous:</B> <A NAME="tex2html88"
+  HREF="node5.html">Brush Strokes</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00042000000000000000">
+Brush Characteristics</A>
+</H2>
+The rasterization of a stroke segment in a texture 
+map touches a set of texels called the <EM>stroke texels</EM>.
+Figure <A HREF="#StrokeTexels"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/crossref.png"></A> shows a single stroke segment in a triangle
+and the corresponding stroke texels in the texture map.
+The stroke segment is shown in physical and texture space along with the
+mapping of texture coordinates from physical space to texture space. 
+The properties of a brush define how the stroke texels and the surrounding texels
+are modified.
+These are the properties of a brush:
+
+<OL>
+<LI><B>Shape and size</B>. 
+The shape and size of a brush define which surrounding texels are modified.
+The size of a brush is given in physical space, and is described by a bounding sphere. 
+All texels that lie within this bounding sphere can be modified by the brush. 
+The shape of the brush determines which texels within its bounding sphere 
+are modified.
+A circular brush, for example, selects which texels are modified based on the distance
+between the center of the texel and the center of the corresponding stroke texel.
+
+<P>
+</LI>
+<LI><B>Color function</B>. The color function defines the color
+of the brush at a particular position within its extent, i.e., the volume of space 
+defined by its size and shape.
+The color function can be a basic function, such as a checker or stripe pattern,
+or a more complex function such as procedural marble or wood.
+
+<P>
+</LI>
+<LI><B>Blend function</B>. The blend function defines
+how the brush attributes, as defined by the color function, are
+combined with the existing texel. The blend function
+can either replace the existing texel attributes or blend them 
+with the brush attributes.
+
+<P>
+</LI>
+</OL>
+
+<P>
+Brushes modify the diffuse color of the surface, represented by an RGBA tuple.
+It is also possible to use the brushes to paint different material properties,
+such as specular highlights and bump map information, onto the surface.
+Interactive rendering can be achieved by using multi-texturing 
+and normal mapping to render the surface.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="StrokeTexels"></A><A NAME="138"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
+Brush stroke and stroke texels</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<IMG
+  WIDTH="224" HEIGHT="111" ALIGN="BOTTOM" BORDER="0"
+ SRC="./BrushStroke2.png"
+ ALT="Image BrushStroke2">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html95"
+  HREF="node7.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/next.png"></A> 
+<A NAME="tex2html93"
+  HREF="node4.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/up.png"></A> 
+<A NAME="tex2html87"
+  HREF="node5.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html96"
+  HREF="node7.html">Texel Modification</A>
+<B> Up:</B> <A NAME="tex2html94"
+  HREF="node4.html">Painting Surfaces</A>
+<B> Previous:</B> <A NAME="tex2html88"
+  HREF="node5.html">Brush Strokes</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+servant of allah
+2010-11-10
+</ADDRESS>
+</BODY>
+</HTML>

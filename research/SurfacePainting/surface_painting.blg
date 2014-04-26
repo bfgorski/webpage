@@ -1,0 +1,51 @@
+This is BibTeX, Version 0.99c (Web2C 7.3.1)
+The top-level auxiliary file: surface_painting.aux
+The style file: plain.bst
+Database file #1: references.bib
+Warning--empty year in VR00*45
+Warning--can't use both volume and number fields in hanrahan90c
+Warning--empty year in Hoppe:1994:PSS
+Warning--empty year in SSMA99*203
+Warning--empty school in Loop:1994:GTS
+You've used 16 entries,
+            2118 wiz_defined-function locations,
+            616 strings with 7444 characters,
+and the built_in function-call counts, 6168 in all, are:
+= -- 567
+> -- 365
+< -- 6
++ -- 135
+- -- 117
+* -- 440
+:= -- 1044
+add.period$ -- 59
+call.type$ -- 16
+change.case$ -- 95
+chr.to.int$ -- 0
+cite$ -- 21
+duplicate$ -- 245
+empty$ -- 476
+format.name$ -- 117
+if$ -- 1304
+int.to.chr$ -- 0
+int.to.str$ -- 16
+missing$ -- 16
+newline$ -- 84
+num.names$ -- 54
+pop$ -- 130
+preamble$ -- 1
+purify$ -- 80
+quote$ -- 0
+skip$ -- 152
+stack$ -- 0
+substring$ -- 229
+swap$ -- 65
+text.length$ -- 6
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 62
+warning$ -- 5
+while$ -- 57
+width$ -- 18
+write$ -- 186
+(There were 5 warnings)

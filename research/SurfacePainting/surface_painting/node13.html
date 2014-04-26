@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Stylus</TITLE>
+<META NAME="description" CONTENT="Stylus">
+<META NAME="keywords" CONTENT="surface_painting">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="surface_painting.css">
+
+<LINK REL="previous" HREF="node12.html">
+<LINK REL="up" HREF="node8.html">
+<LINK REL="next" HREF="node14.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html166"
+  HREF="node14.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/next.png"></A> 
+<A NAME="tex2html164"
+  HREF="node8.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/up.png"></A> 
+<A NAME="tex2html160"
+  HREF="node12.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html167"
+  HREF="node14.html">Results</A>
+<B> Up:</B> <A NAME="tex2html165"
+  HREF="node8.html">Virtual Reality Modeling</A>
+<B> Previous:</B> <A NAME="tex2html161"
+  HREF="node12.html">Data Gloves</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00055000000000000000">
+Stylus</A>
+</H2>
+The stylus tool allows a user to select objects in the scene
+using a method similar to pointing out objects with a laser pointer.
+This enables a user to select distant objects, to bring distant objects
+into the foreground, or to move them to specific locatations. 
+The stylus provides the direction that it is pointing towards 
+and pinch information for its button.  Direction information is available
+as a quaternion rotation and as a tuple consisting of direction, pitch, and roll.
+The stylus is used for these purposes:
+
+<OL>
+<LI>Selecting objects for modeling
+</LI>
+<LI>Painting objects using the stylus as a paint brush 
+
+<P>
+</LI>
+</OL>
+
+<P>
+The stylus is represented as a ray in 3D space, i.e., it has a 3D position and direction.
+Object painting is performed by pointing the stylus at the surface to select
+a starting point and then moving the stylus's ray along the surface to trace
+out the path of the brush.
+The intersection of the stylus's ray with the surface is used to 
+create a movement vector in 3D space.
+This 3D movement vector is painted on the surface in the manner 
+described in Section <A HREF="node5.html#subsection:BrushStrokes"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/crossref.png"></A>.
+
+<P>
+Painting using the stylus can be done in either <EM>laser-pointer</EM> mode or
+<EM>paint-brush</EM> mode. 
+In laser-pointer mode, the position of the stylus 
+is not taken into account, and only the stylus's direction is used to 
+construct the brush strokes on the surface. 
+This allows the user to make broader strokes over the surface of the object.
+In paint-brush mode, the position of the stylus is used to determine 
+how the brush interacts with the surface. 
+In this painting style, the
+brush has the notion of how much of it is on the surface, and thus what portion of the
+surface is painted.
+This allows the user to paint finer strokes over the object. 
+The stylus tool enables a user to select the points in 3D space that describe the movement
+vector within the space of the object rather than on a 2D projection of the object.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html166"
+  HREF="node14.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/next.png"></A> 
+<A NAME="tex2html164"
+  HREF="node8.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/up.png"></A> 
+<A NAME="tex2html160"
+  HREF="node12.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html167"
+  HREF="node14.html">Results</A>
+<B> Up:</B> <A NAME="tex2html165"
+  HREF="node8.html">Virtual Reality Modeling</A>
+<B> Previous:</B> <A NAME="tex2html161"
+  HREF="node12.html">Data Gloves</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+servant of allah
+2010-11-10
+</ADDRESS>
+</BODY>
+</HTML>

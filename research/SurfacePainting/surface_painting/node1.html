@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Introduction</TITLE>
+<META NAME="description" CONTENT="Introduction">
+<META NAME="keywords" CONTENT="surface_painting">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="surface_painting.css">
+
+<LINK REL="next" HREF="node2.html">
+<LINK REL="previous" HREF="surface_painting.html">
+<LINK REL="up" HREF="surface_painting.html">
+<LINK REL="next" HREF="node2.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html42"
+  HREF="node2.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/next.png"></A> 
+<A NAME="tex2html40"
+  HREF="surface_painting.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/up.png"></A> 
+<A NAME="tex2html34"
+  HREF="surface_painting.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html43"
+  HREF="node2.html">Related Work</A>
+<B> Up:</B> <A NAME="tex2html41"
+  HREF="surface_painting.html">Mesh Painting on Subdivision</A>
+<B> Previous:</B> <A NAME="tex2html35"
+  HREF="surface_painting.html">Mesh Painting on Subdivision</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00010000000000000000">
+Introduction</A>
+</H1>
+
+Virtual environments (VEs) have been in use for many years in applications
+such as automotive and industrial design as well as advanced training and simulation.
+In these applications, VEs help to improve the efficiency of product design processes
+and aid in the learning process of new skills.
+Modeling applications, such as surface, editing that take advantage of VEs 
+can greatly improve the speed and efficiency of the
+modeling process by adding an ``extra dimension'' 
+making it easier to discern spatial relationships 
+between objects and to interact with them.
+
+<P>
+Polygon meshes are a standard representation of 3D objects for applications
+in geometric modeling, animation, and grid generation. 
+Sometimes, it is necessary to give models
+a realisitic appearance instead of the standard look produced by smooth shaded polygons.
+Surface characteristics can be rendered using procedural shading and texture mapping methods 
+to produce surfaces that simulate real-world material such as wood, marble, cloth, or metal.
+Another method for altering the  appearance of a surface 
+is to have an artist or designer ``paint''
+these qualities onto the surface using a brush that applies colors or textures.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="VESHardware"></A><A NAME="46"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
+Virtual Environment setup showing workbench, data gloves, and stylus</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+0.85! 
+    <IMG
+  WIDTH="438" HEIGHT="372" ALIGN="BOTTOM" BORDER="0"
+ SRC="./workbench.png"
+ ALT="Image workbench"></DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+Subdivision surfaces have emerged as a powerful tool for surface modeling and editing.  
+Lounsbery et al. [<A
+ HREF="node17.html#Lounsbery:1997:MAS">13</A>] developed 
+multiresolution analysis techniques using wavelets and used them for
+surface editing at coarse and fine levels.
+These ideas were also developed by Stollnitz et al. [<A
+ HREF="node17.html#Stollnitz96-WCGTA">14</A>].
+Modeling with subdivision surfaces was explored by Zorin et al. 
+[<A
+ HREF="node17.html#Zorin:1997:IMM">16</A>], where Loop surfaces [<A
+ HREF="node17.html#Loop:1994:GTS">12</A>] and 
+Taubin smoothing [<A
+ HREF="node17.html#Taubin:1995:SPA">15</A>] are the means to 
+perform multi-resolution editing of a polygonal model. 
+These techniques allow for interactive
+editing of subdivison surfaces on coarse and fine levels.
+Subdivision surfaces have also been extended to general design applications
+such as computer animation and geometric modeling.
+Hoppe et al. [<A
+ HREF="node17.html#Hoppe:1994:PSS">8</A>]
+developed rules for generating creases, dart, and sharp features
+that allow subdivisions surfaces to model a wider range of objects. 
+Subdivision surfaces with sharp features were further developed by DeRose et al. 
+[<A
+ HREF="node17.html#DeRose:1998:SSC">4</A>], where they use subdivision techniques
+to generate models used in computer animation.
+Biermann et al. [<A
+ HREF="node17.html#EVL-2000-47">2</A>], have developed rules for controlling 
+normal vectors on interior and boundary areas of surfaces.
+
+<P>
+In this paper, a method for painting on subdivision 
+surfaces within virtual environments is presented.
+Our algorithm first determines a set of texture maps that cover the surface.
+Each polygon in the subdivision surface has texture coordinates
+that are associated with a texture map. 
+Texture maps are referred to as <EM>base textures</EM>.
+When a point on the surface is painted, the texture coordinates of the
+point are determined, and the base texture corresponding to the polygon is modified
+to reflect the color change. 
+As a user paints on a surface, the textures are updated
+and the painted model is rendered in real time.
+The system is integrated into a virtual environment using an immersive workbench
+and spatially tracked data gloves for interaction.
+A picture of our virtual environment configuration
+is shown in Figure <A HREF="#VESHardware"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/crossref.png"></A>.
+The application was developed as a plugin for
+the VirtualExplorer framework presented in [<A
+ HREF="node17.html#Kuester:2001:VirtualExplorer">11</A>].
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html42"
+  HREF="node2.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/next.png"></A> 
+<A NAME="tex2html40"
+  HREF="surface_painting.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/up.png"></A> 
+<A NAME="tex2html34"
+  HREF="surface_painting.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html43"
+  HREF="node2.html">Related Work</A>
+<B> Up:</B> <A NAME="tex2html41"
+  HREF="surface_painting.html">Mesh Painting on Subdivision</A>
+<B> Previous:</B> <A NAME="tex2html35"
+  HREF="surface_painting.html">Mesh Painting on Subdivision</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+servant of allah
+2010-11-10
+</ADDRESS>
+</BODY>
+</HTML>

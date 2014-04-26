@@ -1,0 +1,988 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Mesh Painting on Subdivision Surfaces In Virtual Environments</TITLE>
+<META NAME="description" CONTENT="Mesh Painting on Subdivision Surfaces In Virtual Environments">
+<META NAME="keywords" CONTENT="surface_painting">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="surface_painting.css">
+
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<IMG WIDTH="81" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next_inactive"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/nx_grp_g.png"> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/prev_g.png">   
+<BR>
+<BR><BR>
+<!--End of Navigation Panel-->
+
+<P>
+
+<H1 ALIGN="CENTER">Mesh Painting on Subdivision Surfaces In Virtual Environments</H1><DIV>
+
+<P ALIGN="CENTER"><STRONG>1#1 Benjamin Gregorski   2#2Falko Kuester 
+      1#1Bernd Hamann   1#1Kenneth I. Joy</STRONG></P>
+<P ALIGN="LEFT"><SMALL>  1#1 Center for Image Processing and Integrated Computing (CIPIC)</SMALL></P>
+</DIV>
+
+<P>
+<DIV ALIGN="CENTER">
+<FONT SIZE="+2"><B>Abstract</B></FONT>
+</DIV>
+<EM>
+Virtual environments allow us to model and design objects in a true 3D setting.
+We present an algorithm for interactive painting on subdivision surfaces 
+within a semi-immersive virtual environment. 
+A surface is first parameterized to create a set of texture maps that cover it. 
+Polygons are then assigned texture coordinates and mapped into one of the textures.
+A set of line segments is used to represent a brush stroke across the surface.
+As the surface is painted, the texure map is updated to reflect its new color. 
+Multiple texture maps covering the surface allow
+more detail to be painted in certain areas by using textures of different sizes.
+Within the virtual environment, the user is able to paint on the surface
+using a stylus tool that acts like a paint brush.
+</EM>
+
+<P>
+<B>Keywords: </B>Virtual Reality, Immersive Environments,
+Interactive Modeling, Subdivision Surfaces, Mesh Painting
+
+<P>
+
+<P>
+
+<H1><A NAME="SECTION00010000000000000000">
+Introduction</A>
+</H1>
+
+Virtual environments (VEs) have been in use for many years in applications
+such as automotive and industrial design as well as advanced training and simulation.
+In these applications, VEs help to improve the efficiency of product design processes
+and aid in the learning process of new skills.
+Modeling applications, such as surface, editing that take advantage of VEs 
+can greatly improve the speed and efficiency of the
+modeling process by adding an ``extra dimension'' 
+making it easier to discern spatial relationships 
+between objects and to interact with them.
+
+<P>
+Polygon meshes are a standard representation of 3D objects for applications
+in geometric modeling, animation, and grid generation. 
+Sometimes, it is necessary to give models
+a realisitic appearance instead of the standard look produced by smooth shaded polygons.
+Surface characteristics can be rendered using procedural shading and texture mapping methods 
+to produce surfaces that simulate real-world material such as wood, marble, cloth, or metal.
+Another method for altering the  appearance of a surface 
+is to have an artist or designer ``paint''
+these qualities onto the surface using a brush that applies colors or textures.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="VESHardware"></A><A NAME="44"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 1:</STRONG>
+Virtual Environment setup showing workbench, data gloves, and stylus</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<IMG
+  WIDTH="219" HEIGHT="186" ALIGN="BOTTOM" BORDER="0"
+ SRC="./workbench.png"
+ ALT="Image workbench">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+Subdivision surfaces have emerged as a powerful tool for surface modeling and editing.  
+Lounsbery et al. [<A
+ HREF="surface_painting.html#Lounsbery:1997:MAS">13</A>] developed 
+multiresolution analysis techniques using wavelets and used them for
+surface editing at coarse and fine levels.
+These ideas were also developed by Stollnitz et al. [<A
+ HREF="surface_painting.html#Stollnitz96-WCGTA">14</A>].
+Modeling with subdivision surfaces was explored by Zorin et al. 
+[<A
+ HREF="surface_painting.html#Zorin:1997:IMM">16</A>], where Loop surfaces [<A
+ HREF="surface_painting.html#Loop:1994:GTS">12</A>] and 
+Taubin smoothing [<A
+ HREF="surface_painting.html#Taubin:1995:SPA">15</A>] are the means to 
+perform multi-resolution editing of a polygonal model. 
+These techniques allow for interactive
+editing of subdivison surfaces on coarse and fine levels.
+Subdivision surfaces have also been extended to general design applications
+such as computer animation and geometric modeling.
+Hoppe et al. [<A
+ HREF="surface_painting.html#Hoppe:1994:PSS">8</A>]
+developed rules for generating creases, dart, and sharp features
+that allow subdivisions surfaces to model a wider range of objects. 
+Subdivision surfaces with sharp features were further developed by DeRose et al. 
+[<A
+ HREF="surface_painting.html#DeRose:1998:SSC">4</A>], where they use subdivision techniques
+to generate models used in computer animation.
+Biermann et al. [<A
+ HREF="surface_painting.html#EVL-2000-47">2</A>], have developed rules for controlling 
+normal vectors on interior and boundary areas of surfaces.
+
+<P>
+In this paper, a method for painting on subdivision 
+surfaces within virtual environments is presented.
+Our algorithm first determines a set of texture maps that cover the surface.
+Each polygon in the subdivision surface has texture coordinates
+that are associated with a texture map. 
+Texture maps are referred to as <EM>base textures</EM>.
+When a point on the surface is painted, the texture coordinates of the
+point are determined, and the base texture corresponding to the polygon is modified
+to reflect the color change. 
+As a user paints on a surface, the textures are updated
+and the painted model is rendered in real time.
+The system is integrated into a virtual environment using an immersive workbench
+and spatially tracked data gloves for interaction.
+A picture of our virtual environment configuration
+is shown in Figure <A HREF="#VESHardware">1</A>.
+The application was developed as a plugin for
+the VirtualExplorer framework presented in [<A
+ HREF="surface_painting.html#Kuester:2001:VirtualExplorer">11</A>].
+
+<P>
+
+<H1><A NAME="SECTION00020000000000000000">
+Related Work</A>
+</H1>
+Mesh painting in 3D space is a common practice in companies 
+that work on animation and special effects. 
+Several commercial packages that allow users to paint on 3D objects are available.
+Hanrahan and Haeberli [<A
+ HREF="surface_painting.html#hanrahan90c">7</A>] have described a system for painting on 3D 
+parameterized meshes using a 2D input device. 
+Painting is performed directly on the 
+mesh in a WYSIWYG (What-You-See-Is-What-You-Get) fashion.
+A user can manipulate the parameters used to
+shade a 3D object by applying pigments to its surface. 
+The pigment has all the properties associated with
+material shading models such as diffuse and specular color and surface roughness. 
+This idea was used by Agrawala et al. [<A
+ HREF="surface_painting.html#Agrawala:1995:PSS">1</A>], 
+along with a flood-fill algorithm for painting mesh vertices. 
+Incremental drawing allows users to paint 
+large meshes interactively without the use of expensive hardware. 
+Since hardware has improved greatly in the past five years,
+their methods could probably be extended to larger meshes. 
+In their system, a force feedback Polhemus device is used to paint on a triangle mesh.
+
+<P>
+Kuester et al. [<A
+ HREF="surface_painting.html#Kuester:2000:SPIE">10</A>] 
+have developed techniques for interactive modeling environments using immersive technologies.
+The <EM>inTouch</EM> system presented in [<A
+ HREF="surface_painting.html#VR00_45">6</A>] is a system  for painting and modeling
+subdivision surfaces.
+This system uses a haptice device for multiresolution mesh editing and mesh painting. 
+Ferley et al. [<A
+ HREF="surface_painting.html#FCG99b">5</A>] use isosurfaces to represent the surface being modeled.
+This approach enables a user to model surfaces of arbitray shape and topology.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="QuadTexSub"></A><A NAME="69"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 2:</STRONG>
+Subdivision of a quadrilateral and corresponding texture coordinates</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<IMG
+  WIDTH="251" HEIGHT="97" ALIGN="BOTTOM" BORDER="0"
+ SRC="./QuadTexSubd.png"
+ ALT="Image QuadTexSubd">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="TriTexSub"></A><A NAME="76"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 3:</STRONG>
+Subdivision of a triangle and corresponding texture coordinates</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<IMG
+  WIDTH="235" HEIGHT="102" ALIGN="BOTTOM" BORDER="0"
+ SRC="./TriTexSubd.png"
+ ALT="Image TriTexSubd">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<H1><A NAME="SECTION00030000000000000000">
+Base Textures</A>
+</H1>
+Base textures as discussed earlier 
+are a set of texture maps that cover a surface.
+The number and size of these texture maps determine how much detail 
+can be painted onto a particular area of the surface. 
+In order to determine how these base textures cover the
+surface, a surface parameterization needs to be defined. 
+This parameterization maps a point on the surface to a texture 
+coordinate in a specific base texture.  For subdivision surfaces, 
+the base mesh can be used as an initial parameterization.
+One base texture is associated with each face of the base mesh, and 
+texture coordinates are associated on a per-face basis. 
+As the mesh is subdivided, new texture coordinates are determined 
+for the new faces, or children, by linearly subdividing the texture 
+coordinates of the original faces or parents. 
+
+<P>
+Subdivision of texture coordinates is shown for quadrilaterals in Figure 
+<A HREF="#QuadTexSub">2</A> and for triangles in Figure&nbsp;<A HREF="#TriTexSub">3</A>. 
+The left polygon shows the initial texture coordinates for the parent face, 
+and the right polygon shows the texture coordinates of the child faces.
+It is important to note that the texture coordinates are assigned on a 
+per-face and not a per-vertex basis even though this is not expressed in the 
+figures.  Texture coordinates in both parametric directions (u and v) 
+vary between 0 and 1.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="ColoredBaseMesh"></A><A NAME="86"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 4:</STRONG>
+Base mesh, each base texture is a single color</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<IMG
+  WIDTH="209" HEIGHT="156" ALIGN="BOTTOM" BORDER="0"
+ SRC="./basemesh.png"
+ ALT="Image basemesh">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+All new faces that result from the subdivision process use the same base 
+texture as their ``parent'' face.  This is illustrated in Figures 
+<A HREF="#ColoredBaseMesh">4</A> and <A HREF="#ColoredMesh">5</A> for a Catmull-Clark [<A
+ HREF="surface_painting.html#Catmull:1978:RGB">3</A>] subdivision 
+surface.  The base mesh of the surface, shown in Figure <A HREF="#ColoredBaseMesh">4</A>, 
+has been colored such that no adjacent faces have the same color.  
+Each face in the base mesh is assigned to a unique base texture map, 
+and is assigned texture coordinates according to the scheme shown in Figure <A HREF="#QuadTexSub">2</A>. 
+The texture maps contain a single color that corresponds to the color for the face,  
+and the faces in turn are colored using these texture maps.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="ColoredMesh"></A><A NAME="210"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 5:</STRONG>
+Mesh from Figure <A HREF="#ColoredBaseMesh">4</A> after 3 Catmull-Clark subdivisions</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<IMG
+  WIDTH="205" HEIGHT="147" ALIGN="BOTTOM" BORDER="0"
+ SRC="./subdmesh.png"
+ ALT="Image subdmesh">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+As the mesh is subdivided, children inherit the base texture 
+of their parent.  The initial resolution of the base textures is 
+256x256 texels.  The size of a base texture can be increased or 
+decreased during the editing process by subsampling or supersampling 
+the initial base texture. In either case, the texture coordinates
+of the faces associated with the base texture do not need to be changed.
+
+<P>
+
+<H1><A NAME="SECTION00040000000000000000">
+Painting Surfaces</A>
+</H1>
+
+<H2><A NAME="SECTION00041000000000000000"></A>
+<A NAME="subsection:BrushStrokes"></A><BR>
+Brush Strokes
+</H2> 
+To paint on a surface, the concept of a brush stroke similar to that presented by
+Gregory et al. [<A
+ HREF="surface_painting.html#VR00_45">6</A>] is used. 
+A brush stroke is modeled by a series of line segments on the polygons
+of the subdivision surface, called <EM>stroke segments</EM>, and a 
+<EM>brush</EM> that determines how the surface properties are modified. 
+Each segment is confined to a single face in the mesh and represents 
+a line in the face's base texture. 
+A segment is not a line between two points on the face but rather a line 
+between two texture coordinates in the base texture associated with the face. 
+This is similar to the approach used by Khodakovsky and Schr&#246;der 
+[<A
+ HREF="surface_painting.html#SSMA99_203">9</A>] for editing fine underlying features on subdivision surfaces. 
+However, instead of modifying geometry around a line segment, we modify surface attributes by
+editing the texture map around a line segment according to the different properties of
+a currently applied brush.
+
+<P>
+Figure <A HREF="#BrushStroke1">6</A> shows a brush stroke that spans several triangles.
+The brush stroke is broken into six segments marked A-F. 
+Each segment is associated with one face. Each face is associated
+with one base texture and has separate texture coordinates for its vertices.
+A brush stroke is drawn by rasterizing each of its stroke segments in the corresponding 
+texture maps and then modifying surrounding texels according to the brush properties.  
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="BrushStroke1"></A><A NAME="114"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 6:</STRONG>
+Brush stroke and stroke segments</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<IMG
+  WIDTH="147" HEIGHT="75" ALIGN="BOTTOM" BORDER="0"
+ SRC="./BrushStroke1.png"
+ ALT="Image BrushStroke1">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+When painting in 2D-space, movement vectors on the screen are
+translated into 3D movement vectors. 
+This is achieved by mapping the start and end points of a mouse movement
+on the screen to points on the near plane of the camera.
+The process is illustrated in Figure <A HREF="#2Dto3DMovementVector">7</A>.
+Two rays from the camera pass through the points on the near plane
+and are intersected with the object being painted.
+This yields two points in physical object space that define the movement
+vector in 3D space.  
+
+<P>
+The movement vector is projected back onto the surface to form the line segments of the brush stroke.
+Beginning with the face intersected by the starting ray, the movement vector is projected
+into the plane defined by the face to form the stroke segment for that face.  
+The next face is found by determining which edge or vertex 
+of the face the projected vector intersects. 
+The face on the opposite  side of the edge or vertex becomes the next face.
+The new movement vector is projected onto this new face, and the process continues until
+the length of the movement vector is below a threshold.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="2Dto3DMovementVector"></A><A NAME="122"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 7:</STRONG>
+Creation of 3D movement vector</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<IMG
+  WIDTH="228" HEIGHT="116" ALIGN="BOTTOM" BORDER="0"
+ SRC="./2Dto3DMovementVector.png"
+ ALT="Image 2Dto3DMovementVector">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<H2><A NAME="SECTION00042000000000000000">
+Brush Characteristics</A>
+</H2>
+The rasterization of a stroke segment in a texture 
+map touches a set of texels called the <EM>stroke texels</EM>.
+Figure <A HREF="#StrokeTexels">8</A> shows a single stroke segment in a triangle
+and the corresponding stroke texels in the texture map.
+The stroke segment is shown in physical and texture space along with the
+mapping of texture coordinates from physical space to texture space. 
+The properties of a brush define how the stroke texels and the surrounding texels
+are modified.
+These are the properties of a brush:
+
+<OL>
+<LI><B>Shape and size</B>. 
+The shape and size of a brush define which surrounding texels are modified.
+The size of a brush is given in physical space, and is described by a bounding sphere. 
+All texels that lie within this bounding sphere can be modified by the brush. 
+The shape of the brush determines which texels within its bounding sphere 
+are modified.
+A circular brush, for example, selects which texels are modified based on the distance
+between the center of the texel and the center of the corresponding stroke texel.
+
+<P>
+</LI>
+<LI><B>Color function</B>. The color function defines the color
+of the brush at a particular position within its extent, i.e., the volume of space 
+defined by its size and shape.
+The color function can be a basic function, such as a checker or stripe pattern,
+or a more complex function such as procedural marble or wood.
+
+<P>
+</LI>
+<LI><B>Blend function</B>. The blend function defines
+how the brush attributes, as defined by the color function, are
+combined with the existing texel. The blend function
+can either replace the existing texel attributes or blend them 
+with the brush attributes.
+
+<P>
+</LI>
+</OL>
+
+<P>
+Brushes modify the diffuse color of the surface, represented by an RGBA tuple.
+It is also possible to use the brushes to paint different material properties,
+such as specular highlights and bump map information, onto the surface.
+Interactive rendering can be achieved by using multi-texturing 
+and normal mapping to render the surface.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="StrokeTexels"></A><A NAME="137"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 8:</STRONG>
+Brush stroke and stroke texels</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<IMG
+  WIDTH="224" HEIGHT="111" ALIGN="BOTTOM" BORDER="0"
+ SRC="./BrushStroke2.png"
+ ALT="Image BrushStroke2">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<H2><A NAME="SECTION00043000000000000000">
+Texel Modification</A>
+</H2>
+The texels surrounding the stroke texels are modified
+according to the characteristics of the brush stroke.
+The surrounding texels fall into one of three categories:
+
+<P>
+
+<OL>
+<LI>Texels that lie in the same face and same texture as the stroke texel.
+</LI>
+<LI>Texels that lie in a different face and same texture as the stroke texel.
+</LI>
+<LI>Texels that lie in a different face and different texture as the stroke texel.
+</LI>
+</OL>
+
+<P>
+These texels are found by placing the brush-specific bounding sphere at each stroke texel and
+using the size of the brush to determine the surface faces that are touched. 
+The position of the brush's bounding sphere in physical space 
+is found by mapping the position of the stroke texel from texture to physical space.
+This is done as follows:
+
+<OL>
+<LI>The texel's indices into the texture map are converted to texture coordinates
+that lie in the interval [0,1].
+
+<P>
+</LI>
+<LI>The barycentric coordinates of the texel's texture coordinates are determined using
+the texture coordinates of the face's vertices.
+
+<P>
+</LI>
+<LI>The barycentric coordinates are used to compute the texel's position in physical
+space from the vertices of the face. The position is computed for the center of the
+texel.
+
+<P>
+</LI>
+</OL>
+
+<P>
+Starting with the initial face, the surrounding faces in the mesh 
+are searched to find those
+faces that are partially or completely inside the sphere. 
+The search is performed in a breadth-first fashion. 
+This method prevents faces from being painted incorrectly when two parts of
+the surface are close together.
+This is illustrated in Figure <A HREF="#PaintedFacesOne">9</A>: 
+The sphere created at the stroke
+texel contains faces from the far side of the surface. 
+The breadth-first search starting at the initial face will not include 
+the faces on the far side of the surface.
+As a result, these faces will not be incorrectly painted when the brush is moved over the surface.
+A special case is shown in Figure <A HREF="#PaintedFacesTwo">10</A>.
+The brush contains all of the faces on some path from the painted
+side of the surface to the far side of the surface.
+In this case, the breadth-first search used to find the painted faces
+will find those faces on the far side of the surface correctly.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="PaintedFacesOne"></A><A NAME="151"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 9:</STRONG>
+Faces on the far side are not painted when a breadth-first search is used.</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<IMG
+  WIDTH="183" HEIGHT="102" ALIGN="BOTTOM" BORDER="0"
+ SRC="./PaintedFaces.png"
+ ALT="Image PaintedFaces">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="PaintedFacesTwo"></A><A NAME="158"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 10:</STRONG>
+Both sides of the surface (dashed) are painted.</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<IMG
+  WIDTH="190" HEIGHT="78" ALIGN="BOTTOM" BORDER="0"
+ SRC="./BothSidesPainted.png"
+ ALT="Image BothSidesPainted">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<H1><A NAME="SECTION00050000000000000000">
+Virtual Reality Modeling</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION00051000000000000000">
+Overview</A>
+</H2>
+We have integrated our system into a Virtual Reality 
+environment using an immersive workbench from Fakespace Corporation. 
+The semi-immersive environment allows stereo viewing using headtracked shutter glasses.
+This has many advantages over traditional editing environments where the user must interact
+with objects projected onto a 2D screen.
+In our system, a user can interact with the environment 
+using spatially tracked data gloves and a stylus. 
+The interface was implemented using the <EM>VirtualExplorer</EM> 
+framework developed by researchers at UC Davis and Irvine. 
+The VirtualExplorer framework is an object-oriented, customizable, plugin-based
+framework for VR applications. 
+The basis of VirtualExplorer is a run-time plugin system
+that allows users to dynamically load, unload, enable, or disable 
+different modules of functionality.
+Our algorithms are implemented as a plugin for the VirtualExplorer framework.
+
+<P>
+
+<H2><A NAME="SECTION00052000000000000000">
+Painting Gestures</A>
+</H2>
+The painting process is performed as the user moves the brush through 3D space.
+The brush is drawn at the position of the current stroke texel
+being painted to indicate where the brush is during painting.
+
+<P>
+Painting gestures are broken down into gestures that move the brush along the surface
+and gestures that move the brush towards or away from the surface. 
+Gestures that move the brush along the surface are used to determine the stroke 
+segments that compose the current brush stroke. The movement vector
+associated with this gesture is called the <EM>surface vector</EM>. 
+Gestures that move the brush towards or away from
+the surface determine how much of the brush is in contact with the surface, 
+and thus the section of the surface that is painted. The movement vector
+associated with this gesture is called the <EM>brush vector</EM>. 
+
+<P>
+The decomposition of a movement in 3D space into the surface vector and brush vector
+is illustrated in Figure <A HREF="#SurfaceBrushDecomposition">11</A>. 
+A movement vector is initiated at some point on the surface. This movement vector
+is divided into components tangent and perpendicular to the surface.
+The component along the surface is found by the same algorithm for 
+determing the stroke segments as described in Section <A HREF="#subsection:BrushStrokes">4.1</A>.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="SurfaceBrushDecomposition"></A><A NAME="172"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 11:</STRONG>
+Decomposition of painting gesture into surface and brush vectors</CAPTION>
+<TR><TD><IMG
+  WIDTH="231" HEIGHT="125" ALIGN="BOTTOM" BORDER="0"
+ SRC="./SurfaceBrushDecomposition.png"
+ ALT="Image SurfaceBrushDecomposition"></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<H2><A NAME="SECTION00053000000000000000">
+Applying Paint</A>
+</H2>
+Painting gestures are used to determine which portion of a surface is painted
+and how much paint is applied to this area. As the brush is moved across the surface
+in a painting gesture, the individual components of the gesture can be used to 
+determine the extent to which a particular brush interacts with the surface. 
+The brush vector is used to determine how much of the brush
+is touching the surface, and thus how many texels are painted.
+The surface vector is used to determine the stroke segments. 
+
+<P>
+
+<H2><A NAME="SECTION00054000000000000000">
+Data Gloves</A>
+</H2>
+The data gloves allow the user to interact with 
+the virtual environment in a two-handed free-form manner.
+The spatially tracked data gloves provide 
+position information for the hand and pinch information for the fingers.
+The data gloves are used for these purposes:
+
+<P>
+
+<OL>
+<LI>Interactive viewpoint selection 
+</LI>
+<LI>Selection of a surface or surface feature for editing 
+
+<P>
+</LI>
+</OL>
+
+<P>
+Interactive viewpoint selection is performed by either translating the viewpoint through the scene
+or rotating the viewpoint around a virtual trackball located at some point in the environment.
+Viewpoint translation is accomplished by pinching the thumb and index fingers of the data glove 
+together and moving the glove in space. 
+Viewpoint rotation is accomplished by pinching together the thumb and index fingers
+of both hands and moving them in space. This motion determines a rotation axis 
+and an angle of rotation. 
+In scenes with multiple objects, the data gloves are used to select 
+which surface to edit.
+
+<P>
+
+<H2><A NAME="SECTION00055000000000000000">
+Stylus</A>
+</H2>
+The stylus tool allows a user to select objects in the scene
+using a method similar to pointing out objects with a laser pointer.
+This enables a user to select distant objects, to bring distant objects
+into the foreground, or to move them to specific locatations. 
+The stylus provides the direction that it is pointing towards 
+and pinch information for its button.  Direction information is available
+as a quaternion rotation and as a tuple consisting of direction, pitch, and roll.
+The stylus is used for these purposes:
+
+<OL>
+<LI>Selecting objects for modeling
+</LI>
+<LI>Painting objects using the stylus as a paint brush 
+
+<P>
+</LI>
+</OL>
+
+<P>
+The stylus is represented as a ray in 3D space, i.e., it has a 3D position and direction.
+Object painting is performed by pointing the stylus at the surface to select
+a starting point and then moving the stylus's ray along the surface to trace
+out the path of the brush.
+The intersection of the stylus's ray with the surface is used to 
+create a movement vector in 3D space.
+This 3D movement vector is painted on the surface in the manner 
+described in Section <A HREF="#subsection:BrushStrokes">4.1</A>.
+
+<P>
+Painting using the stylus can be done in either <EM>laser-pointer</EM> mode or
+<EM>paint-brush</EM> mode. 
+In laser-pointer mode, the position of the stylus 
+is not taken into account, and only the stylus's direction is used to 
+construct the brush strokes on the surface. 
+This allows the user to make broader strokes over the surface of the object.
+In paint-brush mode, the position of the stylus is used to determine 
+how the brush interacts with the surface. 
+In this painting style, the
+brush has the notion of how much of it is on the surface, and thus what portion of the
+surface is painted.
+This allows the user to paint finer strokes over the object. 
+The stylus tool enables a user to select the points in 3D space that describe the movement
+vector within the space of the object rather than on a 2D projection of the object.
+
+<P>
+
+<H1><A NAME="SECTION00060000000000000000">
+Results</A>
+</H1>
+Figure <A HREF="#VRBunny1">12</A> shows a painted bunny. The bunny model
+was obtained from Standford University's model archive and simplified
+using Michael Garland's qslim software. 
+The base mesh consists of 500 triangles, and is was 
+subdivided three times using Loop's subdivision method.
+There are 500 base textures each with 64x64 texels. 
+The base textures are assigned colors such that as few adjacent faces as 
+possible share the same color.
+The letters on the bunny were painted with a spherical brush.
+The blend function of the brush replaces the existing texel's color with the brush color.
+Figure <A HREF="#VRFace">13</A> shows the bicycle seat model from Figure <A HREF="#ColoredBaseMesh">4</A>
+subdividided three times using Catmull-Clark subdivision.
+There are 18 base textures with 256x256 texels. The small strokes 
+were painted with a brush of half the size used for the big strokes.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="VRBunny1"></A><A NAME="192"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 12:</STRONG>
+Painted bunny. Brush shape = spherical, Blend function = replace </CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<IMG
+  WIDTH="241" HEIGHT="261" ALIGN="BOTTOM" BORDER="0"
+ SRC="./VRBunny1.png"
+ ALT="Image VRBunny1">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="VRFace"></A><A NAME="199"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 13:</STRONG>
+Painted bike seat. Brush shape = spherical, Blend function = replace </CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<IMG
+  WIDTH="221" HEIGHT="205" ALIGN="BOTTOM" BORDER="0"
+ SRC="./face1.png"
+ ALT="Image face1">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<H1><A NAME="SECTION00070000000000000000">
+Conclusions and Future Work</A>
+</H1>
+We have presented a method for interactive painting on a subdivision surface
+in a virtual environment. 
+Our algorithm starts by parameterizing the surface using the base mesh
+and forming a set of textures that cover the surface.
+The user is able to interactively paint on the surface by modifying the underlying texture maps.
+The VR environment provides a user with a much better spatial perception of the model
+and allows one to paint surfaces in 3D space. 
+
+<P>
+Future work will be directed at the development of new interaction paradigms
+in VEs and a user study of these paradigms.
+New modeling algorithms that take maximal advantage of a
+VR environment need to be investigated, specifically with regard
+to the advantages and limitations of our current hardware setup.
+A user interface for the VE that provides the user 
+access to the full range of tools available to an artist has to be developed. 
+This includes the addition of painting specific items such color selection, 
+brush selection, and a virtual palette.  
+The development of a richer user interface will greatly add to the
+capabilities of the system.
+
+<P>
+
+<H1><A NAME="SECTION00080000000000000000">
+Acknowledgments</A>
+</H1> 
+
+<P>
+This work was supported by the National Science Foundation under 
+contracts ACI 9624034 (CAREER Award), through the Large Scientific and 
+Software Data Set Visualization (LSSDSV) program under contract ACI 
+9982251, and through the National Partnership for Advanced 
+Computational Infrastructure (NPACI); the Office of Naval Research 
+under contract N00014-97-1-0222; the Army Research Office under 
+contract ARO 36598-MA-RIP; the NASA Ames Research Center through an 
+NRA award under contract NAG2-1216; the Lawrence Livermore National 
+Laboratory under ASCI ASAP Level-2 Memorandum Agreement B347878 and 
+under Memorandum Agreement B503159; the Lawrence Berkeley National 
+Laboratory; the Los Alamos National Laboratory; and the North Atlantic 
+Treaty Organization (NATO) under contract CRG.971628.  We also 
+acknowledge the support of ALSTOM Schilling Robotics and SGI. We thank 
+the members of the Visualization and Graphics Research Group at the 
+Center for Image Processing and Integrated Computing (CIPIC) at the 
+University of California, Davis. 
+
+<P>
+
+<H2><A NAME="SECTION00090000000000000000">
+Bibliography</A>
+</H2><DL COMPACT><DD><P></P><DT><A NAME="Agrawala:1995:PSS">1</A>
+<DD>
+Maneesh Agrawala, Andrew&nbsp;C. Beers, and Marc Levoy.
+<BR>3D painting on scanned surfaces.
+<BR>In Pat Hanrahan and Jim Winget, editors, <EM>1995 Symposium on
+  Interactive 3D Graphics</EM>, pages 145-150. ACM SIGGRAPH, April 1995.
+
+<P></P><DT><A NAME="EVL-2000-47">2</A>
+<DD>
+Henning Biermann, Adi Levin, and Denis Zorin.
+<BR>Piecewise smooth subdivision surfaces with normal control.
+<BR>In Kurt Akeley, editor, <EM>Siggraph 2000, Computer Graphics
+  Proceedings</EM>, pages 113-120. ACM Press / ACM SIGGRAPH / Addison Wesley
+  Longman, 2000.
+
+<P></P><DT><A NAME="Catmull:1978:RGB">3</A>
+<DD>
+Edwin Catmull and Jim Clark.
+<BR>Recursively generated B-spline surfaces on arbitrary topological
+  meshes.
+<BR><EM>Computer-Aided Design</EM>, 10, September 1978.
+
+<P></P><DT><A NAME="DeRose:1998:SSC">4</A>
+<DD>
+Tony DeRose, Michael Kass, and Tien Truong.
+<BR>Subdivision surfaces in character animation.
+<BR>In Michael Cohen, editor, <EM>SIGGRAPH 98 Conference Proceedings</EM>.
+  ACM SIGGRAPH, Addison Wesley, 1998.
+
+<P></P><DT><A NAME="FCG99b">5</A>
+<DD>
+Eric Ferley, Marie-Paule Cani, and Jean-Dominique Gascuel.
+<BR>Practical volumetric sculpting.
+<BR>In <EM>Proceedings of Implicit Surface '99</EM>, Sep 1999.
+
+<P></P><DT><A NAME="VR00_45">6</A>
+<DD>
+Arthur Gregory, Stephen Ehmann, and Ming Lin.
+<BR>inTouch: Interactive multiresolution modeling and 3D painting
+  with a haptic interface.
+<BR>In Steven Feiner and Daniel Thalmann, editors, <EM>Proceedings of
+  the 2000 IEEE Conference on Virtual Reality (VR-00)</EM>. IEEE.
+
+<P></P><DT><A NAME="hanrahan90c">7</A>
+<DD>
+Pat Hanrahan and Paul Haeberli.
+<BR>Direct WYSIWYG painting and texturing on 3D shapes.
+<BR>In Forest Baskett, editor, <EM>Computer Graphics (SIGGRAPH '90
+  Proceedings)</EM>, volume&nbsp;24, August 1990.
+
+<P></P><DT><A NAME="Hoppe:1994:PSS">8</A>
+<DD>
+Hugues Hoppe, Tony DeRose, Tom Duchamp, Mark Halstead, Hubert Jin, John
+  McDonald, Jean Schweitzer, and Werner Stuetzle.
+<BR>Piecewise smooth surface reconstruction.
+<BR>In Andrew Glassner, editor, <EM>Proceedings of SIGGRAPH '94
+  (Orlando, Florida, July 24-29, 1994)</EM>. ACM SIGGRAPH, ACM Press.
+
+<P></P><DT><A NAME="SSMA99_203">9</A>
+<DD>
+Andrei Khodakovsky and Peter Schr&#246;der.
+<BR>Fine level feature editing for subdivision surfaces.
+<BR>In Willem&nbsp;F. Bronsvoort and David&nbsp;C. Anderson, editors, <EM>  Proceedings of the Fifth Symposium on Solid Modeling and Applications
+  (SSMA-99)</EM>. ACM Press.
+
+<P></P><DT><A NAME="Kuester:2000:SPIE">10</A>
+<DD>
+Falko Kuester, Mark&nbsp;A. Duchaineau, Bernd Hamann, Kenneth&nbsp;I. Joy, and Kwan-Liu
+  Ma.
+<BR>The designersworkbench: towards real-time immersive modeling.
+<BR>In J.&nbsp;O. Merritt, S.&nbsp;A. Benton, A.&nbsp;J. Woods, and M.&nbsp;T. Bolas,
+  editors, <EM>Stereoscopic Displays and Virtual Reality Systems VII</EM>, volume
+  SPIE Vol. 3957. The International Society for Optical Engineering, 2000.
+
+<P></P><DT><A NAME="Kuester:2001:VirtualExplorer">11</A>
+<DD>
+Falko Kuester, Bernd Hamann, and Kenneth&nbsp;I. Joy.
+<BR>Virtualexplorer: A plugin-based virtual reality framework.
+<BR>In R.F. Erbacher, P.C. Chen, M.&nbsp;Groehn, J.C. Roberts, and C.M.
+  Wittenbrink, editors, <EM>Proceedings of SPIE</EM>, San Jose, California, USA,
+  2001. SPIE - The International Society of Optical Engineering.
+
+<P></P><DT><A NAME="Loop:1994:GTS">12</A>
+<DD>
+Charles Loop.
+<BR>Smooth subdivision surfaces based on triangles.
+<BR>Master's thesis, 1987.
+<BR>University of Utah, Department of Mathematics.
+
+<P></P><DT><A NAME="Lounsbery:1997:MAS">13</A>
+<DD>
+Michael Lounsbery, Tony&nbsp;D. DeRose, and Joe Warren.
+<BR>Multiresolution analysis for surfaces of arbitrary topological type.
+<BR><EM>ACM Transactions on Graphics</EM>, 16(1):34-73, January 1997.
+
+<P></P><DT><A NAME="Stollnitz96-WCGTA">14</A>
+<DD>
+Eric&nbsp;J. Stollnitz, Tony&nbsp;D. DeRose, and David&nbsp;H. Salesin.
+<BR><EM>Wavelets for Computer Graphics: Theory and
+  Applications</EM>.
+<BR>Morgann Kaufmann, San Francisco, CA, 1996.
+
+<P></P><DT><A NAME="Taubin:1995:SPA">15</A>
+<DD>
+Gabriel Taubin.
+<BR>A signal processing approach to fair surface design.
+<BR>In Robert Cook, editor, <EM>SIGGRAPH 95 Conference Proceedings</EM>,
+  Annual Conference Series, pages 351-358. ACM SIGGRAPH, Addison Wesley,
+  August 1995.
+
+<P></P><DT><A NAME="Zorin:1997:IMM">16</A>
+<DD>
+Denis Zorin, Peter Schr&#246;der, and Wim Sweldens.
+<BR>Interactive multiresolution mesh editing.
+<BR>In Turner Whitted, editor, <EM>SIGGRAPH 97 Conference Proceedings</EM>,
+  pages 259-268. ACM SIGGRAPH, Addison Wesley, August 1997.
+</DL>  
+
+<P>
+
+<H1><A NAME="SECTION000100000000000000000">
+About this document ...</A>
+</H1>
+ <STRONG>Mesh Painting on Subdivision Surfaces In Virtual Environments</STRONG><P>
+This document was generated using the
+<A HREF="http://www.latex2html.org/"><STRONG>LaTeX</STRONG>2<tt>HTML</tt></A> translator Version 2008 (1.71)
+<P>
+Copyright &#169; 1993, 1994, 1995, 1996,
+<A HREF="http://cbl.leeds.ac.uk/nikos/personal.html">Nikos Drakos</A>, 
+Computer Based Learning Unit, University of Leeds.
+<BR>Copyright &#169; 1997, 1998, 1999,
+<A HREF="http://www.maths.mq.edu.au/~ross/">Ross Moore</A>, 
+Mathematics Department, Macquarie University, Sydney.
+<P>
+The command line arguments were: <BR>
+ <STRONG>latex2html</STRONG> <TT>-tmp tmp -split 0 surface_painting.tex</TT>
+<P>
+The translation was initiated by servant of allah on 2010-11-10<HR>
+<!--Navigation Panel-->
+<IMG WIDTH="81" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next_inactive"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/nx_grp_g.png"> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/prev_g.png">   
+<BR>
+<!--End of Navigation Panel-->
+<ADDRESS>
+servant of allah
+2010-11-10
+</ADDRESS>
+</BODY>
+</HTML>

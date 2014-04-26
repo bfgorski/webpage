@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Texel Modification</TITLE>
+<META NAME="description" CONTENT="Texel Modification">
+<META NAME="keywords" CONTENT="surface_painting">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="surface_painting.css">
+
+<LINK REL="previous" HREF="node6.html">
+<LINK REL="up" HREF="node4.html">
+<LINK REL="next" HREF="node8.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html103"
+  HREF="node8.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/next.png"></A> 
+<A NAME="tex2html101"
+  HREF="node4.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/up.png"></A> 
+<A NAME="tex2html97"
+  HREF="node6.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html104"
+  HREF="node8.html">Virtual Reality Modeling</A>
+<B> Up:</B> <A NAME="tex2html102"
+  HREF="node4.html">Painting Surfaces</A>
+<B> Previous:</B> <A NAME="tex2html98"
+  HREF="node6.html">Brush Characteristics</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00043000000000000000">
+Texel Modification</A>
+</H2>
+The texels surrounding the stroke texels are modified
+according to the characteristics of the brush stroke.
+The surrounding texels fall into one of three categories:
+
+<P>
+
+<OL>
+<LI>Texels that lie in the same face and same texture as the stroke texel.
+</LI>
+<LI>Texels that lie in a different face and same texture as the stroke texel.
+</LI>
+<LI>Texels that lie in a different face and different texture as the stroke texel.
+</LI>
+</OL>
+
+<P>
+These texels are found by placing the brush-specific bounding sphere at each stroke texel and
+using the size of the brush to determine the surface faces that are touched. 
+The position of the brush's bounding sphere in physical space 
+is found by mapping the position of the stroke texel from texture to physical space.
+This is done as follows:
+
+<OL>
+<LI>The texel's indices into the texture map are converted to texture coordinates
+that lie in the interval [0,1].
+
+<P>
+</LI>
+<LI>The barycentric coordinates of the texel's texture coordinates are determined using
+the texture coordinates of the face's vertices.
+
+<P>
+</LI>
+<LI>The barycentric coordinates are used to compute the texel's position in physical
+space from the vertices of the face. The position is computed for the center of the
+texel.
+
+<P>
+</LI>
+</OL>
+
+<P>
+Starting with the initial face, the surrounding faces in the mesh 
+are searched to find those
+faces that are partially or completely inside the sphere. 
+The search is performed in a breadth-first fashion. 
+This method prevents faces from being painted incorrectly when two parts of
+the surface are close together.
+This is illustrated in Figure <A HREF="#PaintedFacesOne"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/crossref.png"></A>: 
+The sphere created at the stroke
+texel contains faces from the far side of the surface. 
+The breadth-first search starting at the initial face will not include 
+the faces on the far side of the surface.
+As a result, these faces will not be incorrectly painted when the brush is moved over the surface.
+A special case is shown in Figure <A HREF="#PaintedFacesTwo"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/crossref.png"></A>.
+The brush contains all of the faces on some path from the painted
+side of the surface to the far side of the surface.
+In this case, the breadth-first search used to find the painted faces
+will find those faces on the far side of the surface correctly.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="PaintedFacesOne"></A><A NAME="152"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
+Faces on the far side are not painted when a breadth-first search is used.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<IMG
+  WIDTH="183" HEIGHT="102" ALIGN="BOTTOM" BORDER="0"
+ SRC="./PaintedFaces.png"
+ ALT="Image PaintedFaces">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="PaintedFacesTwo"></A><A NAME="159"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
+Both sides of the surface (dashed) are painted.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<IMG
+  WIDTH="190" HEIGHT="78" ALIGN="BOTTOM" BORDER="0"
+ SRC="./BothSidesPainted.png"
+ ALT="Image BothSidesPainted">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html103"
+  HREF="node8.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/next.png"></A> 
+<A NAME="tex2html101"
+  HREF="node4.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/up.png"></A> 
+<A NAME="tex2html97"
+  HREF="node6.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html104"
+  HREF="node8.html">Virtual Reality Modeling</A>
+<B> Up:</B> <A NAME="tex2html102"
+  HREF="node4.html">Painting Surfaces</A>
+<B> Previous:</B> <A NAME="tex2html98"
+  HREF="node6.html">Brush Characteristics</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+servant of allah
+2010-11-10
+</ADDRESS>
+</BODY>
+</HTML>

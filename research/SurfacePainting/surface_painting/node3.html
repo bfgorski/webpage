@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Base Textures</TITLE>
+<META NAME="description" CONTENT="Base Textures">
+<META NAME="keywords" CONTENT="surface_painting">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="surface_painting.css">
+
+<LINK REL="next" HREF="node4.html">
+<LINK REL="previous" HREF="node2.html">
+<LINK REL="up" HREF="surface_painting.html">
+<LINK REL="next" HREF="node4.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html62"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/next.png"></A> 
+<A NAME="tex2html60"
+  HREF="surface_painting.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/up.png"></A> 
+<A NAME="tex2html54"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html63"
+  HREF="node4.html">Painting Surfaces</A>
+<B> Up:</B> <A NAME="tex2html61"
+  HREF="surface_painting.html">Mesh Painting on Subdivision</A>
+<B> Previous:</B> <A NAME="tex2html55"
+  HREF="node2.html">Related Work</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00030000000000000000">
+Base Textures</A>
+</H1>
+Base textures as discussed earlier 
+are a set of texture maps that cover a surface.
+The number and size of these texture maps determine how much detail 
+can be painted onto a particular area of the surface. 
+In order to determine how these base textures cover the
+surface, a surface parameterization needs to be defined. 
+This parameterization maps a point on the surface to a texture 
+coordinate in a specific base texture.  For subdivision surfaces, 
+the base mesh can be used as an initial parameterization.
+One base texture is associated with each face of the base mesh, and 
+texture coordinates are associated on a per-face basis. 
+As the mesh is subdivided, new texture coordinates are determined 
+for the new faces, or children, by linearly subdividing the texture 
+coordinates of the original faces or parents. 
+
+<P>
+Subdivision of texture coordinates is shown for quadrilaterals in Figure 
+<A HREF="node2.html#QuadTexSub"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/crossref.png"></A> and for triangles in Figure&nbsp;<A HREF="node2.html#TriTexSub"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/crossref.png"></A>. 
+The left polygon shows the initial texture coordinates for the parent face, 
+and the right polygon shows the texture coordinates of the child faces.
+It is important to note that the texture coordinates are assigned on a 
+per-face and not a per-vertex basis even though this is not expressed in the 
+figures.  Texture coordinates in both parametric directions (u and v) 
+vary between 0 and 1.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="ColoredBaseMesh"></A><A NAME="87"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
+Base mesh, each base texture is a single color</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<IMG
+  WIDTH="209" HEIGHT="156" ALIGN="BOTTOM" BORDER="0"
+ SRC="./basemesh.png"
+ ALT="Image basemesh">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+All new faces that result from the subdivision process use the same base 
+texture as their ``parent'' face.  This is illustrated in Figures 
+<A HREF="#ColoredBaseMesh"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/crossref.png"></A> and <A HREF="#ColoredMesh"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/crossref.png"></A> for a Catmull-Clark [<A
+ HREF="node17.html#Catmull:1978:RGB">3</A>] subdivision 
+surface.  The base mesh of the surface, shown in Figure <A HREF="#ColoredBaseMesh"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/crossref.png"></A>, 
+has been colored such that no adjacent faces have the same color.  
+Each face in the base mesh is assigned to a unique base texture map, 
+and is assigned texture coordinates according to the scheme shown in Figure <A HREF="node2.html#QuadTexSub"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/crossref.png"></A>. 
+The texture maps contain a single color that corresponds to the color for the face,  
+and the faces in turn are colored using these texture maps.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="ColoredMesh"></A><A NAME="212"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
+Mesh from Figure <A HREF="#ColoredBaseMesh"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/crossref.png"></A> after 3 Catmull-Clark subdivisions</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<IMG
+  WIDTH="205" HEIGHT="147" ALIGN="BOTTOM" BORDER="0"
+ SRC="./subdmesh.png"
+ ALT="Image subdmesh">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+As the mesh is subdivided, children inherit the base texture 
+of their parent.  The initial resolution of the base textures is 
+256x256 texels.  The size of a base texture can be increased or 
+decreased during the editing process by subsampling or supersampling 
+the initial base texture. In either case, the texture coordinates
+of the faces associated with the base texture do not need to be changed.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html62"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/next.png"></A> 
+<A NAME="tex2html60"
+  HREF="surface_painting.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/up.png"></A> 
+<A NAME="tex2html54"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html63"
+  HREF="node4.html">Painting Surfaces</A>
+<B> Up:</B> <A NAME="tex2html61"
+  HREF="surface_painting.html">Mesh Painting on Subdivision</A>
+<B> Previous:</B> <A NAME="tex2html55"
+  HREF="node2.html">Related Work</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+servant of allah
+2010-11-10
+</ADDRESS>
+</BODY>
+</HTML>

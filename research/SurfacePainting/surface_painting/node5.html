@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Brush Strokes</TITLE>
+<META NAME="description" CONTENT="Brush Strokes">
+<META NAME="keywords" CONTENT="surface_painting">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="surface_painting.css">
+
+<LINK REL="next" HREF="node6.html">
+<LINK REL="previous" HREF="node4.html">
+<LINK REL="up" HREF="node4.html">
+<LINK REL="next" HREF="node6.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html85"
+  HREF="node6.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/next.png"></A> 
+<A NAME="tex2html83"
+  HREF="node4.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/up.png"></A> 
+<A NAME="tex2html77"
+  HREF="node4.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html86"
+  HREF="node6.html">Brush Characteristics</A>
+<B> Up:</B> <A NAME="tex2html84"
+  HREF="node4.html">Painting Surfaces</A>
+<B> Previous:</B> <A NAME="tex2html78"
+  HREF="node4.html">Painting Surfaces</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00041000000000000000"></A>
+<A NAME="subsection:BrushStrokes"></A>
+<BR>
+Brush Strokes
+</H2> 
+To paint on a surface, the concept of a brush stroke similar to that presented by
+Gregory et al. [<A
+ HREF="node17.html#VR00_45">6</A>] is used. 
+A brush stroke is modeled by a series of line segments on the polygons
+of the subdivision surface, called <EM>stroke segments</EM>, and a 
+<EM>brush</EM> that determines how the surface properties are modified. 
+Each segment is confined to a single face in the mesh and represents 
+a line in the face's base texture. 
+A segment is not a line between two points on the face but rather a line 
+between two texture coordinates in the base texture associated with the face. 
+This is similar to the approach used by Khodakovsky and Schr&#246;der 
+[<A
+ HREF="node17.html#SSMA99_203">9</A>] for editing fine underlying features on subdivision surfaces. 
+However, instead of modifying geometry around a line segment, we modify surface attributes by
+editing the texture map around a line segment according to the different properties of
+a currently applied brush.
+
+<P>
+Figure <A HREF="#BrushStroke1"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/crossref.png"></A> shows a brush stroke that spans several triangles.
+The brush stroke is broken into six segments marked A-F. 
+Each segment is associated with one face. Each face is associated
+with one base texture and has separate texture coordinates for its vertices.
+A brush stroke is drawn by rasterizing each of its stroke segments in the corresponding 
+texture maps and then modifying surrounding texels according to the brush properties.  
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="BrushStroke1"></A><A NAME="115"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
+Brush stroke and stroke segments</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<IMG
+  WIDTH="147" HEIGHT="75" ALIGN="BOTTOM" BORDER="0"
+ SRC="./BrushStroke1.png"
+ ALT="Image BrushStroke1">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+When painting in 2D-space, movement vectors on the screen are
+translated into 3D movement vectors. 
+This is achieved by mapping the start and end points of a mouse movement
+on the screen to points on the near plane of the camera.
+The process is illustrated in Figure <A HREF="#2Dto3DMovementVector"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/crossref.png"></A>.
+Two rays from the camera pass through the points on the near plane
+and are intersected with the object being painted.
+This yields two points in physical object space that define the movement
+vector in 3D space.  
+
+<P>
+The movement vector is projected back onto the surface to form the line segments of the brush stroke.
+Beginning with the face intersected by the starting ray, the movement vector is projected
+into the plane defined by the face to form the stroke segment for that face.  
+The next face is found by determining which edge or vertex 
+of the face the projected vector intersects. 
+The face on the opposite  side of the edge or vertex becomes the next face.
+The new movement vector is projected onto this new face, and the process continues until
+the length of the movement vector is below a threshold.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="2Dto3DMovementVector"></A><A NAME="123"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
+Creation of 3D movement vector</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<IMG
+  WIDTH="228" HEIGHT="116" ALIGN="BOTTOM" BORDER="0"
+ SRC="./2Dto3DMovementVector.png"
+ ALT="Image 2Dto3DMovementVector">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html85"
+  HREF="node6.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/next.png"></A> 
+<A NAME="tex2html83"
+  HREF="node4.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/up.png"></A> 
+<A NAME="tex2html77"
+  HREF="node4.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/home/bfgorski/bin/share/lib/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html86"
+  HREF="node6.html">Brush Characteristics</A>
+<B> Up:</B> <A NAME="tex2html84"
+  HREF="node4.html">Painting Surfaces</A>
+<B> Previous:</B> <A NAME="tex2html78"
+  HREF="node4.html">Painting Surfaces</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+servant of allah
+2010-11-10
+</ADDRESS>
+</BODY>
+</HTML>

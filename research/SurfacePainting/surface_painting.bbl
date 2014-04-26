@@ -1,0 +1,105 @@
+\begin{thebibliography}{10}
+
+\bibitem{Agrawala:1995:PSS}
+Maneesh Agrawala, Andrew~C. Beers, and Marc Levoy.
+\newblock {3D} painting on scanned surfaces.
+\newblock In Pat Hanrahan and Jim Winget, editors, {\em 1995 Symposium on
+  Interactive {3D} Graphics}, pages 145--150. ACM SIGGRAPH, April 1995.
+
+\bibitem{EVL-2000-47}
+Henning Biermann, Adi Levin, and Denis Zorin.
+\newblock Piecewise smooth subdivision surfaces with normal control.
+\newblock In Kurt Akeley, editor, {\em Siggraph 2000, Computer Graphics
+  Proceedings}, pages 113--120. ACM Press / ACM SIGGRAPH / Addison Wesley
+  Longman, 2000.
+
+\bibitem{Catmull:1978:RGB}
+Edwin Catmull and Jim Clark.
+\newblock Recursively generated {B}-spline surfaces on arbitrary topological
+  meshes.
+\newblock {\em Computer-Aided Design}, 10, September 1978.
+
+\bibitem{DeRose:1998:SSC}
+Tony {DeRose}, Michael Kass, and Tien Truong.
+\newblock Subdivision surfaces in character animation.
+\newblock In Michael Cohen, editor, {\em SIGGRAPH 98 Conference Proceedings}.
+  ACM SIGGRAPH, Addison Wesley, 1998.
+
+\bibitem{FCG99b}
+Eric Ferley, Marie-Paule Cani, and Jean-Dominique Gascuel.
+\newblock Practical volumetric sculpting.
+\newblock In {\em Proceedings of Implicit Surface '99}, Sep 1999.
+
+\bibitem{VR00*45}
+Arthur Gregory, Stephen Ehmann, and Ming Lin.
+\newblock {inTouch}: Interactive multiresolution modeling and {3D} painting
+  with a haptic interface.
+\newblock In Steven Feiner and Daniel Thalmann, editors, {\em Proceedings of
+  the 2000 {IEEE} Conference on Virtual Reality ({VR}-00)}. IEEE.
+
+\bibitem{hanrahan90c}
+Pat Hanrahan and Paul Haeberli.
+\newblock Direct {WYSIWYG} painting and texturing on 3{D} shapes.
+\newblock In Forest Baskett, editor, {\em Computer Graphics (SIGGRAPH '90
+  Proceedings)}, volume~24, August 1990.
+
+\bibitem{Hoppe:1994:PSS}
+Hugues Hoppe, Tony {DeRose}, Tom Duchamp, Mark Halstead, Hubert Jin, John
+  {McDonald}, Jean Schweitzer, and Werner Stuetzle.
+\newblock Piecewise smooth surface reconstruction.
+\newblock In Andrew Glassner, editor, {\em Proceedings of SIGGRAPH '94
+  (Orlando, Florida, July 24--29, 1994)}. ACM SIGGRAPH, ACM Press.
+
+\bibitem{SSMA99*203}
+Andrei Khodakovsky and Peter Schr{\"o}der.
+\newblock Fine level feature editing for subdivision surfaces.
+\newblock In Willem~F. Bronsvoort and David~C. Anderson, editors, {\em
+  Proceedings of the Fifth Symposium on Solid Modeling and Applications
+  ({SSMA}-99)}. ACM Press.
+
+\bibitem{Kuester:2000:SPIE}
+Falko Kuester, Mark~A. Duchaineau, Bernd Hamann, Kenneth~I. Joy, and Kwan-Liu
+  Ma.
+\newblock The designersworkbench: towards real-time immersive modeling.
+\newblock In J.~O. Merritt, S.~A. Benton, A.~J. Woods, and M.~T. Bolas,
+  editors, {\em Stereoscopic Displays and Virtual Reality Systems VII}, volume
+  SPIE Vol. 3957. The International Society for Optical Engineering, 2000.
+
+\bibitem{Kuester:2001:VirtualExplorer}
+Falko Kuester, Bernd Hamann, and Kenneth~I. Joy.
+\newblock Virtualexplorer: A plugin-based virtual reality framework.
+\newblock In R.F. Erbacher, P.C. Chen, M.~Groehn, J.C. Roberts, and C.M.
+  Wittenbrink, editors, {\em Proceedings of SPIE}, San Jose, California, USA,
+  2001. SPIE - The International Society of Optical Engineering.
+
+\bibitem{Loop:1994:GTS}
+Charles Loop.
+\newblock Smooth subdivision surfaces based on triangles.
+\newblock Master's thesis, 1987.
+\newblock University of Utah, Department of Mathematics.
+
+\bibitem{Lounsbery:1997:MAS}
+Michael Lounsbery, Tony~D. De{R}ose, and Joe Warren.
+\newblock Multiresolution analysis for surfaces of arbitrary topological type.
+\newblock {\em ACM Transactions on Graphics}, 16(1):34--73, January 1997.
+
+\bibitem{Stollnitz96-WCGTA}
+Eric~J. Stollnitz, Tony~D. DeRose, and David~H. Salesin.
+\newblock {\em Wavelets for {Computer} {Graphics}: {Theory} and
+  {Applications}}.
+\newblock Morgann Kaufmann, San Francisco, CA, 1996.
+
+\bibitem{Taubin:1995:SPA}
+Gabriel Taubin.
+\newblock A signal processing approach to fair surface design.
+\newblock In Robert Cook, editor, {\em SIGGRAPH 95 Conference Proceedings},
+  Annual Conference Series, pages 351--358. ACM SIGGRAPH, Addison Wesley,
+  August 1995.
+
+\bibitem{Zorin:1997:IMM}
+Denis Zorin, Peter Schr{\"{o}}der, and Wim Sweldens.
+\newblock Interactive multiresolution mesh editing.
+\newblock In Turner Whitted, editor, {\em SIGGRAPH 97 Conference Proceedings},
+  pages 259--268. ACM SIGGRAPH, Addison Wesley, August 1997.
+
+\end{thebibliography}
