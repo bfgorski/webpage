@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta6 (1.42)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Conclusions and Future Work</TITLE>
+<META NAME="description" CONTENT="Conclusions and Future Work">
+<META NAME="keywords" CONTENT="vis2000_03">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta6">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="vis2000_03.css">
+
+<LINK REL="next" HREF="node13.html">
+<LINK REL="previous" HREF="node11.html">
+<LINK REL="up" HREF="vis2000_03.html">
+<LINK REL="next" HREF="node13.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html147"
+  HREF="node13.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/opt/pkg/latex2html/icons/next.gif"></A> 
+<A NAME="tex2html145"
+  HREF="vis2000_03.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/opt/pkg/latex2html/icons/up.gif"></A> 
+<A NAME="tex2html139"
+  HREF="node11.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/opt/pkg/latex2html/icons/prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html148"
+  HREF="node13.html">Acknowledgments</A>
+<B> Up:</B> <A NAME="tex2html146"
+  HREF="vis2000_03.html">Approximating Material Interfaces during</A>
+<B> Previous:</B> <A NAME="tex2html140"
+  HREF="node11.html">Results</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00080000000000000000">
+Conclusions and Future Work</A>
+</H1>
+We have presented a simplification method for scientific data sets
+that explicitly represents material interfaces in mesh cells.  Our
+algorithm constructs an approximation that can be used in place of the
+original data set for visualization purposes.  Explicitly representing
+the material and implicit field discontinuities allows us to use
+multiple field representations to better approximate the field within
+each cell.  The use of the tetrahedral subdivision allows us to
+generalize our algorithm to a wide variety of data sets and to support
+interactive level-of-detail exploration and view-dependent
+simplification.  Future work will extend our error calculations to
+support complex native data element types such as tetrahedra and
+curvilinear hexahedra.  Our current ghost value computation assumes
+that the field is constant on the other side of the interface.
+Higher-order extrapolation methods should be investigated for ghost
+value computation to determine if a superior field approximation can
+be obtained.  Similarly, material interfaces are defined by
+approximations based on linear functions.  The tradeoff between cell
+count and higher-order approximation methods should be investigated to
+determine if a better approximation can be obtained without a great
+increase in computational complexity.  Finally, we plan to apply our
+algorithm to more complex unstructured data sets.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html147"
+  HREF="node13.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/opt/pkg/latex2html/icons/next.gif"></A> 
+<A NAME="tex2html145"
+  HREF="vis2000_03.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/opt/pkg/latex2html/icons/up.gif"></A> 
+<A NAME="tex2html139"
+  HREF="node11.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/opt/pkg/latex2html/icons/prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html148"
+  HREF="node13.html">Acknowledgments</A>
+<B> Up:</B> <A NAME="tex2html146"
+  HREF="vis2000_03.html">Approximating Material Interfaces during</A>
+<B> Previous:</B> <A NAME="tex2html140"
+  HREF="node11.html">Results</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Ben Gregorski
+2000-05-15
+</ADDRESS>
+</BODY>
+</HTML>

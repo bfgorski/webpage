@@ -1,0 +1,185 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta6 (1.42)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Approximating Material Interfaces during Data Simplification</TITLE>
+<META NAME="description" CONTENT="Approximating Material Interfaces during Data Simplification">
+<META NAME="keywords" CONTENT="vis2000_03">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta6">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="vis2000_03.css">
+
+<LINK REL="next" HREF="node1.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html12"
+  HREF="node1.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/opt/pkg/latex2html/icons/next.gif"></A> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/opt/pkg/latex2html/icons/up_g.gif"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/opt/pkg/latex2html/icons/prev_g.gif">   
+<BR>
+<B> Next:</B> <A NAME="tex2html13"
+  HREF="node1.html">Introduction</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<P>
+
+<H1 ALIGN="CENTER">Approximating Material Interfaces during Data Simplification</H1>
+<P ALIGN="CENTER"><STRONG>David E. Sigeti<A NAME="tex2html1"
+  HREF="footnode.html#foot10"><SUP><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="file:/opt/pkg/latex2html/icons/footnote.gif"></SUP></A>   
+  Benjamin F. Gregorski<A NAME="tex2html2"
+  HREF="footnode.html#foot12"><SUP><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="file:/opt/pkg/latex2html/icons/footnote.gif"></SUP></A>  
+<BR>
+John Ambrosiano&nbsp;<IMG
+ WIDTH="11" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.gif"
+ ALT="$^{*}$"> 
+  Gerald Graham&nbsp;<IMG
+ WIDTH="11" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.gif"
+ ALT="$^{*}$"> 
+  Murray Wolinsky&nbsp;<IMG
+ WIDTH="11" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.gif"
+ ALT="$^{*}$">
+<BR>
+Mark A. Duchaineau<A NAME="tex2html3"
+  HREF="footnode.html#foot17"><SUP><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="file:/opt/pkg/latex2html/icons/footnote.gif"></SUP></A>   
+  Bernd Hamann&nbsp;<IMG
+ WIDTH="10" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img2.gif"
+ ALT="$^{\dag}$">   
+  Kenneth I. Joy&nbsp;<IMG
+ WIDTH="10" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img2.gif"
+ ALT="$^{\dag}$">   
+<BR>  
+<BR>  <IMG
+ WIDTH="10" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img2.gif"
+ ALT="$^{\dag}$">&nbsp;Center for Image Processing and Integrated Computing (CIPIC),
+  Department of 
+<BR>
+Computer Science,
+  University of California,
+  Davis, CA 95616-8562, USA
+<BR>  
+<BR>  <IMG
+ WIDTH="10" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3.gif"
+ ALT="$^{\ddag}$">&nbsp;Center for Applied Scientific Computing (CASC) Lawrence Livermore National
+<BR>
+Laboratory, P.O. Box 808, L-561, Livermore, CA 94551, USA
+<BR>
+Lawrence Livermore National Laboratory
+<BR>  
+<BR>  <IMG
+ WIDTH="11" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.gif"
+ ALT="$^{*}$">&nbsp;Los Alamos National Laboratory
+<BR>
+Los Alamos, New Mexico 87545
+<BR></STRONG></P>
+
+<P>
+
+<H3>Abstract:</H3>
+<DIV>
+We present a new method for simplifying large data sets that contain
+material interfaces.  Material interfaces embedded in the meshes of
+computational data sets are often a source of error for simplification
+algorithms because they represent discontinuities in the scalar or
+vector field over a cell.   By representing material interfaces
+explicitly in a data simplification process, we are able to provide
+separate field representations for each material over a single
+cell.  Our algorithm uses a multiresolution tetrahedral mesh supporting
+fast coarsening and refinement capabilities; error bounds for feature
+preservation; explicit representation of discontinuities within cells;
+and separate field representations for each material within a cell.
+
+<P>
+</DIV>
+<P>
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"></A>
+
+<UL>
+<LI><A NAME="tex2html14"
+  HREF="node1.html">Introduction</A>
+<LI><A NAME="tex2html15"
+  HREF="node2.html">Related Work</A>
+<LI><A NAME="tex2html16"
+  HREF="node3.html">Multiresolution Framework</A>
+<LI><A NAME="tex2html17"
+  HREF="node4.html">Material Interfaces</A>
+<UL>
+<LI><A NAME="tex2html18"
+  HREF="node5.html">Motivation</A>
+<LI><A NAME="tex2html19"
+  HREF="node6.html">Extraction and Approximation</A>
+</UL>
+<LI><A NAME="tex2html20"
+  HREF="node7.html">Discontinuous Field Representations</A>
+<UL>
+<LI><A NAME="tex2html21"
+  HREF="node8.html">Motivation</A>
+<LI><A NAME="tex2html22"
+  HREF="node9.html">Computation of Ghost Values</A>
+</UL>
+<LI><A NAME="tex2html23"
+  HREF="node10.html">Error Metrics</A>
+<LI><A NAME="tex2html24"
+  HREF="node11.html">Results</A>
+<LI><A NAME="tex2html25"
+  HREF="node12.html">Conclusions and Future Work</A>
+<LI><A NAME="tex2html26"
+  HREF="node13.html">Acknowledgments</A>
+<LI><A NAME="tex2html27"
+  HREF="node14.html">Bibliography</A>
+<LI><A NAME="tex2html28"
+  HREF="node15.html">About this document ...</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html12"
+  HREF="node1.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/opt/pkg/latex2html/icons/next.gif"></A> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/opt/pkg/latex2html/icons/up_g.gif"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/opt/pkg/latex2html/icons/prev_g.gif">   
+<BR>
+<B> Next:</B> <A NAME="tex2html13"
+  HREF="node1.html">Introduction</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Ben Gregorski
+2000-05-15
+</ADDRESS>
+</BODY>
+</HTML>

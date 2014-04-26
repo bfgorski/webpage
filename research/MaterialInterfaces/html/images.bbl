@@ -1,0 +1,69 @@
+\begin{thebibliography}{10}
+
+\bibitem{Zhou:1997:MTF}
+Y.~Zhou, B.~Chen, and A.~E. Kaufman, ``Multiresolution tetrahedral framework
+  for visualizing regular volume data,'' in {\em IEEE Visualization '97}
+  (R.~Yagel and H.~Hagen, eds.), pp.~135--142, IEEE Computer Society Press,
+  Nov. 1997.
+
+\bibitem{Hoppe:1996:PM}
+H.~Hoppe, ``Progressive meshes,'' in {\em SIGGRAPH 96 Conference Proceedings}
+  (H.~Rushmeier, ed.), ACM SIGGRAPH, Addison Wesley, 1996.
+
+\bibitem{EVL-1997-123}
+M.~A. Duchaineau, M.~Wolinsky, D.~E. Sigeti, M.~C. Miller, C.~Aldrich, and
+  M.~B. Mineev-Weinstein, ``{ROAM}ing terrain: Real-time optimally adapting
+  meshes,'' in {\em IEEE Visualization '97}, 1997.
+
+\bibitem{HeckelUva:2000}
+B.~Heckel, A.~E. Uva, B.~Hamann, and K.~Joy, ``Surface reconstruction using
+  adaptive clustering methods,'' in {\em IEEE Transactions on Visualization and
+  Computer Graphics}, 2000.
+
+\bibitem{HeckelUva:1998}
+B.~Heckel, A.~E. Uva, and B.~Hamann, ``Clustering-based generation of
+  hierarchical surface models,'' in {\em Proceedings IEEE Visualization '98 --
+  Late Breaking Hot Topics}, 1998.
+
+\bibitem{tvcg-1997-27}
+P.~Cignoni, E.~Puppo, and R.~Scopigno, ``{Multiresolution Representation and
+  Visualization of Volume Data},'' {\em IEEE Transactions on Visualization and
+  Computer Graphics}, vol.~3, pp.~352--369, Oct. 1997.
+
+\bibitem{VIS98*287}
+I.~J. Trotts, B.~Hamann, K.~I. Joy, and D.~F. Wiley, ``Simplification of
+  tetrahedral meshes,'' in {\em Proceedings IEEE Visualization '98},
+  pp.~287--296, IEEE Computer Society Press, Oct.~18--23 1998.
+
+\bibitem{Liu:1995}
+A.~Liu and B.~Joe, ``Quality local refinement of tetrahedral meshes based on
+  bisection,'' {\em SIAM Journal on Scientific Computing}, vol.~16,
+  pp.~1269--1291, Nov. 1995.
+
+\bibitem{Staadt:1998:PRM}
+O.~G. Staadt and M.~H. Gross, ``Progressive tetrahedralizations,'' in {\em
+  Proceedings of Visualization 98} (D.~Ebert, H.~Hagen, and H.~Rushmeier,
+  eds.), pp.~397--402, IEEE Computer Society Press, Oct. 1998.
+
+\bibitem{Klein:1996:MRE}
+R.~Klein, G.~Liebich, and W.~Stra{\ss}er, ``Mesh reduction with error
+  control,'' in {\em Proceedings of IEEE Visualization '96}, pp.~311--318, IEEE
+  Computer Society Press, Oct. 1996.
+
+\bibitem{Garland:1997:SSU}
+M.~Garland and P.~S. Heckbert, ``Surface simplification using quadric error
+  metrics,'' in {\em SIGGRAPH 97 Conference Proceedings} (T.~Whitted, ed.),
+  Annual Conference Series, pp.~209--216, ACM SIGGRAPH, Addison Wesley, Aug.
+  1997.
+
+\bibitem{Bonnell:2000:OMB}
+K.~Bonnell, ``On material boundary surfaces,'' m.s. thesis, Department of
+  Computer Science, University of California, Davis, June 2000.
+
+\bibitem{Bonnell:2000:CMI}
+K.~Bonnell, M.~A. Duchaineau, D.~R. Schikore, B.~Hamann, and K.~I. Joy,
+  ``Constructing material interfaces from data sets with volume-fraction
+  information,'' in {\em Proceedings of IEEE Visualization '00},
+  p.~(submitted), 2000.
+
+\end{thebibliography}

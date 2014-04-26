@@ -1,0 +1,251 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta6 (1.42)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Results</TITLE>
+<META NAME="description" CONTENT="Results">
+<META NAME="keywords" CONTENT="vis2000_03">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta6">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="vis2000_03.css">
+
+<LINK REL="next" HREF="node12.html">
+<LINK REL="previous" HREF="node10.html">
+<LINK REL="up" HREF="vis2000_03.html">
+<LINK REL="next" HREF="node12.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html137"
+  HREF="node12.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/opt/pkg/latex2html/icons/next.gif"></A> 
+<A NAME="tex2html135"
+  HREF="vis2000_03.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/opt/pkg/latex2html/icons/up.gif"></A> 
+<A NAME="tex2html129"
+  HREF="node10.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/opt/pkg/latex2html/icons/prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html138"
+  HREF="node12.html">Conclusions and Future Work</A>
+<B> Up:</B> <A NAME="tex2html136"
+  HREF="vis2000_03.html">Approximating Material Interfaces during</A>
+<B> Previous:</B> <A NAME="tex2html130"
+  HREF="node10.html">Error Metrics</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00070000000000000000">
+Results</A>
+</H1>
+
+<P>
+We have tested our algorithm on a data set resulting from a simulation
+of a hypersonic impact between a projectile and a metal block.  The
+simulation uses a logically rectilinear mesh of dimensions 32x32x52.
+For each cell, the average density and pressure values are available,
+as well as the per-material densities and volume fractions.  The
+physical dimensions in x, y, and z directions are [0,12] [0,12] and
+[-16,4.8].
+
+<P>
+There are three materials in the simulation: the projectile, the
+block, and empty space.  The interface between the projectile and the
+block consists of 38 polygons, the interface between the projectile and
+empty space consists of 118 polygons and the interface between empty
+space and the block consists of 17574 polygons.  Figure
+<A HREF="node11.html#MaterialInterfaces">4</A> shows the original interface meshes
+determined from the volume fraction information. The green mesh is
+the interface between the metal block and empty space; the blue mesh
+is the interface between the projectile and empty space; and the red
+mesh is the interface between the projectile and the block. 
+The meshes shown in Figure <A HREF="node11.html#MaterialInterfaces">4</A> were generate from a 17x17x28 data set. 
+
+<P>
+Figures <A HREF="node11.html#FinalDraftFig1">5</A> shows a cross section view of the mesh
+created by a cutting plane through the tetrahedral mesh. 
+The black lines are the original interface
+polygons intersected by the plane, and the magenta lines are our approximation to the interface. 
+The interface approximation error is 0.15. 
+An error of 0.15 means that all of the vertices in the original material interface
+meshes are no more that a physical distance of 0.15 from their
+associated interface approximation. This is equivalent to an error of (0.5 - 1.5)%
+when considered against the physical dimensions. A total of 3174 tetrahedra
+were required to approximate the interface to an error 0.15. The overall mesh 
+contained a total of 5390 tetrahedra.
+A total of 11990 tetrahedra were required to approximate the interface to an error of 0.15 and
+the density field to an error of 3.
+The maximum field approximation error in the cells containing material interfaces
+is 2.84 and the average field error for these cells is 0.007. 
+These error measurements indicate that separate field representations
+for the materials on either side of a discontinuity can accurately reconstruct the field.
+
+<P>
+Figures <A HREF="node11.html#FinalDraftFig2">6</A> and <A HREF="node11.html#FinalDraftFig3">7</A> compare the density fields
+generated using linear interpolation of the cell average density values and
+explicit field representations on either side of the discontinuity.
+Figure <A HREF="node11.html#FinalDraftFig3">7</A> shows that using explicit field representations in the presence
+of discontinuities can improve the quality of the field approximation. This
+can be seen in the flat horizontal and vertical sections of the block where the cells
+approximate a region that contains the block and empty space. In these cells, the use of
+explicit representations of the discontinuities leads to a exact representation of the density
+field. The corresponding field representations using linear interpolation, shown in
+Figure <A HREF="node11.html#FinalDraftFig2">6</A>, do a very poor job of capturing the discontinuities. 
+Furthermore, Figure <A HREF="node11.html#FinalDraftFig3">7</A> captures more of the dynamics
+in the area where the projectile is entering the block (upper left corner). 
+The linear interpolation of the density values in the region where the 
+projectile is impacting the block smooths out the density field, and does not 
+capture the distinct interface between the block and the projectile.
+Figure <A HREF="node11.html#FinalDraftFig4">8</A> shows the density field from  Figure <A HREF="node11.html#FinalDraftFig3">7</A>
+with our approximation to the interface and without the cell outlines.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="MaterialInterfaces"></A><A NAME="184"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 4:</STRONG>
+Original triangular meshes representing material interfaces.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\includegraphics{eps/material_interfaces}$
+ -->
+<IMG
+ WIDTH="276" HEIGHT="380" ALIGN="BOTTOM" BORDER="0"
+ SRC="img30.gif"
+ ALT="\includegraphics{eps/material_interfaces}">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="FinalDraftFig1"></A><A NAME="191"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 5:</STRONG>
+Cross section of the tetrahedral mesh showing the original interfaces and interface approximations.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\includegraphics{eps/final_draft_fig1}$
+ -->
+<IMG
+ WIDTH="232" HEIGHT="380" ALIGN="BOTTOM" BORDER="0"
+ SRC="img31.gif"
+ ALT="\includegraphics{eps/final_draft_fig1}">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="FinalDraftFig2"></A><A NAME="198"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 6:</STRONG>
+Density field using linearly interpolated cell average density values field (interface error = 0.15).</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\includegraphics{eps/final_draft_fig2}$
+ -->
+<IMG
+ WIDTH="248" HEIGHT="380" ALIGN="BOTTOM" BORDER="0"
+ SRC="img32.gif"
+ ALT="\includegraphics{eps/final_draft_fig2}">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="FinalDraftFig3"></A><A NAME="205"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 7:</STRONG>
+Density field using explicit interface representations and separate field representations 
+(interface error = 0.15).</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\includegraphics{eps/final_draft_fig3}$
+ -->
+<IMG
+ WIDTH="248" HEIGHT="380" ALIGN="BOTTOM" BORDER="0"
+ SRC="img33.gif"
+ ALT="\includegraphics{eps/final_draft_fig3}">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="FinalDraftFig4"></A><A NAME="253"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 8:</STRONG>
+Figure <A HREF="node11.html#FinalDraftFig3">7</A> without the cell outlines.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\includegraphics{eps/final_draft_fig4}$
+ -->
+<IMG
+ WIDTH="238" HEIGHT="380" ALIGN="BOTTOM" BORDER="0"
+ SRC="img34.gif"
+ ALT="\includegraphics{eps/final_draft_fig4}">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html137"
+  HREF="node12.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/opt/pkg/latex2html/icons/next.gif"></A> 
+<A NAME="tex2html135"
+  HREF="vis2000_03.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/opt/pkg/latex2html/icons/up.gif"></A> 
+<A NAME="tex2html129"
+  HREF="node10.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/opt/pkg/latex2html/icons/prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html138"
+  HREF="node12.html">Conclusions and Future Work</A>
+<B> Up:</B> <A NAME="tex2html136"
+  HREF="vis2000_03.html">Approximating Material Interfaces during</A>
+<B> Previous:</B> <A NAME="tex2html130"
+  HREF="node10.html">Error Metrics</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Ben Gregorski
+2000-05-15
+</ADDRESS>
+</BODY>
+</HTML>

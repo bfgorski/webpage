@@ -1,0 +1,207 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta6 (1.42)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Error Metrics</TITLE>
+<META NAME="description" CONTENT="Error Metrics">
+<META NAME="keywords" CONTENT="vis2000_03">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta6">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="vis2000_03.css">
+
+<LINK REL="next" HREF="node11.html">
+<LINK REL="previous" HREF="node7.html">
+<LINK REL="up" HREF="vis2000_03.html">
+<LINK REL="next" HREF="node11.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html127"
+  HREF="node11.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/opt/pkg/latex2html/icons/next.gif"></A> 
+<A NAME="tex2html125"
+  HREF="vis2000_03.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/opt/pkg/latex2html/icons/up.gif"></A> 
+<A NAME="tex2html119"
+  HREF="node9.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/opt/pkg/latex2html/icons/prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html128"
+  HREF="node11.html">Results</A>
+<B> Up:</B> <A NAME="tex2html126"
+  HREF="vis2000_03.html">Approximating Material Interfaces during</A>
+<B> Previous:</B> <A NAME="tex2html120"
+  HREF="node9.html">Computation of Ghost Values</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00060000000000000000">
+Error Metrics</A>
+</H1>
+
+<P>
+The error metrics employed in our framework are similar to the nested
+error bounds used in the ROAM system.  Each cell has two associated
+kinds of error values, field errors and material interface errors.  In
+order to calculate the field errors for a leaf cell in our tetrahedral
+mesh hierarchy, we assume that the original data set can be divided
+into <I>native data elements</I>.  Each of these is presumed to have a
+well-defined spatial extent and a well-defined representation for each
+field of interest over its spatial domain.  The simplest example of a
+native data element is just a grid point that holds field values.
+Other possibilities are blocks of grid points treated as a unit, cells
+with a nonzero volume and a field representation defined over the
+entire cell, or blocks of such cells.  Each leaf cell in our
+multiresolution mesh maintains links to the native data elements with
+which it intersects.  We assume that it is possible to bound the
+difference between our representation of a given field over one of our
+leaf cells and the representation of the same field over each of the
+native data elements with which the given cell intersects.  The error
+for the given field in the given cell is then just the maximum of the
+errors associated with each of the intersecting native data elements.
+Currently, we are dealing only with native data elements that are grid
+points of zero volume.
+
+<P>
+The field error <IMG
+ WIDTH="20" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img18.gif"
+ ALT="$e_T$"> for a non-leaf cell is computed from the errors
+associated with its two children according to:
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+e_T = \max \{e_{T_0},e_{T_1}\} + |z(v_c) - z_T(v_c)|
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="242" HEIGHT="24" BORDER="0"
+ SRC="img19.gif"
+ ALT="\begin{displaymath}
+e_T = \max \{e_{T_0},e_{T_1}\} + \vert z(v_c) - z_T(v_c)\vert
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(1)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+where <IMG
+ WIDTH="25" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img20.gif"
+ ALT="$e_{T_0}$"> and <IMG
+ WIDTH="25" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img21.gif"
+ ALT="$e_{T_1}$"> are the errors of the children; <IMG
+ WIDTH="17" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img22.gif"
+ ALT="$v_c$"> is
+the vertex that splits the parent into its children; <IMG
+ WIDTH="36" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img23.gif"
+ ALT="$z(v_{c})$"> is the
+field value assigned to <IMG
+ WIDTH="17" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img24.gif"
+ ALT="$v_{c}$">; and <IMG
+ WIDTH="45" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img25.gif"
+ ALT="$z_T(v_c)$"> is the field value
+that the parent assigns to the spatial location of <IMG
+ WIDTH="17" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img22.gif"
+ ALT="$v_c$">,
+equivalently, <!-- MATH
+ $z_T(v_c)=\frac{1}{2}(z(v_0)+z(v_1))$
+ -->
+<IMG
+ WIDTH="169" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img26.gif"
+ ALT="$z_T(v_c)=\frac{1}{2}(z(v_0)+z(v_1))$">, where <IMG
+ WIDTH="18" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img27.gif"
+ ALT="$v_0$"> and
+<IMG
+ WIDTH="18" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img28.gif"
+ ALT="$v_1$"> are the vertices of the parent's split edge.  This error is
+still a genuine bound on the difference between our representation and
+the representation of the original data set.  However, it is looser
+than the bound computed directly from the data.  The error computed
+from the children has the advantage that the error associated with a
+cell bounds not only the deviation from the original representation
+but also the deviation from the representation at any intermediate
+resolution level.  Consequently, this error is <I>nested</I> or
+<I>monotonic</I> in the sense that the error of a child is guaranteed
+not to be greater than the error of the parent.  Once the errors of
+the leaf cells are computed, the nested bound for all cells higher in
+the tree can be computed in time proportional to <IMG
+ WIDTH="17" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img29.gif"
+ ALT="$K$">, where <IMG
+ WIDTH="17" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img29.gif"
+ ALT="$K$"> is the
+number of leaf cells in the tree.  This can be accomplished by
+traversing the tree in a bottom up fashion.
+
+<P>
+The material interface error associated with a leaf node is the
+maximum value of the errors associated with each of the material
+interfaces in the node.  For each material interface, the error is the
+maximum value of the errors associated with the vertices constituting
+the triangle mesh defining the interface and being inside the cell.
+The error of a vertex is the absolute value of the distance between
+the vertex and the interface approximation.  The material interface
+error of <B>E</B> for a cell guarantees that no point in the original
+interface polygon mesh is further from its associated approximation
+that a distance of <B>E</B>.  This error metric is an upper bound on
+the deviation of the original interfaces from our approximated
+interfaces.  A cell that does not contain a material interface is
+considered to have an interface error of zero.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html127"
+  HREF="node11.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/opt/pkg/latex2html/icons/next.gif"></A> 
+<A NAME="tex2html125"
+  HREF="vis2000_03.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/opt/pkg/latex2html/icons/up.gif"></A> 
+<A NAME="tex2html119"
+  HREF="node9.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/opt/pkg/latex2html/icons/prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html128"
+  HREF="node11.html">Results</A>
+<B> Up:</B> <A NAME="tex2html126"
+  HREF="vis2000_03.html">Approximating Material Interfaces during</A>
+<B> Previous:</B> <A NAME="tex2html120"
+  HREF="node9.html">Computation of Ghost Values</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Ben Gregorski
+2000-05-15
+</ADDRESS>
+</BODY>
+</HTML>

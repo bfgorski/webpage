@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta6 (1.42)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Motivation</TITLE>
+<META NAME="description" CONTENT="Motivation">
+<META NAME="keywords" CONTENT="vis2000_03">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta6">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="vis2000_03.css">
+
+<LINK REL="next" HREF="node9.html">
+<LINK REL="previous" HREF="node7.html">
+<LINK REL="up" HREF="node7.html">
+<LINK REL="next" HREF="node9.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html109"
+  HREF="node9.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/opt/pkg/latex2html/icons/next.gif"></A> 
+<A NAME="tex2html107"
+  HREF="node7.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/opt/pkg/latex2html/icons/up.gif"></A> 
+<A NAME="tex2html101"
+  HREF="node7.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/opt/pkg/latex2html/icons/prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html110"
+  HREF="node9.html">Computation of Ghost Values</A>
+<B> Up:</B> <A NAME="tex2html108"
+  HREF="node7.html">Discontinuous Field Representations</A>
+<B> Previous:</B> <A NAME="tex2html102"
+  HREF="node7.html">Discontinuous Field Representations</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00051000000000000000">
+Motivation</A>
+</H2>
+Cells that contain material interfaces typically have discontinuities
+in the fields defined over them.  For example, the density field over a
+cell that contains both steel and nickel is discontinuous exactly
+where the two materials meet.  In these situations, it is better to
+represent the density field over the cell as two separate fields, one
+field for the region containing only the first material and one for
+the second material.
+
+<P>
+One way to accomplish this is to divide the cell into two distinct
+cells at the material interface.  In Figure <A HREF="node9.html#GhostValues">3</A>, the
+triangle would be divided into a quadrilateral for material A and a
+triangle for material B.  The disadvantages of this method are that it
+introduces new cell types into the mesh and that it makes it harder to
+have continuous field representations across cells.  Our algorithm
+represents the discontinuity by constructing a field representation
+for each material in the cell.  Each of the vertices in a cell must
+have distinct field values for each material in the cell.  These
+extrapolated values are called ghost values.
+
+<P>
+For a vertex <B>V</B> that does not reside in material <B>M</B>, we
+compute a ghost value for the field associated with material <B>M</B>
+at vertex <B>V</B>.  This ghost value is an extrapolation of the field
+value for <B>M</B> at <B>V</B>.  The process is illustrated in Figure
+<A HREF="node9.html#GhostValues">3</A>.  The known field values are indicated by the solid
+circles.  The red circles are the known field values for material A,
+and the blue circle is the known field value for material B.  The empty
+circles surrounding the filled circles indicate that a ghost value is
+needed for that material at the indicated vertex.  Vertices V<IMG
+ WIDTH="11" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img7.gif"
+ ALT="$_{0}$">
+and V<IMG
+ WIDTH="11" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img8.gif"
+ ALT="$_{1}$"> are in material A, and thus ghost values for material B
+must be calculated at their positions.  This is indicated by the empty
+blue circles.  Vertex V<IMG
+ WIDTH="11" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img9.gif"
+ ALT="$_{2}$"> lies in material B, and thus a ghost
+value for material A must be calculated at its position.  This is
+indicated by the empty red circle.
+
+<P>
+As described in Section 1, the ghost value computation is performed 
+when the vertex is created during the tetrahedral refinement process.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html109"
+  HREF="node9.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/opt/pkg/latex2html/icons/next.gif"></A> 
+<A NAME="tex2html107"
+  HREF="node7.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/opt/pkg/latex2html/icons/up.gif"></A> 
+<A NAME="tex2html101"
+  HREF="node7.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/opt/pkg/latex2html/icons/prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html110"
+  HREF="node9.html">Computation of Ghost Values</A>
+<B> Up:</B> <A NAME="tex2html108"
+  HREF="node7.html">Discontinuous Field Representations</A>
+<B> Previous:</B> <A NAME="tex2html102"
+  HREF="node7.html">Discontinuous Field Representations</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Ben Gregorski
+2000-05-15
+</ADDRESS>
+</BODY>
+</HTML>

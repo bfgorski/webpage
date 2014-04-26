@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta6 (1.42)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Computation of Ghost Values</TITLE>
+<META NAME="description" CONTENT="Computation of Ghost Values">
+<META NAME="keywords" CONTENT="vis2000_03">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta6">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="vis2000_03.css">
+
+<LINK REL="previous" HREF="node8.html">
+<LINK REL="up" HREF="node7.html">
+<LINK REL="next" HREF="node10.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html117"
+  HREF="node10.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/opt/pkg/latex2html/icons/next.gif"></A> 
+<A NAME="tex2html115"
+  HREF="node7.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/opt/pkg/latex2html/icons/up.gif"></A> 
+<A NAME="tex2html111"
+  HREF="node8.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/opt/pkg/latex2html/icons/prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html118"
+  HREF="node10.html">Error Metrics</A>
+<B> Up:</B> <A NAME="tex2html116"
+  HREF="node7.html">Discontinuous Field Representations</A>
+<B> Previous:</B> <A NAME="tex2html112"
+  HREF="node8.html">Motivation</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00052000000000000000">
+Computation of Ghost Values</A>
+</H2>
+The ghost values for a vertex <B>V</B> are computed as follows:
+
+<P>
+
+<OL>
+<LI>For each material interface present in the cells that share the
+vertex, find a vertex V<IMG
+ WIDTH="27" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img15.gif"
+ ALT="$_{min}$"> in a triangle mesh representing an
+interface with minimal distance to <B>V</B>.  In Figure
+<A HREF="node9.html#GhostValues">3</A>, these vertices are indicated by the dashed lines
+from V<IMG
+ WIDTH="11" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img7.gif"
+ ALT="$_{0}$">, V<IMG
+ WIDTH="11" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img8.gif"
+ ALT="$_{1}$">, and V<IMG
+ WIDTH="11" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img9.gif"
+ ALT="$_{2}$"> to the indicated points on the
+interface.
+
+<P>
+</LI>
+<LI>Evaluate the data set on the far side of the interface at
+V<IMG
+ WIDTH="27" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img15.gif"
+ ALT="$_{min}$"> and use this as the ghost value at <B>V</B> for the material
+on the opposite side of the interface.
+
+<P>
+</LI>
+</OL>
+Only one ghost value exists per material and vertex.  This ensures
+that the field representations are C<IMG
+ WIDTH="11" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img16.gif"
+ ALT="$^{0}$">-continuous across cell
+boundaries.  For example consider vertex V<IMG
+ WIDTH="11" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img7.gif"
+ ALT="$_{0}$"> of the triangle in
+Figure <A HREF="node6.html#SignedDistance">1</A>.  The vertex V<IMG
+ WIDTH="11" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img7.gif"
+ ALT="$_{0}$"> lies in material A,
+and therefore we must compute ghost values for materials B and C at
+vertex V<IMG
+ WIDTH="11" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img7.gif"
+ ALT="$_{0}$">.  The algorithm will examine the three material
+boundaries and determine the points from materials B and C that are
+closest to V<IMG
+ WIDTH="11" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img7.gif"
+ ALT="$_{0}$">.  The fields for materials B and C are evaluated at
+these points, and these values are used as the ghost values for
+V<IMG
+ WIDTH="11" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img7.gif"
+ ALT="$_{0}$">.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="GhostValues"></A><A NAME="150"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 3:</STRONG>
+Triangle containing two materials.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\includegraphics{eps/ghost_values}$
+ -->
+<IMG
+ WIDTH="261" HEIGHT="199" ALIGN="BOTTOM" BORDER="0"
+ SRC="img17.gif"
+ ALT="\includegraphics{eps/ghost_values}">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html117"
+  HREF="node10.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/opt/pkg/latex2html/icons/next.gif"></A> 
+<A NAME="tex2html115"
+  HREF="node7.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/opt/pkg/latex2html/icons/up.gif"></A> 
+<A NAME="tex2html111"
+  HREF="node8.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/opt/pkg/latex2html/icons/prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html118"
+  HREF="node10.html">Error Metrics</A>
+<B> Up:</B> <A NAME="tex2html116"
+  HREF="node7.html">Discontinuous Field Representations</A>
+<B> Previous:</B> <A NAME="tex2html112"
+  HREF="node8.html">Motivation</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Ben Gregorski
+2000-05-15
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,329 @@
+This is TeX, Version 3.14159 (Web2C 7.3.1) (format=latex 2000.4.13)  15 MAY 2000 13:15
+**./images.tex
+(./images.tex
+LaTeX2e <1999/12/01> patch level 1
+Babel <v3.6Z> and hyphenation patterns for american, french, german, ngerman, n
+ohyphenation, loaded.
+
+(/sgi-ws/gregorsk/Documents/papers/VIS2000/siggraph.cls
+Document Class: siggraph 1997/01/14 v1.2.1 Siggraph proceedings document class
+\acm@specversion=\count79
+(/opt/pkg/teTeX/share/texmf/tex/latex/base/article.cls
+Document Class: article 1999/09/10 v1.4a Standard LaTeX document class
+(/opt/pkg/teTeX/share/texmf/tex/latex/base/size10.clo
+File: size10.clo 1999/09/10 v1.4a Standard LaTeX file (size option)
+)
+\c@part=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+\titlespace=\skip43
+\teaserspace=\skip44
+\acm@abs=\toks14
+\acm@copyrightlength=\skip45
+) (/opt/pkg/teTeX/share/texmf/tex/latex/base/ifthen.sty
+Package: ifthen 1999/09/10 v1.1b Standard LaTeX ifthen package (DPC)
+) (/opt/pkg/teTeX/share/texmf/tex/latex/tools/theorem.sty
+Package: theorem 1995/11/23 v2.2c Theorem extension package (FMi)
+\theorem@style=\toks15
+\theorem@bodyfont=\toks16
+\theorempreskipamount=\skip46
+\theorempostskipamount=\skip47
+(/opt/pkg/teTeX/share/texmf/tex/latex/tools/thp.sty
+File: thp.sty 1995/11/23 v2.2c Theorem extension package (FMi)
+)) (/opt/pkg/teTeX/share/texmf/tex/latex/graphics/graphics.sty
+Package: graphics 1999/02/16 v1.0l Standard LaTeX Graphics (DPC,SPQR)
+(/opt/pkg/teTeX/share/texmf/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+) (/opt/pkg/teTeX/share/texmf/tex/latex/config/graphics.cfg)
+Package graphics Info: Driver file: dvips.def on input line 80.
+(/opt/pkg/teTeX/share/texmf/tex/latex/graphics/dvips.def
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+)) (/opt/pkg/teTeX/share/texmf/tex/latex/graphics/epsfig.sty
+Package: epsfig 1999/02/16 v1.7a (e)psfig emulation (SPQR)
+(/opt/pkg/teTeX/share/texmf/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+(/opt/pkg/teTeX/share/texmf/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks17
+)
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+\epsfxsize=\dimen105
+\epsfysize=\dimen106
+) (/opt/pkg/teTeX/share/texmf/tex/generic/dvips/epsf.tex
+This is `epsf.tex' v2.7k <10 July 1997>
+\epsffilein=\read1
+\epsfframemargin=\dimen107
+\epsfframethickness=\dimen108
+\epsfrsize=\dimen109
+\epsftmp=\dimen110
+\epsftsize=\dimen111
+\epsfxsize=\dimen112
+\epsfysize=\dimen113
+\pspoints=\dimen114
+\epsfnoopenhelp=\toks18
+) (/opt/pkg/teTeX/share/texmf/tex/generic/misc/psfig.sty) (/opt/pkg/teTeX/share
+/texmf/tex/latex/graphics/color.sty
+Package: color 1999/02/16 v1.0i Standard LaTeX Color (DPC)
+(/opt/pkg/teTeX/share/texmf/tex/latex/config/color.cfg)
+Package color Info: Driver file: dvips.def on input line 125.
+(/opt/pkg/teTeX/share/texmf/tex/latex/graphics/dvipsnam.def
+File: dvipsnam.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+)) (/opt/pkg/teTeX/share/texmf/tex/latex/base/inputenc.sty
+Package: inputenc 1999/09/17 v0.992 Input encoding file 
+(/opt/pkg/teTeX/share/texmf/tex/latex/base/latin1.def
+File: latin1.def 1999/09/17 v0.992 Input encoding file 
+))
+\sizebox=\box26
+\lthtmlwrite=\write3
+(images.aux)
+\openout1 = `images.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 127.
+LaTeX Font Info:    ... okay on input line 127.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 127.
+LaTeX Font Info:    ... okay on input line 127.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 127.
+LaTeX Font Info:    ... okay on input line 127.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 127.
+LaTeX Font Info:    ... okay on input line 127.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 127.
+LaTeX Font Info:    ... okay on input line 127.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 127.
+LaTeX Font Info:    ... okay on input line 127.
+
+latex2htmlLength hsize=162.5pt
+
+latex2htmlLength vsize=686.56497pt
+
+latex2htmlLength hoffset=0.0pt
+
+latex2htmlLength voffset=0.0pt
+
+latex2htmlLength topmargin=0.0pt
+
+latex2htmlLength topskip=0.00003pt
+
+latex2htmlLength headheight=0.0pt
+
+latex2htmlLength headsep=0.0pt
+
+latex2htmlLength parskip=0.0pt plus 1.0pt
+
+latex2htmlLength oddsidemargin=-18.06749pt
+
+latex2htmlLength evensidemargin=-18.06749pt
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <9> on input line 151.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 151.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 151.
+l2hSize :tex2html_wrap_inline260:6.61496pt::0.0pt::4.79584pt.
+[1
+
+
+
+]
+l2hSize :tex2html_wrap_inline266:7.98996pt::0.0pt::4.40694pt.
+[2
+
+
+]
+l2hSize :tex2html_wrap_inline272:7.98996pt::0.0pt::4.40694pt.
+[3
+
+
+]
+l2hSize :tex2html_wrap_inline276:6.4066pt::0.0pt::14.5902pt.
+[4
+
+
+]
+l2hSize :tex2html_wrap_inline278:8.4233pt::8.4233pt::23.34296pt.
+[5
+
+
+]
+l2hSize :tex2html_wrap_inline288:6.31247pt::6.31247pt::3.63614pt.
+[6
+
+
+]
+l2hSize :tex2html_wrap_inline296:6.31247pt::6.31247pt::4.62914pt.
+[7
+
+
+]
+l2hSize :tex2html_wrap_inline298:6.31247pt::6.31247pt::4.62914pt.
+[8
+
+
+]
+l2hSize :tex2html_wrap_inline300:6.31247pt::6.31247pt::4.62914pt.
+[9
+
+
+]
+l2hSize :tex2html_wrap_inline302:7.25pt::7.25pt::126.73323pt.
+[10
+
+
+]
+l2hSize :tex2html_wrap_inline308:6.31247pt::6.31247pt::4.62914pt.
+[11
+
+
+]
+l2hSize :tex2html_wrap_inline316:6.31247pt::6.31247pt::4.63611pt.
+[12
+
+
+]
+File: eps/signed_distance.eps Graphic file (type eps)
+<eps/signed_distance.eps>
+l2hSize :tex2html_wrap516:108.405pt::0.0pt::349.0pt.
+[13
+
+
+]
+File: eps/tetrahedron.eps Graphic file (type eps)
+<eps/tetrahedron.eps>
+l2hSize :tex2html_wrap522:187.70125pt::0.0pt::349.0pt.
+[14
+
+
+]
+l2hSize :tex2html_wrap_inline326:6.31247pt::6.31247pt::14.81664pt.
+[15
+
+
+]
+l2hSize :tex2html_wrap_inline336:7.68994pt::0.0pt::4.62914pt.
+[16
+
+
+]
+File: eps/ghost_values.eps Graphic file (type eps)
+<eps/ghost_values.eps>
+l2hSize :tex2html_wrap562:129.48375pt::0.0pt::349.0pt.
+[17
+
+
+]
+l2hSize :tex2html_wrap_inline348:6.31247pt::6.31247pt::10.62183pt.
+[18
+
+
+]
+l2hSize :displaymath156:12.25pt::0.0pt::349.0pt.
+[19
+
+
+]
+l2hSize :tex2html_wrap_inline350:6.31247pt::6.31247pt::13.55244pt.
+[20
+
+
+]
+l2hSize :tex2html_wrap_inline352:6.31247pt::6.31247pt::13.55244pt.
+[21
+
+
+]
+l2hSize :tex2html_wrap_inline354:6.31247pt::6.31247pt::8.81041pt.
+[22
+
+
+]
+l2hSize :tex2html_wrap_inline356:7.25pt::7.25pt::20.69574pt.
+[23
+
+
+]
+l2hSize :tex2html_wrap_inline358:6.31247pt::6.31247pt::8.81041pt.
+[24
+
+
+]
+l2hSize :tex2html_wrap_inline360:7.25pt::7.25pt::26.16585pt.
+[25
+
+
+]
+l2hSize :tex2html_wrap_inline364:8.05397pt::8.05397pt::104.15552pt.
+[26
+
+
+]
+l2hSize :tex2html_wrap_inline366:6.31247pt::6.31247pt::9.12216pt.
+[27
+
+
+]
+l2hSize :tex2html_wrap_inline368:6.31247pt::6.31247pt::9.12216pt.
+[28
+
+
+]
+l2hSize :tex2html_wrap_inline370:6.14998pt::0.0pt::8.93607pt.
+[29
+
+
+]
+File: eps/material_interfaces.eps Graphic file (type eps)
+<eps/material_interfaces.eps>
+l2hSize :tex2html_wrap592:238.8925pt::0.0pt::349.0pt.
+[30
+
+
+]
+File: eps/final_draft_fig1.eps Graphic file (type eps)
+<eps/final_draft_fig1.eps>
+l2hSize :tex2html_wrap598:238.8925pt::0.0pt::349.0pt.
+[31
+
+
+]
+File: eps/final_draft_fig2.eps Graphic file (type eps)
+<eps/final_draft_fig2.eps>
+l2hSize :tex2html_wrap604:238.8925pt::0.0pt::349.0pt.
+[32
+
+
+]
+File: eps/final_draft_fig3.eps Graphic file (type eps)
+<eps/final_draft_fig3.eps>
+l2hSize :tex2html_wrap610:238.8925pt::0.0pt::349.0pt.
+[33
+
+
+]
+File: eps/final_draft_fig4.eps Graphic file (type eps)
+<eps/final_draft_fig4.eps>
+l2hSize :tex2html_wrap616:238.8925pt::0.0pt::349.0pt.
+[34
+
+
+] (images.aux) ) 
+Here is how much of TeX's memory you used:
+ 1064 strings out of 10901
+ 13680 string characters out of 72252
+ 56391 words of memory out of 263001
+ 4013 multiletter control sequences out of 10000+0
+ 5463 words of font info for 20 fonts, out of 400000 for 1000
+ 14 hyphenation exceptions out of 1000
+ 30i,5n,21p,223b,229s stack positions out of 300i,100n,500p,50000b,4000s
+
+Output written on images.dvi (34 pages, 8076 bytes).

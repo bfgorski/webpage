@@ -1,0 +1,196 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta6 (1.42)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Multiresolution Framework</TITLE>
+<META NAME="description" CONTENT="Multiresolution Framework">
+<META NAME="keywords" CONTENT="vis2000_03">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta6">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="vis2000_03.css">
+
+<LINK REL="next" HREF="node4.html">
+<LINK REL="previous" HREF="node2.html">
+<LINK REL="up" HREF="vis2000_03.html">
+<LINK REL="next" HREF="node4.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html57"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/opt/pkg/latex2html/icons/next.gif"></A> 
+<A NAME="tex2html55"
+  HREF="vis2000_03.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/opt/pkg/latex2html/icons/up.gif"></A> 
+<A NAME="tex2html49"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/opt/pkg/latex2html/icons/prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html58"
+  HREF="node4.html">Material Interfaces</A>
+<B> Up:</B> <A NAME="tex2html56"
+  HREF="vis2000_03.html">Approximating Material Interfaces during</A>
+<B> Previous:</B> <A NAME="tex2html50"
+  HREF="node2.html">Related Work</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00030000000000000000">
+Multiresolution Framework</A>
+</H1>
+
+<P>
+A multiresolution framework for simplifying numerically simulated data
+needs to be a fairly robust and extensible system. It must be capable of
+supporting the wide
+range of possible input structures used in the simulations and the wide range of output
+data generate by these simulations.  The following properties and
+operations are desirable for such a framework:
+
+<P>
+
+<OL>
+<LI><B>Interactive transition between levels of detail</B>.  The
+ability to quickly move between different levels of detail allows the
+user to select a desired approximation at which to perform a
+calculation (for a visualization application).  Since the level of
+detail is directly related to the approximation error, the user can
+balance computation time and accuracy.
+
+<P>
+</LI>
+<LI><B>Strict <IMG
+ WIDTH="26" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4.gif"
+ ALT="$L^{\infty}$"> error bounds</B>.  Strict error bounds prevent small yet 
+important features from being averaged or smoothed out by the simplification process.
+
+<P>
+</LI>
+<LI><B>Local and adaptive mesh refinement and local error
+computations</B>.  Local mesh refinement and computations allow the
+representation to be refined only in the areas of interest while
+keeping areas of little interest at relatively lower resolutions.
+This is essential for maintaining interactivity and strict cell count
+on computers with limited resources.  Local error computations are
+needed for efficiency.  Considering data sets consisting of millions
+or billions of cells, the error calculations should not involve a
+large amount of original data.
+
+<P>
+</LI>
+<LI><B>Accommodating different meshes</B>.  Computational
+simulations are done on a large variety of mesh structures, and it is
+cumbersome to write a multiresolution algorithm for each specific
+structure.  In order for a framework to be useful it should be easily
+adaptable to a broad class of input meshes.
+
+<P>
+</LI>
+<LI><B>Explicit representation of field and/or material
+discontinuities</B>.  Discontinuities are very important in scientific
+data sets and very often need to be preserved within a certain
+tolerance during data simplification.  A multiresolution framework
+should support the explicit representation and approximation of these
+discontinuities for the different resolution levels.
+
+<P>
+</LI>
+</OL>
+
+<P>
+Our multiresolution recursive tetrahedral framework satisfies these
+design criteria.  Tetrahedral cells are the simplest of the polyhedral
+cells.  This allows us to use linear basis functions to approximate the
+material interfaces and the dependent field variables in a cell.
+Since our data structure is defined recursively as a binary tree, a
+representation of the original data can be computed in a preprocessing
+step, and we can utilize methods developed for the ROAM system
+[<A
+ HREF="node14.html#EVL-1997-123">3</A>] to efficiently select a representation that
+satisfies an error bound or a desired cell count.  This makes the
+framework ideal for interactive display.  Strict <IMG
+ WIDTH="26" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4.gif"
+ ALT="$L^{\infty}$"> error
+bounds are incorporated into the subdivision process, see
+[<A
+ HREF="node14.html#EVL-1997-123">3</A>].  The framework supports various input meshes by
+resampling them at the vertices of the multiresolution tetrahedral
+grid.  Discontinuities are supported at the cell level allowing local
+refinement of the representations of surfaces of discontinuity in
+geometrically complex areas.
+
+<P>
+The framework has several advantages over other multiresolution
+spatial data structures such as an octree.  The way we use the binary
+subdivision method ensures that the tetrahedral mesh will always be a
+conformant, i.e, all edges in the mesh end at the endpoints of other
+edges and not in the interior of edges.  This ensures that cracks and
+T-intersections will not occur anywhere in the mesh.  A conformant
+mesh makes it easy to guarantee that representations of fields and
+surfaces of discontinuity are continuous across cell boundaries.
+
+<P>
+Our resampling algorithms and error bounding algorithms require that an
+original data set allow the extraction of the following information:
+
+<P>
+
+<OL>
+<LI>The values of the field variables at any point.
+
+<P>
+</LI>
+<LI>The maximum difference between our representation for a given
+field over one of our cells and the representation of the same field
+over the same volume in the original dataset
+
+<P>
+</LI>
+</OL>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html57"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/opt/pkg/latex2html/icons/next.gif"></A> 
+<A NAME="tex2html55"
+  HREF="vis2000_03.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/opt/pkg/latex2html/icons/up.gif"></A> 
+<A NAME="tex2html49"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/opt/pkg/latex2html/icons/prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html58"
+  HREF="node4.html">Material Interfaces</A>
+<B> Up:</B> <A NAME="tex2html56"
+  HREF="vis2000_03.html">Approximating Material Interfaces during</A>
+<B> Previous:</B> <A NAME="tex2html50"
+  HREF="node2.html">Related Work</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Ben Gregorski
+2000-05-15
+</ADDRESS>
+</BODY>
+</HTML>

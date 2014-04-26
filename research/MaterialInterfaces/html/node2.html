@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta6 (1.42)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Related Work</TITLE>
+<META NAME="description" CONTENT="Related Work">
+<META NAME="keywords" CONTENT="vis2000_03">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta6">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="vis2000_03.css">
+
+<LINK REL="next" HREF="node3.html">
+<LINK REL="previous" HREF="node1.html">
+<LINK REL="up" HREF="vis2000_03.html">
+<LINK REL="next" HREF="node3.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html47"
+  HREF="node3.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/opt/pkg/latex2html/icons/next.gif"></A> 
+<A NAME="tex2html45"
+  HREF="vis2000_03.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/opt/pkg/latex2html/icons/up.gif"></A> 
+<A NAME="tex2html39"
+  HREF="node1.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/opt/pkg/latex2html/icons/prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html48"
+  HREF="node3.html">Multiresolution Framework</A>
+<B> Up:</B> <A NAME="tex2html46"
+  HREF="vis2000_03.html">Approximating Material Interfaces during</A>
+<B> Previous:</B> <A NAME="tex2html40"
+  HREF="node1.html">Introduction</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00020000000000000000">
+Related Work</A>
+</H1>
+
+<P>
+Hierarchical approximation techniques for triangle meshes, scattered
+data, and tetrahedral meshes have matured substantially over recent
+years.  In [<A
+ HREF="node14.html#Hoppe:1996:PM">2</A>], Hoppe describes the progressive mesh
+simplification method for triangle meshes.  An arbitrary mesh is
+simplified through a series of edge collapse operations to yield a
+very simply base mesh.  The ROAM system, described in
+[<A
+ HREF="node14.html#EVL-1997-123">3</A>], uses priority queue-driven split and merge
+operations to provide optimal real-time display of triangle meshes for
+terrain rendering applications.  The tetrahedral mesh structure used in
+our framework is an extension of the original ROAM data structure for
+triangle meshes.  Heckel and Uva [<A
+ HREF="node14.html#HeckelUva:2000">4</A>],
+[<A
+ HREF="node14.html#HeckelUva:1998">5</A>] describe methods for constructing surface
+hierarchies based on adaptive clustering.  Multiresolution methods for
+reconstruction and simplification have also been explored using
+subdivision techniques and, especially, wavelets.
+
+<P>
+Simplification of tetrahedral meshes has been explored in
+[<A
+ HREF="node14.html#Zhou:1997:MTF">1</A>], [<A
+ HREF="node14.html#tvcg-1997-27">6</A>], [<A
+ HREF="node14.html#VIS98_287">7</A>],
+[<A
+ HREF="node14.html#Liu:1995">8</A>], and [<A
+ HREF="node14.html#Staadt:1998:PRM">9</A>].  Zhou et al. [<A
+ HREF="node14.html#Zhou:1997:MTF">1</A>] present the multiresolution tetrahedral framework
+that is the basis of our simplification algorithm.  (This is further
+discussed in Section 2).  Cignoni at al. [<A
+ HREF="node14.html#tvcg-1997-27">6</A>] describe
+a multiresolution tetrahedral mesh simplification technique built on
+scattered vertices obtained from the initial dataset.  Their algorithm
+supports interactive level-of-detail selection for rendering purposes.
+Trotts et al. in [<A
+ HREF="node14.html#VIS98_287">7</A>] simplify tetrahedral meshes through
+edge collapse operations.  They start with an initial high-resolution
+mesh that defines a linear spline function and simplify until a
+specified tolerance.  Staadt and Gross [<A
+ HREF="node14.html#Staadt:1998:PRM">9</A>] describe
+Progressive Tetrahedralizations as an extension of Hoppe's
+[<A
+ HREF="node14.html#Hoppe:1996:PM">2</A>].  They simplify a tetrahedral mesh through a
+sequence of edge collapse operations.  They also describe error
+measurements and cost functions for preserving consistency with
+respect to volume and gradient calculations and techniques for
+ensuring that the simplification process does not introduce artifacts
+such as intersecting tetrahedra.
+
+<P>
+Different error metrics for measuring the accuracy of simplified
+tetrahedral meshes have been proposed.  Lein et
+al. [<A
+ HREF="node14.html#Klein:1996:MRE">10</A>] present a simplification algorithm for
+triangle meshes using the Hausdorff distance as an error measurement.
+They develop a symmetric adaption of the Hausdorff distance that is an
+intuitive measure for surface accuracy.  In [<A
+ HREF="node14.html#Garland:1997:SSU">11</A>],
+Heckbert and Garland use a quadric error metric for surface
+simplification. They use vertex pair collapse operations to simplify
+triangle meshes and they use quadric matrices that define a quadric
+object at each vertex to control the error of the simplified surfaces.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html47"
+  HREF="node3.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/opt/pkg/latex2html/icons/next.gif"></A> 
+<A NAME="tex2html45"
+  HREF="vis2000_03.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/opt/pkg/latex2html/icons/up.gif"></A> 
+<A NAME="tex2html39"
+  HREF="node1.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/opt/pkg/latex2html/icons/prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html48"
+  HREF="node3.html">Multiresolution Framework</A>
+<B> Up:</B> <A NAME="tex2html46"
+  HREF="vis2000_03.html">Approximating Material Interfaces during</A>
+<B> Previous:</B> <A NAME="tex2html40"
+  HREF="node1.html">Introduction</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Ben Gregorski
+2000-05-15
+</ADDRESS>
+</BODY>
+</HTML>

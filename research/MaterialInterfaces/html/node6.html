@@ -1,0 +1,242 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta6 (1.42)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Extraction and Approximation</TITLE>
+<META NAME="description" CONTENT="Extraction and Approximation">
+<META NAME="keywords" CONTENT="vis2000_03">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta6">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="vis2000_03.css">
+
+<LINK REL="previous" HREF="node5.html">
+<LINK REL="up" HREF="node4.html">
+<LINK REL="next" HREF="node7.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html87"
+  HREF="node7.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/opt/pkg/latex2html/icons/next.gif"></A> 
+<A NAME="tex2html85"
+  HREF="node4.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/opt/pkg/latex2html/icons/up.gif"></A> 
+<A NAME="tex2html81"
+  HREF="node5.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/opt/pkg/latex2html/icons/prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html88"
+  HREF="node7.html">Discontinuous Field Representations</A>
+<B> Up:</B> <A NAME="tex2html86"
+  HREF="node4.html">Material Interfaces</A>
+<B> Previous:</B> <A NAME="tex2html82"
+  HREF="node5.html">Motivation</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00042000000000000000">
+Extraction and Approximation</A>
+</H2>
+
+<P>
+In the class of input datasets with which we are working, material
+interfaces are represented as triangle meshes.
+In the case that these triangle meshes are not known, they are
+extracted from volume fraction data by a material interface
+reconstruction technique described in [<A
+ HREF="node14.html#Bonnell:2000:OMB">12</A>] and
+[<A
+ HREF="node14.html#Bonnell:2000:CMI">13</A>] (The volume fractions resulting from
+numerical simulations indicate what percentages of which materials are
+present in each cell.).  Such an interface reconstruction technique
+produces a set of crack-free triangle meshes and normal vector
+information that can be used to determine on which side and in which
+material a point in space lies.
+
+<P>
+Within one of our tetrahedra, an approximate material interface is
+represented as the zero set of a signed distance function.  
+Each vertex of a tetrahedron is assigned a signed distance value for
+each of the material interfaces in the tetrahedron.  The signed
+distance from a vertex <B>V</B> to an interface mesh <B>I</B> is
+determined by first finding a triangle mesh vertex <B>V<IMG
+ WIDTH="9" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.gif"
+ ALT="$_{i}$"></B> in
+the triangle mesh describing <B>I</B> that has minimal distance to
+<B>V</B>.  The sign of the distance is determined by considering the
+normal vector <B>N<IMG
+ WIDTH="9" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.gif"
+ ALT="$_{i}$"></B> at <B>V<IMG
+ WIDTH="9" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.gif"
+ ALT="$_{i}$"></B>.  If <B>N<IMG
+ WIDTH="9" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.gif"
+ ALT="$_{i}$"></B>
+points towards <B>V</B>, then <B>V</B> is considered to be on the
+``positive side'' of the interface, otherwise it is considered to be
+on the ``negative side'' of the interface.
+
+<P>
+Figure <A HREF="node6.html#SignedDistance">1</A> shows a two-dimensional example of a
+triangle with several material interfaces and their approximations.
+In this figure, the red, green, and blue jagged lines are the original
+boundaries and the straight black lines are the approximations derived
+from using the signed distance values.  The red dashed lines and dots
+show the points on the interface between materials A and B used to
+compute the signed distance values for the vertices V<IMG
+ WIDTH="11" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img7.gif"
+ ALT="$_{0}$">, V<IMG
+ WIDTH="11" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img8.gif"
+ ALT="$_{1}$">,
+and V<IMG
+ WIDTH="11" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img9.gif"
+ ALT="$_{2}$">.  The black dashed line demonstrates that the projection of
+a point onto an approximation does not always lie inside the cell.
+The signed distance function is assumed to vary linearly in the cell,
+i.e., a tetrahedron.  The distance function is a linear function
+<!-- MATH
+ $f(x,y,z) = Ax + By + Cz +D$
+ -->
+<IMG
+ WIDTH="205" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img10.gif"
+ ALT="$f(x,y,z) = Ax + By + Cz +D$">.  The coefficients for the linear
+function defining a boundary representation are found by solving a 4x4
+system of equations, considering the requirement that the signed
+distance function over the tetrahedron must interpolate the signed
+distance values at the four vertices.  Figure <A HREF="node6.html#TetBoundaryRep">2</A>
+shows a tetrahedron, a material interface approximation, and the
+signed distance values d<IMG
+ WIDTH="9" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.gif"
+ ALT="$_{i}$"> for each vertex V<IMG
+ WIDTH="9" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.gif"
+ ALT="$_{i}$">.  The
+approximation is shown in cadet blue.  The normal vector shown in
+green indicates the positive side of the material boundary
+approximation.  Thus, the distance to V<IMG
+ WIDTH="11" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img11.gif"
+ ALT="$_{3}$"> is positive and the
+distances for V<IMG
+ WIDTH="11" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img7.gif"
+ ALT="$_{0}$">, V<IMG
+ WIDTH="11" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img8.gif"
+ ALT="$_{1}$">, and V<IMG
+ WIDTH="11" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img9.gif"
+ ALT="$_{2}$"> are negative.
+
+<P>
+We note that a vertex has at most one signed distance value for each
+interface.  This ensures that the interface representation is
+continuous across cell boundaries.  If a cell does not contain a
+particular interface, the signed distance value for that interface is
+meaningless for that cell.  Given a point <B>P</B> in an interface
+polygon and its associated approximation B<IMG
+ WIDTH="11" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img12.gif"
+ ALT="$_{r}$">, the error associated
+with <B>P</B> is the absolute value of the distance between <B>P</B>
+and B<IMG
+ WIDTH="11" HEIGHT="26" ALIGN="MIDDLE" BORDER="0"
+ SRC="img12.gif"
+ ALT="$_{r}$">.  The material interface approximation error associated
+with a cell is the maximum of these distances, considering all the
+interfaces within the cell.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="SignedDistance"></A><A NAME="104"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 1:</STRONG>
+Triangle with three materials (A, B, and C) and three interfaces.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\includegraphics{eps/signed_distance}$
+ -->
+<IMG
+ WIDTH="277" HEIGHT="170" ALIGN="BOTTOM" BORDER="0"
+ SRC="img13.gif"
+ ALT="\includegraphics{eps/signed_distance}">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="TetBoundaryRep"></A><A NAME="111"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 2:</STRONG>
+Tetrahedron showing signed distance values and the corresponding boundary approximation.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\includegraphics{eps/tetrahedron}$
+ -->
+<IMG
+ WIDTH="304" HEIGHT="295" ALIGN="BOTTOM" BORDER="0"
+ SRC="img14.gif"
+ ALT="\includegraphics{eps/tetrahedron}">
+
+</DIV></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html87"
+  HREF="node7.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/opt/pkg/latex2html/icons/next.gif"></A> 
+<A NAME="tex2html85"
+  HREF="node4.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/opt/pkg/latex2html/icons/up.gif"></A> 
+<A NAME="tex2html81"
+  HREF="node5.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/opt/pkg/latex2html/icons/prev.gif"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html88"
+  HREF="node7.html">Discontinuous Field Representations</A>
+<B> Up:</B> <A NAME="tex2html86"
+  HREF="node4.html">Material Interfaces</A>
+<B> Previous:</B> <A NAME="tex2html82"
+  HREF="node5.html">Motivation</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Ben Gregorski
+2000-05-15
+</ADDRESS>
+</BODY>
+</HTML>
